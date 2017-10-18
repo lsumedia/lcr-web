@@ -1,0 +1,24 @@
+{
+  "name": "lcr-web-backend",
+  "version": "1.0.0",
+  "description": "Web components for LCR App",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lsumedia/lcr-web.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/lsumedia/lcr-web/issues"
+  },
+  "homepage": "https://github.com/lsumedia/lcr-web#readme",
+  "dependencies": {
+    "express": "^4.16.2",
+    "http": "0.0.0"
+  }
+}

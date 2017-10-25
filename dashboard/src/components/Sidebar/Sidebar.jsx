@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom';
 
 import HeaderLinks from '../Header/HeaderLinks.jsx';
 
-import imagine from '../../assets/img/sidebar-3.jpg';
+import imagine from '../../assets/img/faders.jpg';
 import logo from '../../assets/img/reactlogo.png';
 
 class Sidebar extends Component{
@@ -37,7 +37,7 @@ class Sidebar extends Component{
                                 <img src={logo} alt="logo_image"/>
                             </div>
                         </a>
-                        <a href="https://radio.lsu.co.uk/" className="simple-text logo-normal">
+                        <a href="http://radio.lsu.co.uk/" className="simple-text logo-normal">
                             LCR
                         </a>
                     </div>

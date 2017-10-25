@@ -59,3 +59,5 @@ typings/
 
 config.json
 dist
+build/
+dashboard/build/

@@ -16,7 +16,6 @@ class Header extends Component{
             this.setState({
                 sidebarExists : true
             });
-
         }
         e.preventDefault();
         document.documentElement.classList.toggle('nav-open');

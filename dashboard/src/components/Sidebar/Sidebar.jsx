@@ -32,11 +32,10 @@ class Sidebar extends Component{
             <div id="sidebar" className="sidebar" data-color="black" data-image={imagine}>
                 <div className="sidebar-background" style={sidebarBackground}></div>
                     <div className="logo">
-                        <a href="https://www.creative-tim.com" className="simple-text logo-mini">
+                        <a className="simple-text logo-mini">
                             <div className="logo-img">
                                 <img src={logo} alt="logo_image"/>
                             </div>
-
                         </a>
                         <a href="https://radio.lsu.co.uk/" className="simple-text logo-normal">
                             LCR
@@ -47,17 +46,28 @@ class Sidebar extends Component{
                         { this.state.width <= 991 ? (<HeaderLinks />):null }
                         <li className={this.activeRoute("/dashboard")}>
                             <NavLink to={'/dashboard'} className="nav-link" activeClassName="active">
-                                <i className="pe-7s-graph"></i>
+                                <i className="pe-7s-home"></i>
                                 <p>Dashboard</p>
                             </NavLink>
                         </li>
                         <li className={this.activeRoute("/shows")}>
                             <NavLink to={'/shows'} className="nav-link" activeClassName="active">
-                                <i className="pe-7s-musiclist"></i>
-                                <p>On-Demand Shows</p>
+                                <i className="pe-7s-radio"></i>
+                                <p>Shows</p>
                             </NavLink>
                         </li>
-                        
+                        <li className={this.activeRoute("/episodes")}>
+                            <NavLink to={'/episodes'} className="nav-link" activeClassName="active">
+                                <i className="pe-7s-musiclist"></i>
+                                <p>Episodes</p>
+                            </NavLink>
+                        </li>
+                        <li className={this.activeRoute("/schedule")}>
+                            <NavLink to={'/schedule'} className="nav-link" activeClassName="active">
+                                <i className="pe-7s-clock"></i>
+                                <p>Schedule</p>
+                            </NavLink>
+                        </li>
                     </ul>
                 </div>
             </div>

@@ -26,6 +26,24 @@ class App extends Component {
     }
     componentDidMount(){
         var _notificationSystem = this.refs.notificationSystem;
+        var color = Math.floor((Math.random() * 4) + 1);
+        var level;
+        switch (color) {
+            case 1:
+                level = 'success';
+                break;
+            case 2:
+                level = 'warning';
+                break;
+            case 3:
+                level = 'error';
+                break;
+            case 4:
+                level = 'info';
+                break;
+            default:
+                break;
+        }
         /*
         _notificationSystem.addNotification({
             title: (<span data-notify="icon" className="pe-7s-gift"></span>),
@@ -34,7 +52,7 @@ class App extends Component {
                     Welcome to <b>Light Bootstrap Dashboard</b> - a beautiful freebie for every web developer.
                 </div>
             ),
-            level: "info",
+            level: level,
             position: "tr",
             autoDismiss: 15,
         }); */

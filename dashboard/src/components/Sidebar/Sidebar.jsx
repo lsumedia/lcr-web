@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom';
 
 import HeaderLinks from '../Header/HeaderLinks.jsx';
 
-import imagine from '../../assets/img/faders.jpg';
+import imagine from '../../assets/img/sidebar-3.jpg';
 import logo from '../../assets/img/reactlogo.png';
 
 class Sidebar extends Component{

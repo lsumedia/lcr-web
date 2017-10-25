@@ -38,8 +38,8 @@ class Sidebar extends Component{
                             </div>
 
                         </a>
-                        <a href="https://www.creative-tim.com" className="simple-text logo-normal">
-                            Creative Tim
+                        <a href="https://radio.lsu.co.uk/" className="simple-text logo-normal">
+                            LCR
                         </a>
                     </div>
                 <div className="sidebar-wrapper">
@@ -49,6 +49,12 @@ class Sidebar extends Component{
                             <NavLink to={'/dashboard'} className="nav-link" activeClassName="active">
                                 <i className="pe-7s-graph"></i>
                                 <p>Dashboard</p>
+                            </NavLink>
+                        </li>
+                        <li className={this.activeRoute("/shows")}>
+                            <NavLink to={'/shows'} className="nav-link" activeClassName="active">
+                                <i className="pe-7s-graph"></i>
+                                <p>On-Demand Shows</p>
                             </NavLink>
                         </li>
                         

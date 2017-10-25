@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom';
 
 import HeaderLinks from '../Header/HeaderLinks.jsx';
 
-import imagine from '../../assets/img/sidebar-3.jpg';
+import imagine from '../../assets/img/faders.jpg';
 import logo from '../../assets/img/reactlogo.png';
 
 class Sidebar extends Component{
@@ -53,7 +53,7 @@ class Sidebar extends Component{
                         </li>
                         <li className={this.activeRoute("/shows")}>
                             <NavLink to={'/shows'} className="nav-link" activeClassName="active">
-                                <i className="pe-7s-graph"></i>
+                                <i className="pe-7s-musiclist"></i>
                                 <p>On-Demand Shows</p>
                             </NavLink>
                         </li>

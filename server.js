@@ -14,7 +14,7 @@ var app = express();
 
 var server = http.createServer(app);
 
-app.use(express.static('dashboard/build'));
+app.use('/dashboard', express.static('dashboard/build'));
 
 if(Number.isInteger(config.port) == true){
     

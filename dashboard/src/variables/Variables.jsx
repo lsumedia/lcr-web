@@ -250,14 +250,13 @@ var style = {
 // // // For tables
 // //
 //
-const thArray = ["ID","Name","Salary","Country","City"];
+const thArray = ["Time","Title","Artist", "Total Plays"];
 const tdArray = [
-    [ "1" , "Dakota Rice" , "$36,738" , "Niger" , "Oud-Turnhout" ] ,
-    [ "2" , "Minerva Hooper" , "$23,789" , "Curaçao" , "Sinaai-Waas" ] ,
-    [ "3" , "Sage Rodriguez" , "$56,142" , "Netherlands" , "Baileux" ] ,
-    [ "4" , "Philip Chaney" , "$38,735" , "Korea, South" , "Overland Park" ] ,
-    [ "5" , "Doris Greene" , "$63,542" , "Malawi" , "Feldkirchen in Kärnten" ] ,
-    [ "6" , "Mason Porter" , "$78,615" , "Chile" , "Gloucester" ]
+    ["16:04","Stairway to Heaven", "Led Zeppelin", "24"],
+    ["16:00","Time","Pink Floyd","25"],
+    ["15:55","Do It Again","Steely Dan","13"],
+    ["15:52","Never Gonna Give You Up","Rick Astley","2"],
+    ["14:52","LCR MINIMIX - In The Mix 041", "Various Artists","3"]
 ];
 
 

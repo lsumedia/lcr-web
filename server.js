@@ -39,9 +39,10 @@ passport.use('facebook', new FacebookStrategy({
   callbackURL: config.login_redirect
 },
 function(accessToken, refreshToken, profile, cb) {
-  User.findOrCreate({ facebookId: profile.id }, function (err, user) {
-    return cb(err, user);
-  });
+  return cb(err, null);
+  /* User.findOrCreate({ facebookId: profile.id }, function (err, user) {
+    return cb(err, user); 
+  }); */
 }
 ));
 

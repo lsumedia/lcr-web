@@ -62,7 +62,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.get('/auth/facebook/callback', 
-  passport.authenticate('facebook', { failureRedirect: '/login' }),
+  passport.authenticate('facebook', { failureRedirect: '/login.html' }),
   function(req, res) {
     res.redirect('/dashboard');
 });

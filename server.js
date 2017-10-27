@@ -39,7 +39,7 @@ passport.use('facebook', new FacebookStrategy({
   callbackURL: config.login_redirect
 },
 function(accessToken, refreshToken, profile, cb) {
-  return cb(err, null);
+  return cb(null, null);
   /* User.findOrCreate({ facebookId: profile.id }, function (err, user) {
     return cb(err, user); 
   }); */
@@ -54,6 +54,12 @@ var server = http.createServer(app);
 
 app.use(passport.initialize());
 app.use(passport.session());
+
+app.get('/auth/facebook/callback', 
+  passport.authenticate('facebook', { failureRedirect: '/login' }),
+  function(req, res) {
+    res.redirect('/dashboard');
+});
 
 //Static hosts
 

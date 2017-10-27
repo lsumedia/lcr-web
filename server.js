@@ -47,9 +47,6 @@ passport.use('facebook', new FacebookStrategy({
 },
 function(accessToken, refreshToken, profile, cb) {
   return cb(null, profile);
-  /* User.findOrCreate({ facebookId: profile.id }, function (err, user) {
-    return cb(err, user); 
-  }); */
 }
 ));
 
@@ -70,10 +67,13 @@ app.get('/auth/facebook/callback',
     res.redirect('/dashboard');
 });
 
+var authfn = (config.authenticate)? passport.authenticate('facebook') : function(req, res, next){ next(); };
+
 //Static hosts
 
+
 app.use(express.static('public')); //Public page
-app.use('/dashboard', passport.authenticate('facebook'), express.static('dashboard/build')); //Dashboard
+app.use('/dashboard', authfn , express.static('dashboard/build')); //Dashboard
 
 //REST API
 
@@ -81,11 +81,13 @@ app.use('/dashboard', passport.authenticate('facebook'), express.static('dashboa
 //Public API
 
 
+
+/* START SERVER */
+
 if(Number.isInteger(config.port) == true){
     
-      /* Start server */
       server.listen(config.port, function () {
-        console.log('Listening on port ' + config.port);
+        console.log('server: listening on port ' + config.port);
       });
     
     }

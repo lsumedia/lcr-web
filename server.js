@@ -23,6 +23,13 @@ try{
 
 var config = JSONC.parse(configString);
 
+
+/* Init server */
+
+var app = express();
+
+var server = http.createServer(app);
+
 /* Connect to database */
 
 var dbUrl = `mongodb://${config.db_host}:${config.db_port}/${config.db_name}`;
@@ -39,18 +46,20 @@ passport.use('facebook', new FacebookStrategy({
   callbackURL: config.login_redirect
 },
 function(accessToken, refreshToken, profile, cb) {
-  return cb(null, null);
+  return cb(null, profile);
   /* User.findOrCreate({ facebookId: profile.id }, function (err, user) {
     return cb(err, user); 
   }); */
 }
 ));
 
-/* Init server */
+passport.serializeUser(function(user, cb) {
+  cb(null, user);
+});
 
-var app = express();
-
-var server = http.createServer(app);
+passport.deserializeUser(function(obj, cb) {
+  cb(null, obj);
+});
 
 app.use(passport.initialize());
 app.use(passport.session());

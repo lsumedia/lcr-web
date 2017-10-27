@@ -36,7 +36,7 @@ MongoClient.connect(dbUrl, function(err, db){
 passport.use('facebook', new FacebookStrategy({
   clientID: config.facebook_app_id,
   clientSecret: config.facebook_app_secret,
-  callbackURL: "http://localhost:3000/dashboard"
+  callbackURL: config.login_redirect
 },
 function(accessToken, refreshToken, profile, cb) {
   User.findOrCreate({ facebookId: profile.id }, function (err, user) {

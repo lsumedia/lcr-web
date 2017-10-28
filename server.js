@@ -4,6 +4,7 @@ const express = require('express');
 const fs = require('fs');
 const JSONC = require('json-comments');
 const multer = require('multer');
+const request = require('request');
 
 const passport = require('passport');
 var FacebookStrategy = require('passport-facebook').Strategy;
@@ -36,7 +37,6 @@ var dbUrl = `mongodb://${config.db_host}:${config.db_port}/${config.db_name}`;
 
 MongoClient.connect(dbUrl, function(err, db){
     console.log("mongo: Connected to server");
-});
 
 /* Passport authentication */
 
@@ -69,6 +69,14 @@ app.get('/auth/facebook/callback',
 
 var authfn = (config.authenticate)? passport.authenticate('facebook') : function(req, res, next){ next(); };
 
+/* Controllers */
+
+const ShowController = require('./controllers/Show.js');
+const EpisodeController = require('./controllers/Episode.js');
+
+var Shows = new ShowController(db);
+
+
 //Static hosts
 
 
@@ -78,9 +86,33 @@ app.use('/dashboard', authfn , express.static('dashboard/build')); //Dashboard
 //REST API
 
 
+
+
 //Public API
 
+app.get('/api/public/show/:slug', function(req, res){
+    Shows.getShowBySlug(req.params.slug).then(function(show){
+        res.send(show);
+    });
+});
 
+app.get('/api/public/show/all', function(req, res){
+  Shows.getShowsAll().then(function(shows){
+    res.send(shows);
+  });
+});
+
+app.get('/api/public/episode/byshow/:slug', function(req,res){
+
+});
+
+app.get('/api/public/episode/id', function(req,res){
+
+});
+
+app.get('/api/public/nowplaying', function(req,res){
+  request('http://ice.lsu.co.uk:8080/status-json.xsl').pipe(res);
+});
 
 /* START SERVER */
 
@@ -91,3 +123,6 @@ if(Number.isInteger(config.port) == true){
       });
     
     }
+
+    
+});

@@ -2,24 +2,48 @@
 
 function ShowController(db){
 
+    const slug = require('slug');
+
+    var col = db.collection('shows');
+
     this.insert = function(title, description, tags, image){
+
+        var showSlug = slug('title');
+        
         var newShow = {
             title : title,
+            slug : showSlug,
             description : description,
             tags : tags,
             image : image
         }
+
+        return new Promise((resolve, reject) => {
+            
+            col.insertOne(newShow, function(err, r){
+                console.log('show: Added new show ' + newShow.title);
+                resolve();
+            });
+
+        });
     }
 
-    this.update = function(showID, title, description, tags, image){
+    this.update = function(slug, title, description, tags, image){
 
     }
     
-    this.delete = function(showID){
+    this.delete = function(slug){
 
     }
 
-    this.getShowByTitle = function(title){
+    this.getShowBySlug = function(slug){
+
+        return new Promise((resolve, reject) => {
+            
+            col.find({slug : slug}).limit(1).toArray(function(err, docs){
+                resolve(docs[0]);
+            });
+        });
 
     }
 
@@ -28,7 +52,9 @@ function ShowController(db){
     }
 
     this.getShowsAll = function(limit = 0, skip = 0){
-
+        if(limit > 0){
+            col.find({}).limit(limit).skip(skip)
+        }
     }
 
     this.getShowsByTag = function(limit = 0, skip = 0){
@@ -40,7 +66,7 @@ function ShowController(db){
     }
 
     this.getNumberOfShows = function(){
-
+        return col.count()
     }
 
 }

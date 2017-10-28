@@ -19,6 +19,7 @@
   "homepage": "https://github.com/lsumedia/lcr-web#readme",
   "dependencies": {
     "express": "^4.16.2",
+    "get-folder-size": "^1.0.0",
     "http": "0.0.0",
     "json-comments": "^0.2.1",
     "mongodb": "^2.2.33",

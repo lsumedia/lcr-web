@@ -5,7 +5,7 @@ import { NavLink } from 'react-router-dom';
 import HeaderLinks from '../Header/HeaderLinks.jsx';
 
 import imagine from '../../assets/img/faders.jpg';
-import logo from '../../assets/img/reactlogo.png';
+import logo from '../../assets/img/lcr_white.png';
 
 class Sidebar extends Component{
     constructor(props){
@@ -32,13 +32,13 @@ class Sidebar extends Component{
             <div id="sidebar" className="sidebar" data-color="black" data-image={imagine}>
                 <div className="sidebar-background" style={sidebarBackground}></div>
                     <div className="logo">
-                        <a className="simple-text logo-mini">
+                        <a href="/" className="simple-text logo-mini">
                             <div className="logo-img">
                                 <img src={logo} alt="logo_image"/>
                             </div>
                         </a>
-                        <a href="http://radio.lsu.co.uk/" className="simple-text logo-normal">
-                            LCR
+                        <a className="simple-text logo-normal">
+                            LCR Admin
                         </a>
                     </div>
                 <div className="sidebar-wrapper">

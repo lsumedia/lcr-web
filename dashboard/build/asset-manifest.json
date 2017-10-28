@@ -1,8 +1,8 @@
 {
   "main.css": "static/css/main.fdeb5f67.css",
   "main.css.map": "static/css/main.fdeb5f67.css.map",
-  "main.js": "static/js/main.1ee581f0.js",
-  "main.js.map": "static/js/main.1ee581f0.js.map",
+  "main.js": "static/js/main.b8c8436d.js",
+  "main.js.map": "static/js/main.b8c8436d.js.map",
   "static\\media\\Pe-icon-7-stroke.eot?d7yf1v": "static/media/Pe-icon-7-stroke.71394c0c.eot",
   "static\\media\\Pe-icon-7-stroke.svg?d7yf1v": "static/media/Pe-icon-7-stroke.c45f7de0.svg",
   "static\\media\\Pe-icon-7-stroke.ttf?d7yf1v": "static/media/Pe-icon-7-stroke.01798bc1.ttf",
@@ -13,5 +13,5 @@
   "static\\media\\glyphicons-halflings-regular.ttf": "static/media/glyphicons-halflings-regular.e18bbf61.ttf",
   "static\\media\\glyphicons-halflings-regular.woff": "static/media/glyphicons-halflings-regular.fa277232.woff",
   "static\\media\\glyphicons-halflings-regular.woff2": "static/media/glyphicons-halflings-regular.448c34a5.woff2",
-  "static\\media\\reactlogo.png": "static/media/reactlogo.9b864b36.png"
+  "static\\media\\lcr_white.png": "static/media/lcr_white.93b53b96.png"
 }

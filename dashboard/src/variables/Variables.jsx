@@ -250,7 +250,7 @@ var style = {
 // // // For tables
 // //
 //
-const thArray = ["Time","Title","Artist", "Total Plays"];
+const thArray = ["Time","Title","Artist", "Play Rate"];
 const tdArray = [
     ["16:04","Stairway to Heaven", "Led Zeppelin", "24"],
     ["16:00","Time","Pink Floyd","25"],

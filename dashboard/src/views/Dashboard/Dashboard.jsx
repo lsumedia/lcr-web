@@ -66,7 +66,7 @@ class Dashboard extends Component {
                                 statsIcon="fa fa-clock-o"
                                 id="songlist"
                                 classes=""
-                                title="Most Recent Songs"
+                                title="Recently played songs"
                                 category=""
                                 stats="Updated every minute"
                                 content={

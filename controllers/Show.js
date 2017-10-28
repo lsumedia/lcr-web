@@ -41,7 +41,8 @@ function ShowController(db){
         return new Promise((resolve, reject) => {
             
             col.find({slug : slug}).limit(1).toArray(function(err, docs){
-                resolve(docs[0]);
+                if(docs.length < 1){ console.log("couldn't find that"); reject(err); }
+                else resolve(docs[0]);
             });
         });
 

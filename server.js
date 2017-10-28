@@ -79,40 +79,16 @@ var Shows = new ShowController(db);
 
 //Static hosts
 
-
 app.use(express.static('public')); //Public page
 app.use('/dashboard', authfn , express.static('dashboard/build')); //Dashboard
 
 //REST API
 
-
-
+var privateAPI = new (require('./includes/PrivateAPI.js'))(app, db, Shows);
 
 //Public API
 
-app.get('/api/public/show/:slug', function(req, res){
-    Shows.getShowBySlug(req.params.slug).then(function(show){
-        res.send(show);
-    });
-});
-
-app.get('/api/public/show/all', function(req, res){
-  Shows.getShowsAll().then(function(shows){
-    res.send(shows);
-  });
-});
-
-app.get('/api/public/episode/byshow/:slug', function(req,res){
-
-});
-
-app.get('/api/public/episode/id', function(req,res){
-
-});
-
-app.get('/api/public/nowplaying', function(req,res){
-  request('http://ice.lsu.co.uk:8080/status-json.xsl').pipe(res);
-});
+var publicAPI = new (require('./includes/PublicAPI.js'))(app, db, Shows);
 
 /* START SERVER */
 

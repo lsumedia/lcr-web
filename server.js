@@ -36,7 +36,11 @@ var server = http.createServer(app);
 var dbUrl = `mongodb://${config.db_host}:${config.db_port}/${config.db_name}`;
 
 MongoClient.connect(dbUrl, function(err, db){
-    console.log("mongo: Connected to server");
+
+  if(err){
+    console.log('mongodb: ' + err.message); return;
+  }
+    console.log("mongodb: Connected to server");
 
 /* Passport authentication */
 
@@ -79,7 +83,7 @@ var Shows = new ShowController(db);
 
 //Static hosts
 
-app.use(express.static('public')); //Public page
+app.use(express.static('player')); //Public page
 app.use('/dashboard', authfn , express.static('dashboard/build')); //Dashboard
 
 //REST API

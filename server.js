@@ -83,8 +83,8 @@ var Shows = new ShowController(db);
 
 //Static hosts
 
-app.use(express.static('player')); //Public page
 app.use('/dashboard', authfn , express.static('dashboard/build')); //Dashboard
+app.use('/', express.static('player/build')); //Public page
 
 //REST API
 
@@ -93,6 +93,8 @@ var privateAPI = new (require('./includes/PrivateAPI.js'))(app, db, Shows);
 //Public API
 
 var publicAPI = new (require('./includes/PublicAPI.js'))(app, db, Shows);
+
+
 
 /* START SERVER */
 

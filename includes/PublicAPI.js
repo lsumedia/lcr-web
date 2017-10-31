@@ -2,19 +2,20 @@ const request = require('request');
 
 function PublicAPI(app, db, Shows){
 
+
+    app.get('/api/public/show/all', function(req, res){
+        Shows.getShowsAll().then(function(shows){
+                res.send(shows);
+            },function(){
+                res.status(404).send('Not found');
+            });
+    });
+    
     app.get('/api/public/show/:slug', function(req, res){
         Shows.getShowBySlug(req.params.slug).then(function(show){
             res.send(show);
         },function(){
-            res.status(404);
-        });
-    });
-
-    app.get('/api/public/show/all', function(req, res){
-    Shows.getShowsAll().then(function(shows){
-            res.send(shows);
-        },function(){
-            res.send(404);
+            res.status(404).send('Not found');
         });
     });
 

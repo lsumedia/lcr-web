@@ -8,18 +8,18 @@ import Poster from '../assets/img/lcr_splash.png';
 
 class Live extends Component {
 
-  state = { nowplaying : "Now Playing"};
+  state = { nowplaying : ""};
 
   updateNowPlaying(){
     $.get('/api/public/nowplaying').done((response) => {
-      var track = response.icestats.source.title;
-          this.setState({nowplaying: track});
+        var track = response.icestats.source.title;
+        this.setState({nowplaying: track});
     });
   }
 
   componentDidMount(){
     this.updateNowPlaying();
-    this.refreshSongInterval = setInterval(30000, this.updateNowPlaying);
+    this.refreshSongInterval = setInterval(this.updateNowPlaying.bind(this), 10000);
   }
 
   componentWillUnmount(){

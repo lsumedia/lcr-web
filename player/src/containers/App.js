@@ -1,38 +1,37 @@
 import React, { Component } from 'react';
 
+import {
+    Route,
+    Switch,
+    Redirect
+} from 'react-router-dom';
+
 import '../assets/css/bootstrap.css';
 import '../assets/css/App.css';
 
-import logo from '../assets/img/lcr_facebook.png';
-
+import Nav from '../components/Nav';
 import VideoPlayer from '../components/VideoPlayer';
 
+//Pages
+import Live from '../views/Live';
+import Backtrack from '../views/Backtrack';
+import Schedule from '../views/Schedule'
+
 class App extends Component {
+
   render() {
     return (
       <div className="App">
         
-        <nav className="navbar navbar-light bg-light">
-          <a className="navbar-brand" href="#">
-            <img src={logo} width="40" height="40" alt="" className=""/>
-          </a>
+          <Nav />
+          <Switch>
+              <Route path="/live" component={Live}/>
+              <Route path="/backtrack" component={Backtrack}/>
+              <Route path="/schedule" component={Schedule}/>
+              <Redirect from="/" to="/live" />
+          </Switch> 
 
-          <ul className="nav">
-            <li className="nav-item">
-              <a className="nav-link active" href="#">Live</a>
-            </li>
-            <li className="nav-item">
-              <a className="nav-link" href="#">Backtrack</a>
-            </li>
-            <li className="nav-item">
-              <a className="nav-link" href="#">Schedule</a>
-            </li>
-          </ul>
-        </nav>
-        <div className="container">
-            <VideoPlayer />
         </div>
-      </div>
     );
   }
 }

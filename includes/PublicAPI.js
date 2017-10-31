@@ -1,3 +1,4 @@
+const request = require('request');
 
 function PublicAPI(app, db, Shows){
 

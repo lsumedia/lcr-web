@@ -62,8 +62,11 @@ class NowPlaying extends Component{
 
             return (
                 <li class="list-group-item">
-                    {track.title} - {track.artist}
                     <span style={{float: "right"}} >{formatted}</span>
+                    <div className="text-left">
+                        {track.title}<br />
+                        {track.artist}
+                    </div>
                  </li>
             )
         });
@@ -75,7 +78,7 @@ class NowPlaying extends Component{
                 </div>
                 <div className="card-body">
                     <span style={{float: "right"}} >Now</span>
-                    <a href={url} target="_blank">
+                    <a href={url} target="_blank" className="text-left">
                         <h4 className="card-title">{title}</h4>
                         <p className="card-text">{artist}</p>
                     </a>

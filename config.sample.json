@@ -6,5 +6,8 @@
     "login_redirect" : "http://localhost:9000/dashboard",      //Full URL for successful login on this server
     "db_host" : "localhost",    //MongoDB server hostname
     "db_port" : "27017",        //MongoDB server port
-    "db_name" : "lcr"           //Database name
+    "db_name" : "lcr",          //Database name
+    "last_fm_key" : "",         //Last.fm API key for song data lookup
+    "last_fm_secret" : "",      //Last.fm secret,
+    "ice_status" : ""           //Icecast server status json
 }

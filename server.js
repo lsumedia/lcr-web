@@ -80,6 +80,8 @@ const EpisodeController = require('./controllers/Episode.js');
 
 var Shows = new ShowController(db);
 
+var NowPlaying = new(require('./controllers/NowPlaying.js'))(db, config);
+
 
 //Static hosts
 
@@ -92,7 +94,7 @@ var privateAPI = new (require('./includes/PrivateAPI.js'))(app, db, Shows);
 
 //Public API
 
-var publicAPI = new (require('./includes/PublicAPI.js'))(app, db, Shows);
+var publicAPI = new (require('./includes/PublicAPI.js'))(app, db, Shows, NowPlaying);
 
 
 

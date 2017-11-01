@@ -62,6 +62,22 @@ function PublicAPI(app, db, Shows, NowPlaying){
             res.status(404).send('Not found');
         });
     });
+
+    app.get('/api/public/songs/title/:artist/:title', function(req, res){
+        
+        var artist = req.params.artist;
+        var title = req.params.title;
+
+        var limit = parseInt(req.query.limit) || 0;
+        var skip = parseInt(req.query.skip) || 0;
+
+        NowPlaying.getSongsByArtistAndTitle(artist, title, limit, skip).then(function(docs){
+            res.send(docs);
+        },function(err){
+            console.log(err);
+            res.status(404).send('Not found');
+        });
+    });
 }
 
 module.exports = PublicAPI;

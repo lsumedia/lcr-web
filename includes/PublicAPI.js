@@ -1,6 +1,6 @@
 const request = require('request');
 
-function PublicAPI(app, db, Shows){
+function PublicAPI(app, db, Shows, NowPlaying){
 
 
     app.get('/api/public/show/all', function(req, res){
@@ -29,6 +29,38 @@ function PublicAPI(app, db, Shows){
 
     app.get('/api/public/nowplaying', function(req,res){
         request('http://ice.lsu.co.uk:8080/status-json.xsl').pipe(res);
+    });
+
+    app.get('/api/public/songs/now', function(req,res){
+        res.send(NowPlaying.currentTrackInfo());
+    });
+
+    app.get('/api/public/songs/recent', function(req,res){
+
+        var limit = parseInt(req.query.limit) || 0;
+        var skip = parseInt(req.query.skip) || 0;
+
+        NowPlaying.getRecentSongs(limit, skip).then(function(docs){
+            res.send(docs);
+        },function(err){
+            console.log(err);
+            res.status(404).send('Not found');
+        });
+    });
+
+    app.get('/api/public/songs/artist/:artist', function(req,res){
+
+        var artist = req.params.artist;
+
+        var limit = parseInt(req.query.limit) || 0;
+        var skip = parseInt(req.query.skip) || 0;
+
+        NowPlaying.getSongsByArtist(artist, limit, skip).then(function(docs){
+            res.send(docs);
+        },function(err){
+            console.log(err);
+            res.status(404).send('Not found');
+        });
     });
 }
 

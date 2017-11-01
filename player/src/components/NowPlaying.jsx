@@ -3,18 +3,36 @@ import React, { Component } from 'react';
 
 class NowPlaying extends Component{
 
-
-    componentDidMount(){
-        /*$.get('/api/public/nowplaying').done((response) => {
-            var track = response.icestats.source.title;
-            $('nowplaying').html(track);
-        });*/
-    }
-
     render(){
+        var songData = this.props.track;
+
+        var title = "";
+        var artist = "";
+        var image = "";
+        var description ="";
+        var url = "";
+
+        try{
+            if(songData.artist){
+                title = songData.name;
+                artist = songData.artist.name;     
+                url = songData.url;
+            }else{
+                title = songData.raw.title;
+                artist = songData.raw.artist;
+            }       
+        }catch(e){
+            console.error(e);
+        }
+
         return(
-            <div id="panel">
-                <div id="nowplaying"></div>
+            <div className="card">
+                <div className="card-body">
+                    <a href={url} target="_blank">
+                        <h4 className="card-title">{title}</h4>
+                        <h5 className="card-subtitle">{artist}</h5>
+                    </a>
+                </div>
             </div>
         )
     }

@@ -57,7 +57,6 @@ function ShowController(db){
         return new Promise((resolve, reject) =>
         { 
             col.find({}).limit(limit).skip(skip).toArray(function(err, docs){
-                console.log(docs);
                 if(err) reject(err);
                 else resolve(docs);
             });

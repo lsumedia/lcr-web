@@ -6,20 +6,21 @@ import VideoPlayer from '../components/VideoPlayer';
 
 import Poster from '../assets/img/lcr_splash.png';
 
+import NowPlaying from '../components/NowPlaying';
+
 class Live extends Component {
 
-  state = { nowplaying : ""};
+  state = { nowplaying : {}};
 
   updateNowPlaying(){
-    $.get('/api/public/nowplaying').done((response) => {
-        var track = response.icestats.source.title;
-        this.setState({nowplaying: track});
+    $.get('/api/public/songs/now').done((response) => {
+        this.setState({nowplaying: response});
     });
   }
 
-  componentDidMount(){
+  componentWillMount(){
     this.updateNowPlaying();
-    this.refreshSongInterval = setInterval(this.updateNowPlaying.bind(this), 10000);
+    this.refreshSongInterval = setInterval(this.updateNowPlaying.bind(this), 5000);
   }
 
   componentWillUnmount(){
@@ -27,6 +28,7 @@ class Live extends Component {
   }
 
   render() {
+    var nowPlaying = this.state.nowplaying;
     return (
         <div className="container" id="live-container">
             <VideoPlayer 
@@ -35,11 +37,7 @@ class Live extends Component {
               type="audio/mpeg" 
               autoplay="false"/>
               
-              <div className="card">
-              <div className="card-body">
-                <h4 className="card-title">{this.state.nowplaying}</h4>
-              </div>
-              </div>
+              <NowPlaying track={nowPlaying} />
       </div>
     );
   }

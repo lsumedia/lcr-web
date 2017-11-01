@@ -44,12 +44,20 @@ function NowPlaying (db, config){
     }
 
     function getSongData(artist, songName){
-        var url = `http://ws.audioscrobbler.com/2.0/?method=track.getInfo&api_key=${config.last_fm_key}&artist=${artist}&track=${songName}&format=json`;
-        request.get(url, function(error, response, body){
+        var searchString = escape(artist + " " + songName);
+
+        var reqOptions = {
+            url : `https://api.genius.com/search?q=${searchString}`,
+            headers : {
+                'Authorization' : "Bearer " + config.genius_api_key
+            }
+        }
+
+        request.get(reqOptions, function(error, response, body){
             if(error) console.log(error.message);
             try{
                 var data = JSON.parse(body);
-                currentSongData = data.track || {};
+                currentSongData = data.response.hits[0].result || {};
                 currentSongData.raw = {artist : artist, title : songName};
             }catch(e){
                 console.log(e.message);

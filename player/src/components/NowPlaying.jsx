@@ -41,14 +41,16 @@ class NowPlaying extends Component{
         var url = "";
 
         try{
-            if(songData.artist){
-                title = songData.name;
-                artist = songData.artist.name;     
+            if(songData.full_title){
+                title = songData.full_title;
+                artist = songData.primary_artist.name;   
+                image = songData.header_image_thumbnail_url;
                 url = songData.url;
-            }else{
-                title = songData.raw.title;
-                artist = songData.raw.artist;
-            }       
+            }
+
+            title = songData.raw.title;
+            artist = songData.raw.artist;     
+
         }catch(e){
             console.error(e);
         }
@@ -78,10 +80,15 @@ class NowPlaying extends Component{
                 </div>
                 <div className="card-body">
                     <span style={{float: "right"}} >Now</span>
-                    <a href={url} target="_blank" className="text-left">
-                        <h4 className="card-title">{title}</h4>
-                        <p className="card-text">{artist}</p>
-                    </a>
+                    <div class="media">
+                        <img class="mr-3" src={image} width="64" height="64" />
+                        <div class="media-body text-left">
+                            <a href={url} target="_blank">
+                                <h5 class="mt-0">{title}</h5>
+                                {artist}
+                            </a>
+                        </div>
+                    </div>
                 </div>
                 <ul className="list-group list-group-flush">
                      {listItems}

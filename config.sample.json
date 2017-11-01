@@ -7,7 +7,6 @@
     "db_host" : "localhost",    //MongoDB server hostname
     "db_port" : "27017",        //MongoDB server port
     "db_name" : "lcr",          //Database name
-    "last_fm_key" : "",         //Last.fm API key for song data lookup
-    "last_fm_secret" : "",      //Last.fm secret,
-    "ice_status" : ""           //Icecast server status json
+    "ice_status" : "",          //Icecast server status json,
+    "genius_api_key" : ""       //Genius API access token 
 }

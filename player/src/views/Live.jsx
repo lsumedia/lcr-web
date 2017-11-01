@@ -16,14 +16,14 @@ class Live extends Component {
     return (
         <div className="container-fluid" id="live-container">
           <div className="row">
-              <div class="col-sm-12 col-md-9 col-lg-7 offset-lg-2">
+              <div class="col-sm-12 col-lg-8 col-xl-7 offset-xl-2">
                 <VideoPlayer 
                   poster={Poster}
                   src="http://ice.lsu.co.uk:8080/lcrhigh" 
                   type="audio/mpeg" 
-                  autoplay="true"/>
+                  autoplay="false"/>
               </div>
-              <div class="col-sm-12 col-md-3">
+              <div class="col-sm-12 col-lg-4 col-xl-3">
                 <NowPlaying />
               </div>
           </div> 

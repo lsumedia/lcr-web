@@ -21,6 +21,8 @@ import {
     tdArray
 } from '../../variables/Variables.jsx';
 
+/* global $ */
+
 class Dashboard extends Component {
     createLegend(json){
         var legend = [];
@@ -36,6 +38,26 @@ class Dashboard extends Component {
         }
         return legend;
     }
+
+    state = { 
+        tracks : []
+    };
+    
+    updateNowPlaying(){
+        $.get('/api/public/songs/recent?limit=8').done((response) => {
+            this.setState({tracks: response});
+        });
+    }
+
+    componentWillMount(){
+        this.updateNowPlaying();
+        this.refreshSongInterval = setInterval(this.updateNowPlaying.bind(this), 5000);
+    }
+
+    componentWillUnmount(){
+        clearInterval(this.refreshSongInterval);
+    }
+
     render() {
         return (
             <div className="content">
@@ -68,31 +90,33 @@ class Dashboard extends Component {
                                 classes=""
                                 title="Recently played songs"
                                 category=""
-                                stats="Updated every minute"
+                                stats="Updated every 30 seconds"
                                 content={
                                     <Table hover>
                                         <thead>
                                             <tr>
-                                                {
-                                                    thArray.map((prop, key) => {
-                                                        return (
-                                                        <th  key={key}>{prop}</th>
-                                                        );
-                                                    })
-                                                }
+                                                <th>Time</th>
+                                                <th>Title</th>
+                                                <th>Artist</th>
+                                                <th>Play Rate</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             {
-                                                tdArray.map((prop,key) => {
+                                                this.state.tracks.map((prop,key) => {
+
+                                                    
+                                                    var date = new Date(prop.timestamp);
+                                                    var hours = date.getHours();
+                                                    var minutes = "0" + date.getMinutes();
+                                                    var formatted = hours + ':' + minutes.substr(-2);
                                                     return (
-                                                        <tr key={key}>{
-                                                            prop.map((prop,key)=> {
-                                                                return (
-                                                                    <td  key={key}>{prop}</td>
-                                                                );
-                                                            })
-                                                        }</tr>
+                                                        <tr key={key}>
+                                                            <td>{formatted}</td>
+                                                            <td>{prop.title}</td>
+                                                            <td>{prop.artist}</td>
+                                                            <td></td>
+                                                        </tr>
                                                     )
                                                 })
                                             }

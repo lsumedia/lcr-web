@@ -44,7 +44,7 @@ class NowPlaying extends Component{
             if(songData.full_title){
                 title = songData.full_title;
                 artist = songData.primary_artist.name;   
-                image = songData.header_image_thumbnail_url;
+                image = songData.song_art_image_thumbnail_url;
                 url = songData.url;
             }
 

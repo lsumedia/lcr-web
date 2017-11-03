@@ -12,7 +12,7 @@ class NowPlaying extends Component{
     };
     
     updateNowPlaying(){
-    $.get('/api/public/songs/recent?limit=6&skip=1').done((response) => {
+    $.get('/api/public/songs/recent?limit=4&skip=1').done((response) => {
         this.setState({tracks: response});
     });
 
@@ -23,7 +23,7 @@ class NowPlaying extends Component{
 
     componentWillMount(){
         this.updateNowPlaying();
-        this.refreshSongInterval = setInterval(this.updateNowPlaying.bind(this), 5000);
+        this.refreshSongInterval = setInterval(this.updateNowPlaying.bind(this), 10000);
     }
 
     componentWillUnmount(){
@@ -75,12 +75,12 @@ class NowPlaying extends Component{
 
         return(
             <div className="card" >
-                <div class="card-header">
+                {/* <div class="card-header">
                     Recent songs
-                </div>
+                </div> */}
                 <div className="card-body">
                     <span style={{float: "right"}} >Now</span>
-                    <div class="media">
+                    <div class="media current-song">
                         <img class="mr-3" src={image} width="64" height="64" />
                         <div class="media-body text-left">
                             <a href={url} target="_blank">
@@ -90,8 +90,8 @@ class NowPlaying extends Component{
                         </div>
                     </div>
                 </div>
-                <ul className="list-group list-group-flush">
-                     {listItems}
+                <ul className="list-group list-group-flush hide-md-and-down">
+                    {listItems}
                 </ul>
             </div>
         );

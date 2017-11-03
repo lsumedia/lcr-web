@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 
-/* global $ */
 
 import VideoPlayer from '../components/VideoPlayer';
 
@@ -17,11 +16,13 @@ class Live extends Component {
         <div className="container-fluid" id="live-container">
           <div className="row">
               <div class="col-sm-12 col-lg-8 col-xl-7 offset-xl-2">
-                <VideoPlayer 
-                  poster={Poster}
-                  src="http://ice.lsu.co.uk:8080/lcrhigh" 
-                  type="audio/mpeg" 
-                  autoplay="false"/>
+                <div className="card">
+                  <img className="card-img-top" src={Poster} alt="Card image cap" />
+                  <div className="card-body">
+                    <h4 className="card-title">LCR Uninterrupted</h4>
+                    All the best music ever
+                  </div>
+                </div>
               </div>
               <div class="col-sm-12 col-lg-4 col-xl-3">
                 <NowPlaying />

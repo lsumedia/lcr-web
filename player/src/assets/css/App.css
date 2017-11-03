@@ -1,38 +1,70 @@
-.App {
-  text-align: center;
-}
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
-}
-
-.App-header {
+body{
+  margin-bottom: 70px;
   background-color: #222;
-  height: 150px;
-  padding: 20px;
+
+}
+
+.list-group-item {
+  background-color: inherit;
+}
+
+.card{
+  border-radius: 0px;
+  background-color: #444;
   color: white;
 }
 
-.App-title {
-  font-size: 1.5em;
-}
-
-.App-intro {
-  font-size: large;
+.current-song h5{
+  font-size: 18px;
 }
 
 .navbar{
   text-transform: uppercase;
 }
 
+.navbar-lcr{
+  color: white;
+  background-color: #2586C7;
+}
+
 nav{
   margin-bottom: 30px;
 }
 
+.center-content{
+  text-align: center;
+}
 
 
 a{
   color: inherit;
 }
 
+.audioplayer{
+  position: fixed;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  width: 100%;
+  height: 55px;
+  background-color: #2586C7;
+  --webkit-user-select: none;
+  user-select: none;
+}
+
+.audioplayer .controls{
+  color: white;
+  line-height: 55px;
+  font-size: 24px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.audioplayer .controls i{
+  color: white;
+  font-size: 35px;
+  line-height: 55px;
+  padding: 0px 5px;
+  cursor: pointer;
+}

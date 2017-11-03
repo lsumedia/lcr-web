@@ -10,7 +10,7 @@ import '../assets/css/bootstrap.css';
 import '../assets/css/App.css';
 
 import Nav from '../components/Nav';
-import VideoPlayer from '../components/VideoPlayer';
+import AudioPlayer from '../components/AudioPlayer';
 
 //Pages
 import Live from '../views/Live';
@@ -31,6 +31,10 @@ class App extends Component {
               <Redirect from="/" to="/live" />
           </Switch> 
 
+          <AudioPlayer  
+            src="http://ice.lsu.co.uk:8080/lcrhigh" 
+            type="audio/mpeg" 
+            autoplay="false"/>
         </div>
     );
   }

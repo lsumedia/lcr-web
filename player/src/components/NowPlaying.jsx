@@ -79,7 +79,7 @@ class NowPlaying extends Component{
                     Recent songs
                 </div> */}
                 <div className="card-body">
-                    <span style={{float: "right"}} >Now</span>
+                    {/* <span style={{float: "right"}} >Now</span> --> */}
                     <div class="media current-song">
                         <img class="mr-3" src={image} width="64" height="64" />
                         <div class="media-body text-left">

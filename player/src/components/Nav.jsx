@@ -7,9 +7,9 @@ class Nav extends Component{
     render(){
         return(
         <nav className="navbar navbar-lcr justify-content-center">
-          <a className="navbar-brand" href="/" style={{margin: "0px"}}>
-            <img src={logo} width="45" height="45" alt="" className=""/>
-          </a>
+            <NavLink to={'/'} className="navbar-brand" activeClassName="active" style={{margin : "0px"}}>
+                <img src={logo} width="45" height="45" alt="" className=""/>
+            </NavLink>
 
             {/*
           <ul className="nav">

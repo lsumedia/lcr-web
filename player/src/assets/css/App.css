@@ -1,8 +1,11 @@
 
 body{
   margin-bottom: 70px;
-  background-color: #222;
+  background-color: #272727;
+}
 
+a:hover{
+  color: inherit
 }
 
 .list-group-item {
@@ -11,8 +14,12 @@ body{
 
 .card{
   border-radius: 0px;
-  background-color: #444;
+  background-color: rgba(59,66,76,0.95);
   color: white;
+}
+
+.card-img-top {
+  border-radius: 0px;
 }
 
 .current-song h5{

@@ -43,6 +43,7 @@ class AudioPlayer extends Component{
 
         this.play = this.play.bind(this);
         this.pause = this.pause.bind(this);
+        this.reload = this.reload.bind(this);
         this.isPlaying = this.isPlaying.bind(this);
         this.changeVolumeLevel = this.changeVolumeLevel.bind(this);
 
@@ -63,6 +64,12 @@ class AudioPlayer extends Component{
 
     pause(){
         this.AudioElement.pause();
+        this.forceUpdate();
+    }
+
+    reload(){
+        this.AudioElement.load();
+        this.AudioElement.play();
         this.forceUpdate();
     }
 
@@ -111,10 +118,13 @@ class AudioPlayer extends Component{
         return (
             <div className="audioplayer">
                 <div className="controls">
-                    {this.isPlaying() ? 
-                        ( <i className="material-icons" onClick={this.pause} >pause_circle_outline</i>) :
-                        ( <i className="material-icons" onClick={this.play} >play_circle_outline</i>)
-                    }
+                    <span>
+                        {this.isPlaying() ? 
+                            ( <i className="material-icons" onClick={this.pause} >pause_circle_outline</i>) :
+                            ( <i className="material-icons" onClick={this.play} >play_circle_outline</i>)
+                        }
+                        <i className="material-icons float-right" onClick={this.reload}>skip_next</i>
+                    </span>
                     <span>{niceTime(this.AudioElement.duration)}</span>
                     <i className="material-icons float-right" onClick={this.changeVolumeLevel}>{volume_icon}</i>
                 </div>

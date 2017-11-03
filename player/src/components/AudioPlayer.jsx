@@ -125,7 +125,7 @@ class AudioPlayer extends Component{
                         }
                         <i className="material-icons float-right" onClick={this.reload}>skip_next</i>
                     </span>
-                    <span>{niceTime(this.AudioElement.duration)}</span>
+                    {/*<span>{niceTime(this.AudioElement.duration)}</span> */}
                     <i className="material-icons float-right" onClick={this.changeVolumeLevel}>{volume_icon}</i>
                 </div>
             </div>

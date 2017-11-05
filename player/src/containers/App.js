@@ -10,6 +10,7 @@ import '../assets/css/bootstrap.css';
 import '../assets/css/App.css';
 
 import Nav from '../components/Nav';
+import NavMenu from '../components/NavMenu';
 import AudioPlayer from '../components/AudioPlayer';
 
 //Pages
@@ -19,15 +20,33 @@ import Schedule from '../views/Schedule'
 
 class App extends Component {
 
+    state = { 
+        open : false
+    }
+
+    toggleMenu(){
+        var newOpenState = this.state.open ? false : true;
+        this.setState({open: newOpenState});
+    }
+    
+    hideMenu(){
+        this.setState({open: false});
+    }
+
   render() {
+
+    const { open } = this.state
     return (
       <div className="App">
 
-        <Nav />
+        <Nav toggleMenu={this.toggleMenu.bind(this)} hideMenu={this.hideMenu.bind(this)}/>
+
+        <NavMenu open={open} toggleMenu={this.toggleMenu.bind(this)} hideMenu={this.hideMenu.bind(this)}/>
+             
         
         <div className="scroll-container">
             
-            <Switch>s
+            <Switch>
                 <Route path="/live" component={Live}/>
                 <Route path="/backtrack" component={Backtrack}/>
                 <Route path="/schedule" component={Schedule}/>
@@ -39,7 +58,7 @@ class App extends Component {
         <AudioPlayer  
             src="http://ice.lsu.co.uk:8080/lcrhigh" 
             type="audio/mpeg" 
-            autoplay="false"/>
+            autoplay={false}/>
         </div>
     );
   }

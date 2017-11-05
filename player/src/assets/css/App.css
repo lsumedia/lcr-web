@@ -1,4 +1,8 @@
 
+html{
+  overflow: hidden;
+}
+
 body{
   margin-bottom: 70px;
   background-color: #272727;
@@ -28,6 +32,12 @@ a:hover{
 
 .navbar{
   text-transform: uppercase;
+  position: fixed;
+  left: 0px;
+  right: 0px;
+  height: 65px;
+  box-shadow: 10px 10px 10px rgba(30,30,30,0.5);
+  z-index: 10;
 }
 
 .navbar-lcr{
@@ -36,7 +46,6 @@ a:hover{
 }
 
 nav{
-  margin-bottom: 30px;
 }
 
 .center-content{
@@ -46,6 +55,17 @@ nav{
 
 a{
   color: inherit;
+}
+
+.scroll-container{
+  position: fixed;
+  left: 0px;
+  right: 0px;
+  top: 65px;
+  bottom: 55px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  padding-top: 15px;
 }
 
 .audioplayer{

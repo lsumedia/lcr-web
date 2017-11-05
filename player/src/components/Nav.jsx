@@ -8,7 +8,7 @@ class Nav extends Component{
         return(
         <nav className="navbar navbar-lcr justify-content-center">
             <NavLink to={'/'} className="navbar-brand" activeClassName="active" style={{margin : "0px"}}>
-                <img src={logo} width="45" height="45" alt="" className=""/>
+                <img src={logo} width="40" height="40" alt="" className=""/>
             </NavLink>
 
             {/*

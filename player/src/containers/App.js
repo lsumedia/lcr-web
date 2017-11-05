@@ -22,16 +22,21 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        
-          <Nav />
-          <Switch>
-              <Route path="/live" component={Live}/>
-              <Route path="/backtrack" component={Backtrack}/>
-              <Route path="/schedule" component={Schedule}/>
-              <Redirect from="/" to="/live" />
-          </Switch> 
 
-          <AudioPlayer  
+        <Nav />
+        
+        <div className="scroll-container">
+            
+            <Switch>s
+                <Route path="/live" component={Live}/>
+                <Route path="/backtrack" component={Backtrack}/>
+                <Route path="/schedule" component={Schedule}/>
+                <Redirect from="/" to="/live" />
+            </Switch> 
+
+        </div>
+
+        <AudioPlayer  
             src="http://ice.lsu.co.uk:8080/lcrhigh" 
             type="audio/mpeg" 
             autoplay="false"/>

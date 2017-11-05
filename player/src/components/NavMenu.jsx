@@ -6,8 +6,7 @@ class NavMenu extends Component{
         return(
             <div open={this.props.open} className="scroll-container modal-menu bg-dark text-white">
                 <div class="container">
-                    <h2>Loughborough Campus Radio</h2>
-                    <h4>Menu</h4>
+                    <h3>Menu</h3>
                     <NavLink to={'/'} onClick={this.props.hideMenu} className="card nav-option">
                         <div className="card-body">
                             <h4 className="card-title">Listen Live</h4>

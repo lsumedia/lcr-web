@@ -129,4 +129,4 @@ function EpisodeController(db){
     
     }
     
-    module.exports = ShowController;
+    module.exports = EpisodeController;

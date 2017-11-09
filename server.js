@@ -76,7 +76,7 @@ var authfn = (config.authenticate)? passport.authenticate('facebook') : (req, re
 /* Controllers */
 
 const ShowController = require('./controllers/Show.js');
-const EpisodeController = require('./controllers/Episode.js');
+//const EpisodeController = require('./controllers/Episode.js');
 
 var Shows = new ShowController(db);
 

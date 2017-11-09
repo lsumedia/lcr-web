@@ -11,7 +11,6 @@ var FacebookStrategy = require('passport-facebook').Strategy;
 
 var MongoClient = require('mongodb').MongoClient;
 
-
 /* Load server config */
 var configString;
 
@@ -71,7 +70,8 @@ app.get('/auth/facebook/callback',
     res.redirect('/dashboard');
 });
 
-var authfn = (config.authenticate)? passport.authenticate('facebook') : function(req, res, next){ next(); };
+//this is wrong. blatantly wrong.
+var authfn = (config.authenticate)? passport.authenticate('facebook') : (req, res, next) => { next(); };
 
 /* Controllers */
 
@@ -90,7 +90,7 @@ app.use('/', express.static('player/build')); //Public page
 
 //REST API
 
-var privateAPI = new (require('./includes/PrivateAPI.js'))(app, db, Shows);
+var privateAPI = new (require('./includes/PrivateAPI.js'))(app, db, authfn, Shows);
 
 //Public API
 

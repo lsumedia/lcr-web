@@ -24,6 +24,7 @@
     "json-comments": "^0.2.1",
     "mongodb": "^2.2.33",
     "multer": "^1.3.0",
+    "node-schedule": "^1.2.5",
     "passport": "^0.4.0",
     "passport-facebook": "^2.1.1",
     "request": "^2.83.0",

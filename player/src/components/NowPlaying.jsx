@@ -3,6 +3,8 @@ import React, { Component } from 'react';
 
 /* global $ */
 
+import audiotrack from '../assets/img/audiotrack.svg';
+
 
 class NowPlaying extends Component{
 
@@ -36,16 +38,17 @@ class NowPlaying extends Component{
 
         var title = "";
         var artist = "";
-        var image = "";
+        var image = audiotrack;
         var description ="";
         var url = "";
 
         try{
-            if(songData.full_title){
-                title = songData.full_title;
-                artist = songData.primary_artist.name;   
-                image = songData.song_art_image_thumbnail_url;
-                url = songData.url;
+
+            if(songData.genius){
+                title = songData.genius.full_title;
+                artist = songData.genius.primary_artist.name;
+                image = songData.genius.song_art_image_thumbnail_url;
+                url = songData.genius.url;
             }
 
             title = songData.raw.title;

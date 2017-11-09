@@ -48,6 +48,15 @@ function PublicAPI(app, db, Shows, NowPlaying){
         });
     });
 
+    app.get('/api/public/songs/count', function(req, res){
+        NowPlaying.getNumberOfLoggedSongs().then(function(count){
+            res.send(count);
+        },function(err){
+            console.log(err);
+            res.status(404).send('Not found');
+        });
+    });
+
     app.get('/api/public/songs/artist/:artist', function(req,res){
 
         var artist = req.params.artist;

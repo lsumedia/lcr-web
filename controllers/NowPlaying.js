@@ -1,15 +1,19 @@
 
 const request = require('request');
 
+const schedule = require('node-schedule');
+
 function NowPlaying (db, config){
 
     var currentSongTitle = "";
 
     var currentSongData = {};
 
-    const interval = 30000;
+    var interval = 10000;
 
-    const col = db.collection('playedsongs');
+    var songLogExpiry = 2592000000;  //delete songs older than this (default: 1 month)
+
+    var col = db.collection('playedsongs');
 
     function getCurrentSong(){
         request.get(config.ice_status, function(error, response, body){
@@ -56,13 +60,30 @@ function NowPlaying (db, config){
         request.get(reqOptions, function(error, response, body){
             if(error) console.log(error.message);
             try{
+                currentSongData = {raw : {artist : artist, title : songName}};
                 var data = JSON.parse(body);
-                currentSongData = data.response.hits[0].result || {};
-                currentSongData.raw = {artist : artist, title : songName};
+                currentSongData.genius = data.response.hits[0].result || {};
             }catch(e){
                 console.log(e.message);
             }
         });
+    }
+
+    function cleanDatabase(){
+       
+        var timeInMs = Date.now();
+
+        var ageThreshold = timeInMs - songLogExpiry; //timestamp over 
+
+        var ageThresholdDate = new Date(ageThreshold);
+
+        console.log('songlog: cleanup - deleting songs played before ' + ageThresholdDate.toISOString());
+
+        col.remove({timestamp: {$lte : ageThreshold }}, function(err, r){
+            if(err) console.log("songlog: " + err.message)
+            else console.log("songlog: removed " + r.result.n + " old records");
+        });
+
     }
 
     this.currentTrackInfo = function(){
@@ -74,6 +95,17 @@ function NowPlaying (db, config){
             col.find({}).sort({timestamp : -1}).limit(limit).skip(skip).toArray((err, docs) => {
                 if(err) reject(err);
                 else resolve(docs);
+            });
+        });
+    }
+
+    this.getNumberOfLoggedSongs = function(){
+        return new Promise((resolve, reject) => {
+            col.find({}).count((err, count) => {
+                if(err) reject(err);
+                resolve({
+                    count: count
+                });
             });
         });
     }
@@ -107,6 +139,9 @@ function NowPlaying (db, config){
 
     getCurrentSong();
     var songGetInterval = setInterval(getCurrentSong, interval);
+
+    cleanDatabase();
+    var cleanupSchedule = schedule.scheduleJob('0 0 0 * * *', cleanDatabase);
 
 
 }

@@ -102,11 +102,11 @@ var publicAPI = new (require('./includes/PublicAPI.js'))(app, db, Shows, NowPlay
 
 if(Number.isInteger(config.port) == true){
     
-      server.listen(config.port, function () {
-        console.log('server: listening on port ' + config.port);
-      });
-    
-    }
+  server.listen(config.port, function () {
+    console.log('server: listening on port ' + config.port);
+  });
+
+}
 
     
 });

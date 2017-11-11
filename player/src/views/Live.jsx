@@ -19,8 +19,8 @@ class Live extends Component {
                 <div className="card">
                   <img className="card-img-top" src={Poster} alt="Card image cap" />
                   <div className="card-body">
-                    <h4 className="card-title">LCR Uninterrupted</h4>
-                    All the best music ever
+                    <h4 className="card-title">LCR Live</h4>
+                    Your Soundtrack to Loughborough
                   </div>
                 </div>
               </div>

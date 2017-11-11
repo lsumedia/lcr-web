@@ -1,7 +1,7 @@
 # Recommended Installation Guide
 ## for Ubuntu Server 16.04
 
-## Install GIT, NODEJS & MONGODB
+### Install git, nodejs & mongodb
 
 If git isn't already installed, get it with APT
 

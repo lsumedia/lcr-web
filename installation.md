@@ -11,8 +11,13 @@ And nodejs + npm
 
 `sudo apt install nodejs npm`
 
-Install mongodb - [this guide explains the process well](https://www.howtoforge.com/tutorial/install-mongodb-on-ubuntu-16.04/)
+Install mongodb - [steps 1-4 on this guide](https://www.howtoforge.com/tutorial/install-mongodb-on-ubuntu-16.04/)
 
+For security purposes - setup mongodb to only allow requests from localhost
+
+`sudo nano /etc/mongod.conf`
+
+Add the line `bind_ip = 127.0.0.1` and `systemctl restart mongodb`
 
 ### Install PM2
 

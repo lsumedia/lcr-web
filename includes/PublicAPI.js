@@ -3,7 +3,7 @@ const request = require('request');
 function PublicAPI(app, db, Shows, NowPlaying){
 
 
-    app.get('/api/public/show/all', function(req, res){
+    app.get('/api/public/show', function(req, res){
         Shows.getShowsAll().then(function(shows){
                 res.send(shows);
             },function(){

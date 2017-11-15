@@ -2,8 +2,6 @@
 
 function EpisodeController(db){
     
-        const slugMaker = require('slug');
-    
         var col = db.collection('shows');
     
         var _this = this;
@@ -11,17 +9,13 @@ function EpisodeController(db){
         this.insert = function(title, description, tags, image){
     
             return new Promise((resolve, reject) => {
-    
-                if(title.length < 5){  reject('Initial title must be at least 5 characters'); return; }
-    
-                var showSlug = slugMaker(title.toLowerCase());
-                
+
                 var newShow = {
-                    title : title,
+                    showSlug : title,
                     description : description,
                     tags : tags,
                     image : image,
-                    slug: showSlug
+                    showSlug: showSlug
                 }
                
                 col.find({slug : showSlug}).toArray(function(err, docs){
@@ -57,7 +51,7 @@ function EpisodeController(db){
                 description: description,
                 tags : tags,
                 image : image,
-                slug : slug
+                showSlug : slug
             };
     
             return new Promise((resolve, reject) => {

@@ -75,10 +75,9 @@ var authfn = (config.authenticate)? passport.authenticate('facebook') : (req, re
 
 /* Controllers */
 
-const ShowController = require('./controllers/Show.js');
-//const EpisodeController = require('./controllers/Episode.js');
+var Tokens = new(require('./controllers/Token.js'))(db);
 
-var Shows = new ShowController(db);
+var Shows = new (require('./controllers/Show.js'))(db);
 
 var NowPlaying = new(require('./controllers/NowPlaying.js'))(db, config);
 
@@ -96,6 +95,9 @@ var privateAPI = new (require('./includes/PrivateAPI.js'))(app, db, authfn, Show
 
 var publicAPI = new (require('./includes/PublicAPI.js'))(app, db, Shows, NowPlaying);
 
+// Utility API
+
+var utilityAPI = new (require('./includes/UtilityAPI.js'))(app, db, Tokens.authenticateToken(), Shows);
 
 
 /* START SERVER */

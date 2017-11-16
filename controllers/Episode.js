@@ -1,104 +1,91 @@
 
+var shortid = require('shortid');
 
 function EpisodeController(db){
     
-        var col = db.collection('shows');
+        var col = db.collection('episodes');
     
         var _this = this;
+
+        function validate(obj){
+            var episode = {
+                metafile : obj.metafile,
+                title : obj.title || "",
+                description : obj.description || "",
+                showSlug : obj.showSlug || "",
+                tags : obj.tags || "",
+                image : obj.image || "",
+                public : obj.public || true
+            }
+            return episode;
+        }
     
-        this.insert = function(title, description, tags, image){
+        this.insert = function(obj){
     
             return new Promise((resolve, reject) => {
 
-                var newShow = {
-                    showSlug : title,
-                    description : description,
-                    tags : tags,
-                    image : image,
-                    showSlug: showSlug
-                }
+                var episode = validate(obj);
                
-                col.find({slug : showSlug}).toArray(function(err, docs){
+                episode._id = shortid.generate();
     
-                    if(docs.length > 0){
-    
-                        col.update({slug : showSlug}, newShow, function(err, result){
-                            if(err) reject(err);
-                            else{ 
-                                console.log("show: Updated show " + showSlug); 
-                                resolve(newShow);
-                            }
-                        });
-    
-                    }else{
-    
-                        col.insertOne(newShow, function(err, r){
-                            console.log('show: Added new show ' + newShow.title);
-                            resolve(newShow);
-                        });
-    
-                    }
+                col.insertOne(episode, function(err, r){
+                    console.log('episode: Added new episode ' + episode._id);
+                    resolve(episode);
                 });
     
             });
     
         }
     
-        this.update = function(slug, title, description, tags, image){
+        this.update = function(id, obj){
     
-            var showObj = {
-                title: title,
-                description: description,
-                tags : tags,
-                image : image,
-                showSlug : slug
-            };
+            var episode = validate(obj);
     
             return new Promise((resolve, reject) => {
                 
-                col.update({slug: slug}, showObj, function(err, results){
+                col.update({_id: id}, episode, function(err, results){
                     if(err || results.result.n == 0){ 
-                        reject(err); return; 
+                        reject(err); 
                     }
                     else {
-                        console.log("show: Updated show " + slug);
-                        resolve(showObj);
+                        console.log("episode: Updated episode " + id);
+                        resolve(episode);
                     }
                 });
     
             });
         }
         
-        this.delete = function(slug){
+        this.delete = function(id){
             return new Promise((resolve, reject) => {
                 
-                col.deleteOne({slug: slug}, function(err, results){
-                    if(err || results.result.n == 0){ reject(err); return; }
+                col.deleteOne({_id: id}, function(err, results){
+                    if(err || results.result.n == 0){ 
+                        reject(err); 
+                    }
                     else{
-                        console.log("show: Deleted show " + slug);
+                        console.log("episode: Deleted episode " + id);
                         resolve();
                     }
                 });
             });
         }
     
-        this.getShowBySlug = function(slug){
-    
-            return new Promise((resolve, reject) => {
-                
-                col.find({slug : slug}).limit(1).toArray(function(err, docs){
-                    if(docs.length < 1 || err){ reject(err); return; }
+        this.getById = function(id){
+            return new Promise((resolve, reject) =>
+            { 
+                col.find({_id : id}).limit(1).toArray(function(err, docs){
+                    if(err){
+                        reject(err);
+                    }else if(docs.length == 0){
+                        reject('No documents found');
+                    }
                     else resolve(docs[0]);
                 });
             });
-    
         }
     
-        this.getShowById = function(showID){
-            return false;
-        }
-    
-        this.getShowsAll = function(limit = 0, skip = 0){
+        this.getAll = function(limit = 0, skip = 0){
     
             return new Promise((resolve, reject) =>
             { 
@@ -109,16 +96,23 @@ function EpisodeController(db){
             });
         }
     
-        this.getShowsByTag = function(limit = 0, skip = 0){
+        this.getByTag = function(limit = 0, skip = 0){
     
         }
     
-        this.getShowsByStringSearch = function(limit = 0, skip = 0){
+        this.getByStringSearch = function(limit = 0, skip = 0){
     
         }
     
         this.getNumberOfShows = function(){
-            return col.count()
+            return new Promise((resolve, reject) => {
+                col.find({}).count((err, count) => {
+                    if(err) reject(err);
+                    resolve({
+                        count: count
+                    });
+                });
+            });
         }
     
     }

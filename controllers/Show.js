@@ -124,7 +124,14 @@ function ShowController(db){
     }
 
     this.getNumberOfShows = function(){
-        return col.count()
+        return new Promise((resolve, reject) => {
+            col.find({}).count((err, count) => {
+                if(err) reject(err);
+                resolve({
+                    count: count
+                });
+            });
+        });
     }
 
 }

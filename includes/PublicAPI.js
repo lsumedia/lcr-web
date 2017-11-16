@@ -1,10 +1,14 @@
 const request = require('request');
 
-function PublicAPI(app, db, Shows, NowPlaying){
+function PublicAPI(app, db, Shows, Episodes, NowPlaying){
 
 
     app.get('/api/public/show', function(req, res){
-        Shows.getShowsAll().then(function(shows){
+
+        var limit = parseInt(req.query.limit) || 0;
+        var skip = parseInt(req.query.skip) || 0;
+
+        Shows.getShowsAll(limit, skip).then(function(shows){
                 res.send(shows);
             },function(){
                 res.status(404).send('Not found');

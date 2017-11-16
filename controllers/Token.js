@@ -33,14 +33,14 @@ function TokenController(db){
 
     }
 
-    this.authenticateToken = function(token){
+    this.authenticateToken = function(){
 
         return function(req, res, next){
              
             var token = (req.get('Authorization') || req.query.token);
             
             if(!token) {
-                res.status(400).send('No Token Provided');
+                res.status(401).send('No Token Provided');
                 return;
             }
 

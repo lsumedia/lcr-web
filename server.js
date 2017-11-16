@@ -11,6 +11,8 @@ var FacebookStrategy = require('passport-facebook').Strategy;
 
 var MongoClient = require('mongodb').MongoClient;
 
+/* INITIALISATION */
+
 /* Load server config */
 var configString;
 
@@ -23,14 +25,11 @@ try{
 
 var config = JSONC.parse(configString);
 
-
-/* Init server */
-
 var app = express();
 
 var server = http.createServer(app);
 
-/* Connect to database */
+/* DATABASE */
 
 var dbUrl = `mongodb://${config.db_host}:${config.db_port}/${config.db_name}`;
 
@@ -41,7 +40,7 @@ MongoClient.connect(dbUrl, function(err, db){
   }
     console.log("mongodb: Connected to server");
 
-/* Passport authentication */
+/* PASSPORT AUTHENTICATION  */
 
 passport.use('facebook', new FacebookStrategy({
   clientID: config.facebook_app_id,
@@ -70,17 +69,18 @@ app.get('/auth/facebook/callback',
     res.redirect('/dashboard');
 });
 
-//this is wrong. blatantly wrong.
+//Enable authentication if it's on (ie. not dev mode)
 var authfn = (config.authenticate)? passport.authenticate('facebook') : (req, res, next) => { next(); };
 
-/* Controllers */
+/* CONTROLLERS */
 
 var Tokens = new(require('./controllers/Token.js'))(db);
-
 var Shows = new (require('./controllers/Show.js'))(db);
-
+var Episodes = new (require('./controllers/Episode.js'))(db);
 var NowPlaying = new(require('./controllers/NowPlaying.js'))(db, config);
+var CurrentShow = new(require('./controllers/CurrentShow.js'))(db, Shows, NowPlaying);
 
+/* ROUTES */
 
 //Static hosts
 
@@ -89,15 +89,15 @@ app.use('/', express.static('player/build')); //Public page
 
 //REST API
 
-var privateAPI = new (require('./includes/PrivateAPI.js'))(app, db, authfn, Shows);
+var privateAPI = new (require('./includes/PrivateAPI.js'))(app, db, authfn, Shows, Episodes, NowPlaying, CurrentShow);
 
 //Public API
 
-var publicAPI = new (require('./includes/PublicAPI.js'))(app, db, Shows, NowPlaying);
+var publicAPI = new (require('./includes/PublicAPI.js'))(app, db, Shows, Episodes, NowPlaying, CurrentShow);
 
-// Utility API
+//Utility API
 
-var utilityAPI = new (require('./includes/UtilityAPI.js'))(app, db, Tokens.authenticateToken(), Shows);
+var utilityAPI = new (require('./includes/UtilityAPI.js'))(app, db, Tokens.authenticateToken(), Shows, Episodes, NowPlaying, CurrentShow);
 
 
 /* START SERVER */

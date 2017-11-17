@@ -8,6 +8,16 @@ function ShowController(db){
 
     var _this = this;
 
+    function validate(obj){
+        return {
+            title : obj.title,
+            description : obj.description,
+            tags : obj.tags,
+            image : obj.image,
+            slug: showSlug
+        }
+    }
+
     this.insert = function(title, description, tags, image){
 
         return new Promise((resolve, reject) => {

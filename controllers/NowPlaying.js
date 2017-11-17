@@ -47,6 +47,11 @@ function NowPlaying (db, config){
         });
     }
 
+    function filterGeniusResult(results){
+        //Check results to make sure we get the most accurate one
+        return results[0].result;
+    }
+
     function getSongData(artist, songName){
         var searchString = escape(artist + " " + songName);
 
@@ -62,7 +67,7 @@ function NowPlaying (db, config){
             try{
                 currentSongData = {raw : {artist : artist, title : songName}};
                 var data = JSON.parse(body);
-                currentSongData.genius = data.response.hits[0].result || {};
+                currentSongData.genius = filterrGeniusResulrs(data.response.hits) || {};
             }catch(e){
                 console.log(e.message);
             }

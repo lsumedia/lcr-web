@@ -27,7 +27,7 @@ function PublicAPI(app, db, Shows, Episodes, NowPlaying){
 
     });
 
-    app.get('/api/private/episode', function(req, res){
+    app.get('/api/public/episode', function(req, res){
         
         var limit = parseInt(req.query.limit) || 0;
         var skip = parseInt(req.query.skip) || 0;
@@ -39,7 +39,7 @@ function PublicAPI(app, db, Shows, Episodes, NowPlaying){
             });
     });
 
-    app.get('/api/private/episode/:id', function(req, res){
+    app.get('/api/public/episode/:id', function(req, res){
         Episodes.getBySlug(req.params.id).then(function(show){
             res.send(show);
         },function(){

@@ -47,7 +47,7 @@ function NowPlaying (db, config){
         });
     }
 
-    function filterGeniusResult(results){
+    function filterGeniusResults(results){
         //Check results to make sure we get the most accurate one
         return results[0].result;
     }
@@ -67,7 +67,7 @@ function NowPlaying (db, config){
             try{
                 currentSongData = {raw : {artist : artist, title : songName}};
                 var data = JSON.parse(body);
-                currentSongData.genius = filterrGeniusResulrs(data.response.hits) || {};
+                currentSongData.genius = filterGeniusResults(data.response.hits) || {};
             }catch(e){
                 console.log(e.message);
             }

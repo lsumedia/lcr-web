@@ -5,21 +5,34 @@ function CurrentShowController(db, Shows, NowPlaying){
 
     var currentShow = {};
 
-    this.setCurrentShow = function(showSlug, title = "", description = "", disableSongDisplay = false){
-        currentShow = {
-            slug : showSlug,
-            title : title,
-            description : description, 
-            disableSongDisplay : disableSongDisplay
+    function validate(obj){
+        return {
+            slug : obj.showSlug || null,
+            title : obj.title || "",
+            description : obj.description || "", 
+            image : obj.image || "",
+            disableSongDisplay : obj.disableSongDisplay || false
         }
     }
 
+    this.setCurrentShow = function(obj){
+        return new Promise((resolve, reject) =>{
+            currentShow = validate(obj);
+            resolve(currentShow);
+        });
+    }
+
     this.clearCurrentShow = function(){
-        currentShow = {};
+        return new Promise((resolve, reject) =>{
+            currentShow = {};
+            resolve(currentShow);
+        });
     }
 
     this.getCurrentShow = function(){
-        return currentShow;
+        return new Promise((resolve, reject) =>{
+            resolve(currentShow);
+        });
     }
 
 }

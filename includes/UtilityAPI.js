@@ -1,16 +1,33 @@
 
-function UtilityAPI(app, db, auth, Shows, Episodes){
+var express = require('express');
+
+function UtilityAPI(app, db, auth, Shows, Episodes, NowPlaying, CurrentShow){
    
     app.get('/api/utility/currentshow', auth, function(req,res){
-        res.send('you win!');
+       CurrentShow.getCurrentShow().then(
+            function(currentShow){
+                res.send(currentShow);
+            },
+            function(){
+                res.status(500).send();
+            }
+       )
     });
 
-    app.post('/api/utility/currentshow', auth, function(req, res){
-
+    app.post('/api/utility/currentshow', auth, express.json(), function(req, res){
+        CurrentShow.setCurrentShow(req.body). then(function(currentShow){
+            res.send(currentShow);
+        }, function(err){
+            res.status(500).send();
+        });
     });
 
     app.delete('/api/utility/currentshow', auth, function(req,res){
-
+        CurrentShow.clearCurrentShow(). then(function(currentShow){
+            res.send(currentShow);
+        }, function(err){
+            res.status(500).send();
+        });
     });
 
 

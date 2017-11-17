@@ -8,7 +8,7 @@ APIs for the LCR Player are split into the following sections:
 
 All requests expect/return JSON data unless stated otherwise
 
-### Public
+## Public
 
 #### GET /api/public/show
 
@@ -20,7 +20,7 @@ Get a show by slug
 
 #### GET /api/public/songs/now
 
-Get the current on-air song and Genius data for it
+Get the current on-air song and Genius data for it 
 
 ### GET /api/public/songs/recent
 
@@ -30,10 +30,6 @@ URL Parameters:
 
 - limit 
 - skip
-
-## Private
-
-Internal requests used by the CMS only
 
 ## Utility
 
@@ -45,12 +41,69 @@ Please add the header `"Authorization" : "Bearer [key]"` with all requests
 
 or use the URL parameter `token=[token]`
 
-#### POST /api/utility/recording
+#### POST /api/utility/currentshow
+
+Set the current show data that is displayed in the Player
 
 ```json
 {
     "slug" : "show-slug",
-    "description" : "A short description of the episode",
-    "manifest" : "https://host/folder/Xd6ajds.json"
+    "title" : "Optional title",
+    "description" : "Optional description",
+    "disableSongDisplay" : false
 }
 ```
+
+"disableSongDisplay" will hide the song list for the player if set to true
+If title & description are not set, the title and description for the specified show will be used
+
+#### DELETE /api/utility/currentshow
+
+Clear the current show data
+
+#### GET /api/utility/currentshow
+
+Get the current show data
+
+#### POST /api/utility/episode
+
+Add an episode
+
+```json
+{
+    "metafile" : "url-of-meta-file",
+    "title" : "Episode Title",
+    "description" : "Episode Description",
+    "showSlug" : "slug-of-show-or-null",
+    "tags" : "space seperated keywords",
+    "image" : "url of 16:9 poster image",
+    "public" : true
+}
+```
+
+Response is the validated entry with an additional uniquely generated parameter "_id"
+
+#### POST /api/utility/episode/:id
+
+Update an Episode entry. Request format is the same as for inserting a new episode
+
+### Recorder Workflow
+
+When the show starts:
+
+ `POST /api/utility/currentshow` to update the player status
+
+While the show is running:
+
+`GET /api/utility/currentshow` occasionaly to make sure the player status hasn't been overwritten
+
+When the show ends:
+
+1. `DELETE /api/utility/currentshow` to clear the current show data
+2. Generate meta file & write to web file server
+3. `POST /api/utility/show` to add show to website
+
+
+## Private
+
+Internal requests used by the CMS only

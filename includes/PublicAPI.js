@@ -27,8 +27,24 @@ function PublicAPI(app, db, Shows, Episodes, NowPlaying){
 
     });
 
-    app.get('/api/public/episode/id', function(req,res){
+    app.get('/api/private/episode', function(req, res){
+        
+        var limit = parseInt(req.query.limit) || 0;
+        var skip = parseInt(req.query.skip) || 0;
+        
+        Episodes.getAll(limit, skip).then(function(episodes){
+                res.send(episodes);
+            },function(){
+                res.status(404).send('Not found');
+            });
+    });
 
+    app.get('/api/private/episode/:id', function(req, res){
+        Episodes.getBySlug(req.params.id).then(function(show){
+            res.send(show);
+        },function(){
+            res.status(404).send('Not found');
+        });
     });
 
     app.get('/api/public/nowplaying', function(req,res){

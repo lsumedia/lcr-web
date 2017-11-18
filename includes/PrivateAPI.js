@@ -82,7 +82,7 @@ function PrivateApi(app, db, auth, Shows, Episodes){
     });
     
     app.get('/api/private/episode/:id', auth, function(req, res){
-        Episodes.getBySlug(req.params.id).then(function(show){
+        Episodes.getById(req.params.id).then(function(show){
             res.send(show);
         },function(){
             res.status(404).send('Not found');

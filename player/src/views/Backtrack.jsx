@@ -7,13 +7,17 @@ function EpisodeList(props){
     const episodes = props.episodes;
     const listItems = episodes.map((episode) => {
         return (
-        <li key={episode.slug}>
+        <li className="list-group-item" key={episode.slug}>
             {episode.title}
         </li>
         );
     });
     return (
-        <ul>{listItems}</ul>
+        <div className="card" >
+                <ul className="list-group list-group-flush hide-md-and-down">
+                    {listItems}
+                </ul>
+            </div>
     )
 }
 
@@ -23,7 +27,7 @@ class Backtrack extends Component{
     state = { episodes : [] }
 
     getShowsList(){
-        $.getJSON('/api/public/show/all').done((response) => {
+        $.getJSON('/api/public/show').done((response) => {
             this.setState({episodes : response});
         });
     }

@@ -40,7 +40,7 @@ function PublicAPI(app, db, Shows, Episodes, NowPlaying){
     });
 
     app.get('/api/public/episode/:id', function(req, res){
-        Episodes.getBySlug(req.params.id).then(function(show){
+        Episodes.getById(req.params.id).then(function(show){
             res.send(show);
         },function(){
             res.status(404).send('Not found');

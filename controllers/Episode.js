@@ -1,7 +1,8 @@
 
 var shortid = require('shortid');
+var request = require('request');
 
-function EpisodeController(db){
+function EpisodeController(db, Shows){
     
         var col = db.collection('episodes');
     
@@ -79,8 +80,18 @@ function EpisodeController(db){
                         reject(err);
                     }else if(docs.length == 0){
                         reject('No documents found');
+                    }else{
+                        var doc = docs[0];
+                        request.get(doc.metafile, function(err, res, body){
+                            if(err) console.error(err);
+                            try{
+                                doc.meta = JSON.parse(body);
+                                resolve(doc);
+                            }catch(err){
+                                resolve(doc);
+                            }
+                        });
                     }
-                    else resolve(docs[0]);
                 });
             });
         }
@@ -95,12 +106,29 @@ function EpisodeController(db){
                 });
             });
         }
-    
-        this.getByTag = function(limit = 0, skip = 0){
-    
+
+        this.getAllPublic = function(limit = 0, skip = 0){
+            
+            return new Promise((resolve, reject) =>
+            { 
+                col.find({public : true}).limit(limit).skip(skip).toArray(function(err, docs){
+                    if(err) reject(err);
+                    else resolve(docs);
+                });
+            });
         }
     
-        this.getByStringSearch = function(limit = 0, skip = 0){
+        this.getByTag = function(tag, limit = 0, skip = 0){
+            return new Promise((resolve, reject) =>
+            { 
+                col.find({tags : {'$regex' : tag}}).limit(limit).skip(skip).toArray(function(err, docs){
+                    if(err) reject(err);
+                    else resolve(docs);
+                });
+            });
+        }
+    
+        this.getByStringSearch = function(string, limit = 0, skip = 0){
     
         }
     

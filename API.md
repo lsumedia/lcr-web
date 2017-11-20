@@ -18,6 +18,10 @@ Get a list of all shows
 
 Get a show by slug
 
+#### GET /api/public/currentshow
+
+Get the current show & song information
+
 #### GET /api/public/songs/now
 
 Get the current on-air song and Genius data for it 
@@ -50,12 +54,14 @@ Set the current show data that is displayed in the Player
     "slug" : "show-slug",
     "title" : "Optional title",
     "description" : "Optional description",
+    "image" : "optional url of 16:9 poster imag",
     "disableSongDisplay" : false
 }
 ```
 
-"disableSongDisplay" will hide the song list for the player if set to true
-If title & description are not set, the title and description for the specified show will be used
+"disableSongDisplay" will hide the song list for the player if set to true.
+If title & description are not set, the title and description for the specified show will be used.
+All fields are optional. If a valid show slug is provided, data will be filled in from that show to replace blank values.
 
 #### DELETE /api/utility/currentshow
 
@@ -85,7 +91,7 @@ Response is the validated entry with an additional uniquely generated parameter 
 
 #### POST /api/utility/episode/:id
 
-Update an Episode entry. Request format is the same as for inserting a new episode
+Update an Episode entry. Request format is the same as for inserting a new episode. Note that all fields must be provided.
 
 ### Recorder Workflow
 
@@ -95,13 +101,14 @@ When the show starts:
 
 While the show is running:
 
-`GET /api/utility/currentshow` occasionaly to make sure the player status hasn't been overwritten
+`GET /api/utility/currentshow` occasionally to make sure the player status hasn't been overwritten
+The response for this request will contain additional data for the show (if a valid slug is provided) and current song info
 
 When the show ends:
 
 1. `DELETE /api/utility/currentshow` to clear the current show data
 2. Generate meta file & write to web file server
-3. `POST /api/utility/show` to add show to website
+3. `POST /api/utility/episode` to add episode to database
 
 
 ## Private

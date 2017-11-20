@@ -30,8 +30,33 @@ function CurrentShowController(db, Shows, NowPlaying){
     }
 
     this.getCurrentShow = function(){
+
+        var result = {
+            title : currentShow.title,
+            description : currentShow.description,
+            image : currentShow.image,
+            disableSongDisplay : currentShow.disableSongDisplay,
+            trackData : NowPlaying.currentTrackInfo()
+        }
+
         return new Promise((resolve, reject) =>{
-            resolve(currentShow);
+            
+            Shows.getShowBySlug(currentShow.slug).then(function(show){
+                result.show = show;
+
+                if(result.image.length < 1) result.image = show.image;
+                if(result.title.length < 1) result.title = show.title;
+                if(result.description.length < 1) result.description = show.description;
+
+                resolve(result);
+
+            }, function(err){
+
+                result.show = {};
+                resolve(result);
+                
+            });
+
         });
     }
 

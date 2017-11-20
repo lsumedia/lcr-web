@@ -1,6 +1,6 @@
 const request = require('request');
 
-function PublicAPI(app, db, Shows, Episodes, NowPlaying){
+function PublicAPI(app, db, Shows, Episodes, NowPlaying, CurrentShow){
 
 
     app.get('/api/public/show', function(req, res){
@@ -46,6 +46,21 @@ function PublicAPI(app, db, Shows, Episodes, NowPlaying){
             res.status(404).send('Not found');
         });
     });
+
+    /* CURRENT SHOW DATA */
+
+    app.get('/api/public/currentshow', function(req,res){
+        CurrentShow.getCurrentShow().then(
+             function(currentShow){
+                 res.send(currentShow);
+             },
+             function(){
+                 res.status(500).send();
+             }
+        )
+     });
+
+    /* RAW TRACK DATA */
 
     app.get('/api/public/nowplaying', function(req,res){
         request('http://ice.lsu.co.uk:8080/status-json.xsl').pipe(res);

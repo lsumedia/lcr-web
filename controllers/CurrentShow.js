@@ -7,7 +7,7 @@ function CurrentShowController(db, Shows, NowPlaying){
 
     function validate(obj){
         return {
-            slug : obj.showSlug || null,
+            slug : obj.slug || null,
             title : obj.title || "",
             description : obj.description || "", 
             image : obj.image || "",

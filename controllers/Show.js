@@ -14,25 +14,21 @@ function ShowController(db){
             description : obj.description,
             tags : obj.tags,
             image : obj.image,
-            slug: showSlug
+            slug: obj.slug
         }
     }
 
-    this.insert = function(title, description, tags, image){
+    this.insert = function(obj){
 
         return new Promise((resolve, reject) => {
 
-            if(title.length < 5){  reject('Initial title must be at least 5 characters'); return; }
+            var newShow = validate(obj);
 
-            var showSlug = slugMaker(title.toLowerCase());
-            
-            var newShow = {
-                title : title,
-                description : description,
-                tags : tags,
-                image : image,
-                slug: showSlug
-            }
+            if(newShow.title.length < 5){  reject('Initial title must be at least 5 characters'); return; }
+
+            var showSlug = slugMaker(newShow.title.toLowerCase());
+
+            newShow.slug = showSlug;
            
             col.find({slug : showSlug}).toArray(function(err, docs){
 
@@ -60,15 +56,10 @@ function ShowController(db){
 
     }
 
-    this.update = function(slug, title, description, tags, image){
+    this.update = function(slug, obj){
 
-        var showObj = {
-            title: title,
-            description: description,
-            tags : tags,
-            image : image,
-            slug : slug
-        };
+        var showObj = validate(obj);
+        showObj.slug = slug;
 
         return new Promise((resolve, reject) => {
             

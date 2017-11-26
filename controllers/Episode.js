@@ -45,8 +45,9 @@ function EpisodeController(db, Shows){
             return new Promise((resolve, reject) => {
                 
                 col.update({_id: id}, episode, function(err, results){
-                    if(err || results.result.n == 0){ 
+                    if(err || (results.result.n == 0)){ 
                         reject(err); 
+                        return;
                     }
                     else {
                         console.log("episode: Updated episode " + id);

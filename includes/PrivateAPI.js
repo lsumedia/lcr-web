@@ -1,7 +1,7 @@
 
 var express = require('express');
 
-function PrivateApi(app, db, auth, Shows, Episodes){
+function PrivateApi(app, db, auth, Shows, Episodes, NowPlaying, CurrentShow, Tokens){
    
 
     /* Shows */
@@ -27,15 +27,11 @@ function PrivateApi(app, db, auth, Shows, Episodes){
     });
 
     app.post('/api/private/show/', auth, express.json(), function(req, res){
-
-        var title = req.body.title;
-        var description = req.body.description;
-        var tags = req.body.tags;
-        var image = req.body.image;
         
-        Shows.insert(title, description, tags, image).then(function(show){
+        Shows.insert(req.body).then(function(show){
             res.send(show);
         },function(err){
+            console.log(err);
             res.status(400).send(err);
         });
 
@@ -43,13 +39,8 @@ function PrivateApi(app, db, auth, Shows, Episodes){
 
     app.post('/api/private/show/:slug', auth, express.json(), function(req, res){
         var slug = req.params.slug;
-
-        var title = req.body.title;
-        var description = req.body.description;
-        var tags = req.body.tags;
-        var image = req.body.image;
         
-       Shows.update(slug, title, description, tags, image).then(function(show){
+       Shows.update(slug, req.body).then(function(show){
             res.send(show);
         },function(err){
             res.status(404).send(err);
@@ -123,6 +114,46 @@ function PrivateApi(app, db, auth, Shows, Episodes){
 
     /* Folder Size */
 
+    /* Tokens */
+
+    //Create token
+    app.post('/api/private/token', auth, function(req,res){
+        Tokens.generate().then(function(token){
+            res.status(200).send(token);
+        }, function(err){
+            res.status(500).send(err.message);
+        })
+    });
+
+    app.delete('/api/private/token/:id', auth, function(req,res){
+        Tokens.delete().then(function(response){
+            res.send(response);
+        }, function(err){
+            res.status(404).send(err.message);
+        })
+    });
+
+    //List of tokens (provides only id & creation time/expiry)
+    app.get('/api/private/token/', auth, function(req, res){
+
+        var limit = parseInt(req.query.limit) || 0;
+        var skip = parseInt(req.query.skip) || 0;
+
+        Tokens.getAll(limit, skip).then(function(docs){
+            res.send(docs);
+        },function(err){
+            res.status(500).send(err.message);
+        });
+    });
+
+    //Get individual token (including secret)
+    app.get('/api/private/token/:id', auth, function(req, res){
+        Tokens.getSecret(req.params.id).then(function(doc){
+            res.send(doc);
+        }, function(err){
+            res.status(404).send("Not found");
+        });
+    });
 
 }
 

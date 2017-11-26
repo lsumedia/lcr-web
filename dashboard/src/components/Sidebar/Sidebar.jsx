@@ -68,6 +68,12 @@ class Sidebar extends Component{
                                 <p>Schedule</p>
                             </NavLink>
                         </li>
+                        <li className={this.activeRoute("/tokens")}>
+                            <NavLink to={'/tokens'} className="nav-link" activeClassName="active">
+                                <i className="pe-7s-clock"></i>
+                                <p>Tokens</p>
+                            </NavLink>
+                        </li>
                     </ul>
                 </div>
             </div>

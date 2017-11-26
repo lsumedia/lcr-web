@@ -89,15 +89,15 @@ app.use('/', express.static('player/build')); //Public page
 
 //REST API
 
-var privateAPI = new (require('./includes/PrivateAPI.js'))(app, db, authfn, Shows, Episodes, NowPlaying, CurrentShow);
+var privateAPI = new (require('./includes/PrivateAPI.js'))(app, db, authfn, Shows, Episodes, NowPlaying, CurrentShow, Tokens);
 
 //Public API
 
-var publicAPI = new (require('./includes/PublicAPI.js'))(app, db, Shows, Episodes, NowPlaying, CurrentShow);
+var publicAPI = new (require('./includes/PublicAPI.js'))(app, db, Shows, Episodes, NowPlaying, CurrentShow, Tokens);
 
 //Utility API
 
-var utilityAPI = new (require('./includes/UtilityAPI.js'))(app, db, Tokens.authenticateToken(), Shows, Episodes, NowPlaying, CurrentShow);
+var utilityAPI = new (require('./includes/UtilityAPI.js'))(app, db, Tokens.tokenMiddleware(), Shows, Episodes, NowPlaying, CurrentShow);
 
 
 /* START SERVER */

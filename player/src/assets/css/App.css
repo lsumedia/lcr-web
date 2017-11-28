@@ -5,7 +5,7 @@ html{
 
 body{
   margin-bottom: 70px;
-  background-color: #272727;
+  background-color: #2586C7;
   color: white;
 }
 
@@ -63,20 +63,47 @@ a{
 
 .scroll-container{
   position: fixed;
+  top: 65px;
   left: 0px;
   right: 0px;
-  top: 65px;
   bottom: 55px;
   overflow-x: hidden;
   overflow-y: auto;
-  padding-top: 15px;
-  padding-bottom: 15px;
+  padding-top: 0px;
 }
 
 .modal-menu{
-  background-color: #eee;
+  background-color: #2586C7;
   z-index: 40;
   display: none;
+}
+
+.menu-title{
+  padding-left: 
+  5%;
+}
+
+.menu-title-1{
+  padding-top: 
+  2%;
+  padding-bottom: 
+  3%;
+  padding-left: 
+  41%;
+}
+
+.menu-title-2{
+  padding-left: 
+  5%;
+}
+
+.menu-title-3{
+	position: relative;
+	left: 39%;
+  padding-top: 
+  4%;
+  padding-bottom: 
+  3%;
 }
 
 .modal-menu[open]{
@@ -114,4 +141,20 @@ a{
 .nav-option:hover{
   background-color: #555555;
   text-decoration: none;
+}
+
+.nav-link{
+  padding-top: 
+  50%;
+}
+
+.card-menu {
+  padding-top: 4%;
+  padding-bottom: 2%;
+}
+
+.card-options {
+  padding-top: 5%;
+  padding-bottom: 0%;
+  background-color: rgba(59,66,76,0.95);
 }

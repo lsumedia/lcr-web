@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 
 import VideoPlayer from '../components/VideoPlayer';
 
-import Poster from '../assets/img/lcr_splash.png';
+import Poster from '../assets/img/insta.gif';
 
 import NowPlaying from '../components/NowPlaying';
 
@@ -44,15 +44,15 @@ class Live extends Component {
     if(!showData.image) showData.image = this.defaults.image;
 
     return (
-        <div className="container-fluid" id="live-container">
+        <div className="" id="live-container">
           <div className="row">
               <div class="col-sm-12 col-lg-8 col-xl-7 offset-xl-2">
                 <div className="card">
                   <img className="card-img-top" src={showData.image} alt="Show Image" />
-                  <div className="card-body">
-                    <h4 className="card-title">{showData.title}</h4>
-                    {showData.description}
-                  </div>
+                </div>
+                <div className="card-body">
+                  <h4 className="card-title">{showData.title}</h4>
+                  {showData.description}
                 </div>
               </div>
               <div class="col-sm-12 col-lg-4 col-xl-3">

@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 
 /* global $ */
 
-
 function EpisodeList(props){
     const episodes = props.episodes;
     const listItems = episodes.map((episode) => {
@@ -14,6 +13,7 @@ function EpisodeList(props){
     });
     return (
         <div className="card" >
+        <h3 className="menu-title-3">Shows</h3>
                 <ul className="list-group list-group-flush hide-md-and-down">
                     {listItems}
                 </ul>
@@ -39,8 +39,7 @@ class Backtrack extends Component{
 
     render(){
         return (
-            <div className="container">
-                <h4>Backtrack</h4>
+            <div className="">
                 <EpisodeList episodes={this.state.episodes} />
             </div>
         );

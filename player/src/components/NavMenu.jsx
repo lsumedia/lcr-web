@@ -6,23 +6,23 @@ class NavMenu extends Component{
         return(
             <div open={this.props.open} className="scroll-container modal-menu bg-dark text-white">
                 <div class="container">
-                    <h3>Menu</h3>
+                    <h3 className="menu-title-1">Menu</h3>
                     <NavLink to={'/'} onClick={this.props.hideMenu} className="card nav-option">
-                        <div className="card-body">
-                            <h4 className="card-title">Listen Live</h4>
-                            Right now
+                        <div className="card-body card-menu">
+                            <h4 className="card-title menu-title">Listen Live</h4>
+                            <p className="menu-title-2"> Right now</p>
                         </div>
                     </NavLink>
                     <NavLink to={'/backtrack'} onClick={this.props.hideMenu} className="card nav-option">
-                        <div className="card-body">
-                            <h4 className="card-title">Backtrack</h4>
-                            Previous shows 
+                        <div className="card-body card-menu">
+                            <h4 className="card-title menu-title">Backtrack</h4>
+                            <p className="menu-title-2"> Previous shows</p>
                         </div>
                     </NavLink> 
                     <NavLink to={'/schedule'} onClick={this.props.hideMenu} className="card nav-option">
-                        <div className="card-body">
-                            <h4 className="card-title">Schedule</h4>
-                            What's next
+                        <div className="card-body card-menu">
+                            <h4 className="card-title menu-title">Schedule</h4>
+                            <p className="menu-title-2"> What's next</p>
                         </div>
                     </NavLink>
                 </div>

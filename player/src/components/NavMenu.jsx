@@ -5,7 +5,7 @@ class NavMenu extends Component{
     render(){
         return(
             <div open={this.props.open} className="scroll-container modal-menu bg-dark text-white">
-                <div class="container">
+                <div class="">
                     <h3 className="menu-title-1">Menu</h3>
                     <NavLink to={'/'} onClick={this.props.hideMenu} className="card nav-option">
                         <div className="card-body card-menu">

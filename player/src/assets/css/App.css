@@ -5,7 +5,7 @@ html{
 
 body{
   margin-bottom: 70px;
-  background-color: #2586C7;
+  background-color: rgba(59,66,76,0.95);
   color: white;
 }
 
@@ -146,6 +146,10 @@ a{
 .nav-link{
   padding-top: 
   50%;
+}
+
+.now-playing-info{
+  background-color: #2586C7;
 }
 
 .card-menu {

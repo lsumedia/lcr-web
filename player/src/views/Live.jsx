@@ -50,7 +50,7 @@ class Live extends Component {
                 <div className="card">
                   <img className="card-img-top" src={showData.image} alt="Show Image" />
                 </div>
-                <div className="card-body">
+                <div className="card-body now-playing-info">
                   <h4 className="card-title">{showData.title}</h4>
                   {showData.description}
                 </div>

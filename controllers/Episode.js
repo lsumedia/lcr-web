@@ -16,7 +16,7 @@ function EpisodeController(db, Shows){
                 showSlug : obj.showSlug || "",
                 tags : obj.tags || "",
                 image : obj.image || "",
-                public : obj.public || true
+                public : obj.public
             }
             return episode;
         }
@@ -89,6 +89,7 @@ function EpisodeController(db, Shows){
                                 doc.meta = JSON.parse(body);
                                 resolve(doc);
                             }catch(err){
+                                doc.meta = "Error gettings metadata: " + err.message;
                                 resolve(doc);
                             }
                         });

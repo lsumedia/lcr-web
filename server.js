@@ -76,7 +76,7 @@ var authfn = (config.authenticate)? passport.authenticate('facebook') : (req, re
 
 var Tokens = new(require('./controllers/Token.js'))(db);
 var Shows = new (require('./controllers/Show.js'))(db);
-var Episodes = new (require('./controllers/Episode.js'))(db, Shows);
+var Episodes = new (require('./controllers/Episode.js'))(db, config, Shows);
 var NowPlaying = new(require('./controllers/NowPlaying.js'))(db, config);
 var CurrentShow = new(require('./controllers/CurrentShow.js'))(db, Shows, NowPlaying);
 

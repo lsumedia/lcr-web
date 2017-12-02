@@ -2,11 +2,18 @@
 var shortid = require('shortid');
 var request = require('request');
 
-function EpisodeController(db, Shows){
+function EpisodeController(db, config, Shows){
     
         var col = db.collection('episodes');
     
         var _this = this;
+        
+        var episodeTypes = {
+            "episode" : "Episode",
+            "podcast" : "Podcast",
+            "mix" : "DJ Mix",
+            "update" : "News Update"
+        }
 
         function validate(obj){
 
@@ -137,7 +144,7 @@ function EpisodeController(db, Shows){
         }
     
         this.getByStringSearch = function(string, limit = 0, skip = 0){
-    
+            
         }
     
         this.getNumberOfShows = function(){

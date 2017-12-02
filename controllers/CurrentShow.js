@@ -11,7 +11,8 @@ function CurrentShowController(db, Shows, NowPlaying){
             title : obj.title || "",
             description : obj.description || "", 
             image : obj.image || "",
-            disableSongDisplay : obj.disableSongDisplay || false
+            disableSongDisplay : obj.disableSongDisplay || false,
+            active : obj.active || false       //If active=false, show should still display in page, just not in recorder interface
         }
     }
 

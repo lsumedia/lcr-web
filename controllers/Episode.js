@@ -9,14 +9,20 @@ function EpisodeController(db, Shows){
         var _this = this;
 
         function validate(obj){
+
+            var publishDate = (obj.publishTime)?  new Date(obj.publishTime) : new Date() ;
+            var publishTime = publishDate.toISOString();
+
             var episode = {
                 metafile : obj.metafile,
                 title : obj.title || "",
+                type : obj.type || null,
                 description : obj.description || "",
                 showSlug : obj.showSlug || "",
                 tags : obj.tags || "",
                 image : obj.image || "",
-                public : obj.public
+                public : obj.public,
+                publishTime : obj.publishTime
             }
             return episode;
         }

@@ -24,7 +24,15 @@ function PublicAPI(app, db, Shows, Episodes, NowPlaying, CurrentShow){
     });
 
     app.get('/api/public/episode/byshow/:slug', function(req,res){
-
+        var limit = parseInt(req.query.limit) || 0;
+        var skip = parseInt(req.query.skip) || 0;
+        var slug = req.params.slug;
+        
+        Episodes.getByShow(slug, limit, skip).then(function(episodes){
+                res.send(episodes);
+            },function(){
+                res.status(404).send('Not found');
+            });
     });
 
     app.get('/api/public/episode', function(req, res){

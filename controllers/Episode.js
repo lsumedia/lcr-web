@@ -132,6 +132,16 @@ function EpisodeController(db, config, Shows){
                 });
             });
         }
+
+        this.getByShow = function(slug, limit = 0, skip = 0){
+            return new Promise((resolve, reject) =>
+            { 
+                col.find({slug : slug}).limit(limit).skip(skip).toArray(function(err, docs){
+                    if(err) reject(err);
+                    else resolve(docs);
+                });
+            });
+        }
     
         this.getByTag = function(tag, limit = 0, skip = 0){
             return new Promise((resolve, reject) =>

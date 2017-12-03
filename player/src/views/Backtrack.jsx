@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Route, Switch, Redirect, NavLink } from 'react-router-dom';
+import defaultData from '../Variables.jsx';
 
 /* global $ */
 
@@ -44,10 +45,24 @@ class ShowPage extends Component{
     }
 
     render(){
+        var showData = this.state.showmeta;
+        if(!showData.image) showData.image = defaultData.image;
         return (
-        <div>
-            {this.state.showmeta.title}
-        </div>)
+        <div className="" id="live-container">
+          <div className="row">
+              <div class="col-sm-12 col-lg-8 col-xl-7 offset-xl-2">
+                <div className="card">
+                  <img className="card-img-top" src={showData.image} alt="Show Image" />
+                </div>
+                <div className="card-body now-playing-info">
+                  <h4 className="card-title">{showData.title}</h4>
+                  {showData.description}
+                </div>
+              </div>
+              <div class="col-sm-12 col-lg-4 col-xl-3">
+               </div>
+          </div> 
+      </div>)
     }
 }
 

@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 
 import VideoPlayer from '../components/VideoPlayer';
 
-import Poster from '../assets/img/insta.gif';
+import {defaultData, defaultPoster } from '../Variables.jsx';
 
 import NowPlaying from '../components/NowPlaying';
 
@@ -14,11 +14,7 @@ class Live extends Component {
       showData : {}
   };
 
-  defaults = {
-    title: "LCR Live",
-    description: "Your Soundtrack to Loughborough!",
-    image : Poster
-  };
+  defaults = defaultData;
 
   updateShowData(){
   $.get('/api/public/currentshow').done((response) => {

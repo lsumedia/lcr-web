@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
+import { NavLink } from 'react-router-dom';
 
 /* global $ */
 
 import VideoPlayer from '../components/VideoPlayer';
 
-import {defaultData, defaultPoster } from '../Variables.jsx';
+import { defaultData, defaultPoster } from '../Variables.jsx';
 
 import NowPlaying from '../components/NowPlaying';
 
@@ -39,6 +40,13 @@ class Live extends Component {
     if(!showData.description) showData.description = this.defaults.description;
     if(!showData.image) showData.image = this.defaults.image;
 
+    var ShowLink;
+    
+    if(showData.show && showData.show.slug){
+        var path = '/backtrack/' + showData.show.slug;
+        ShowLink = (<NavLink to={path}>More from {showData.show.title}</NavLink>);
+    }
+
     return (
         <div className="" id="live-container">
           <div className="row">
@@ -48,7 +56,8 @@ class Live extends Component {
                 </div>
                 <div className="card-body now-playing-info">
                   <h4 className="card-title">{showData.title}</h4>
-                  {showData.description}
+                  {showData.description}<br />
+                  {ShowLink}
                 </div>
               </div>
               <div class="col-sm-12 col-lg-4 col-xl-3">

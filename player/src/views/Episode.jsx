@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Route, Switch, Redirect, NavLink } from 'react-router-dom';
-import defaultData from '../Variables.jsx';
+import { defaultData } from '../Variables.jsx';
 
 //import * as videojs from 'video.js';
 /* global $, videojs */

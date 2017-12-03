@@ -5,9 +5,9 @@ import React, { Component } from 'react';
 class Episode extends Component{
     render(){
         return (
-            <h4?Backtrack</h4>
+            <h4>Backtrack</h4>
         );
     }
 }
 
-export default Episdoe;
+export default Episode;

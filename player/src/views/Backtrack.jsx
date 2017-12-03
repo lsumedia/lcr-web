@@ -1,14 +1,16 @@
 import React, { Component } from 'react';
+import { Route, Switch, Redirect, NavLink } from 'react-router-dom';
 
 /* global $ */
 
-function EpisodeList(props){
-    const episodes = props.episodes;
-    const listItems = episodes.map((episode) => {
+function ShowList(props){
+    const shows = props.shows;
+    const listItems = shows.map((show) => {
+        var path = '/backtrack/' + show.slug;
         return (
-        <li className="list-group-item" key={episode.slug}>
-            {episode.title}
-        </li>
+            <NavLink to={path} className="list-group-item" key={show.slug}>
+                {show.title}
+            </NavLink>
         );
     });
     return (
@@ -21,14 +23,42 @@ function EpisodeList(props){
     )
 }
 
+class ShowPage extends Component{
+    
+    state = { showmeta : {} }
+
+    getShowData(){
+        var slug = this.props.match.params.slug;
+        $.getJSON('/api/public/show/' + slug).done((response) => {
+            this.setState({showmeta: response})
+        });
+    }
+
+    getEpisodes(){
+        var slug = this.props.match.params.slug;
+        
+    }
+
+    componentDidMount(){
+        this.getShowData();
+    }
+
+    render(){
+        return (
+        <div>
+            {this.state.showmeta.title}
+        </div>)
+    }
+}
+
 
 class Backtrack extends Component{
 
-    state = { episodes : [] }
+    state = { shows : [] }
 
     getShowsList(){
         $.getJSON('/api/public/show').done((response) => {
-            this.setState({episodes : response});
+            this.setState({shows : response});
         });
     }
 
@@ -40,7 +70,12 @@ class Backtrack extends Component{
     render(){
         return (
             <div className="">
-                <EpisodeList episodes={this.state.episodes} />
+                <Switch>
+                    <Route path="/backtrack/:slug" component={ShowPage} />
+                    <Route path="/backtrack">
+                        <ShowList shows={this.state.shows} />
+                    </Route>
+                </Switch>
             </div>
         );
     }

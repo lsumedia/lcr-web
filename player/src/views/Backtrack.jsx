@@ -26,7 +26,10 @@ function ShowList(props){
 
 class ShowPage extends Component{
     
-    state = { showmeta : {} }
+    state = { 
+        showmeta : {},
+        episodes : []
+    }
 
     getShowData(){
         var slug = this.props.match.params.slug;
@@ -37,16 +40,32 @@ class ShowPage extends Component{
 
     getEpisodes(){
         var slug = this.props.match.params.slug;
-        
+        $.getJSON('/api/public/episode/byshow/' + slug).done((response) => {
+            this.setState({episodes : response});
+        });
     }
 
     componentDidMount(){
         this.getShowData();
+        this.getEpisodes();
     }
 
     render(){
         var showData = this.state.showmeta;
         if(!showData.image) showData.image = defaultData.image;
+
+        var episodeList = this.state.episodes.map((episode) => {
+            var path = '/episode/' + episode._id;
+            return (
+                <NavLink to={path} class="list-group-item">
+                    <div className="text-left">
+                        {episode.title}<br />
+                        {episode.description}
+                    </div>
+                 </NavLink>
+            );
+        });
+
         return (
         <div className="" id="live-container">
           <div className="row">
@@ -58,9 +77,13 @@ class ShowPage extends Component{
                   <h4 className="card-title">{showData.title}</h4>
                   {showData.description}
                 </div>
-              </div>
-              <div class="col-sm-12 col-lg-4 col-xl-3">
-               </div>
+                </div>
+                <ul className="list-group list-group-flush">
+                    <li class="list-group-item">
+                        Episodes
+                    </li>
+                    {episodeList}
+                </ul>
           </div> 
       </div>)
     }

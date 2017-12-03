@@ -16,7 +16,8 @@ import AudioPlayer from '../components/AudioPlayer';
 //Pages
 import Live from '../views/Live';
 import Backtrack from '../views/Backtrack';
-import Schedule from '../views/Schedule'
+import Schedule from '../views/Schedule';
+import Episode from '../views/Episode'
 
 class App extends Component {
 
@@ -50,6 +51,7 @@ class App extends Component {
                 <Route path="/live" component={Live}/>
                 <Route path="/backtrack" component={Backtrack}/>
                 <Route path="/schedule" component={Schedule}/>
+                <Route path="/episode" component={Episode} />
                 <Redirect from="/" to="/live" />
             </Switch> 
 

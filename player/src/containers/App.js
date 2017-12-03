@@ -51,7 +51,7 @@ class App extends Component {
                 <Route path="/live" component={Live}/>
                 <Route path="/backtrack" component={Backtrack}/>
                 <Route path="/schedule" component={Schedule}/>
-                <Route path="/episode" component={Episode} />
+                <Route path="/episode/:id" component={Episode} />
                 <Redirect from="/" to="/live" />
             </Switch> 
 

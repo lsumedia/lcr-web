@@ -11,8 +11,7 @@ function CurrentShowController(db, Shows, NowPlaying){
             title : obj.title || "",
             description : obj.description || "", 
             image : obj.image || "",
-            disableSongDisplay : obj.disableSongDisplay || false,
-            active : obj.active || false       //If active=false, show should still display in page, just not in recorder interface
+            disableSongDisplay : obj.disableSongDisplay || false
         }
     }
 
@@ -32,13 +31,9 @@ function CurrentShowController(db, Shows, NowPlaying){
 
     this.getCurrentShow = function(){
 
-        var result = {
-            title : currentShow.title,
-            description : currentShow.description,
-            image : currentShow.image,
-            disableSongDisplay : currentShow.disableSongDisplay,
-            trackData : NowPlaying.currentTrackInfo()
-        }
+        var result = currentShow;
+
+        result.trackData = NowPlaying.currentTrackInfo();
 
         return new Promise((resolve, reject) =>{
             

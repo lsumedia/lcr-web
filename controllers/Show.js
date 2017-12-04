@@ -14,7 +14,8 @@ function ShowController(db){
             description : obj.description,
             tags : obj.tags,
             image : obj.image,
-            slug: obj.slug
+            slug: obj.slug,
+            active : obj.active       //If active=false, show should still display in page, just not in recorder interface
         }
     }
 

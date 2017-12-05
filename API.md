@@ -26,7 +26,7 @@ Get the current show & song information
 
 Get the current on-air song and Genius data for it 
 
-### GET /api/public/songs/recent
+#### GET /api/public/songs/recent
 
 Get some recently played songs
 
@@ -34,6 +34,10 @@ URL Parameters:
 
 - limit 
 - skip
+
+#### GET /api/public/episodetypes
+
+Get the currently available types of episodes
 
 ## Utility
 
@@ -78,6 +82,8 @@ Add an episode
 ```json
 {
     "metafile" : "url-of-meta-file",
+    "type" : "episode-type",
+    "publishTime" : "2017-12-05T15:01",
     "title" : "Episode Title",
     "description" : "Episode Description",
     "showSlug" : "slug-of-show-or-null",

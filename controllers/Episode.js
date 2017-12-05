@@ -15,6 +15,12 @@ function EpisodeController(db, config, Shows){
             "update" : "News Update"
         }
 
+        this.getEpisodeTypes = function(){
+            return new Promise((resolve, reject) => {
+                resolve(episodeTypes);
+            });
+        }
+
         function validate(obj){
 
             var publishDate = (obj.publishTime)?  new Date(obj.publishTime) : new Date() ;

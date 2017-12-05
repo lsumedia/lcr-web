@@ -49,11 +49,11 @@ function PublicAPI(app, db, Shows, Episodes, NowPlaying, CurrentShow){
 
     app.get('/api/public/episodetypes', function(req, res){
         Episodes.getEpisodeTypes().then(function(types){
-            res.seend(types);
-        }, function(){
-            res.status(500).send("Error, where there should never be an error. Something has gone badly wrong");
-        }
-    );
+                res.send(types);
+            }, function(){
+                res.status(500).send("Error, where there should never be an error. Something has gone badly wrong");
+            });
+    });
 
     app.get('/api/public/episode/:id', function(req, res){
         Episodes.getById(req.params.id).then(function(show){

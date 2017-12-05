@@ -53,7 +53,7 @@ function PublicAPI(app, db, Shows, Episodes, NowPlaying, CurrentShow){
         }, function(){
             res.status(500).send("Error, where there should never be an error. Something has gone badly wrong");
         }
-    });
+    );
 
     app.get('/api/public/episode/:id', function(req, res){
         Episodes.getById(req.params.id).then(function(show){

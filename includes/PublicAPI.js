@@ -51,7 +51,7 @@ function PublicAPI(app, db, Shows, Episodes, NowPlaying, CurrentShow){
         Episodes.getEpisodeTypes().then(function(types){
             res.seend(types);
         }, function(){
-            res.status(500).send("Error, where there should never be an error. Something has gone badly wrong"):
+            res.status(500).send("Error, where there should never be an error. Something has gone badly wrong");
         }
     });
 

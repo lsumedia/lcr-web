@@ -3,7 +3,7 @@ import { Route, Switch, Redirect, NavLink } from 'react-router-dom';
 import { defaultData } from '../Variables.jsx';
 
 //import * as videojs from 'video.js';
-/* global $, videojs */
+/* global $, videojs, globals */
 
 class Episode extends Component{
     
@@ -15,19 +15,32 @@ class Episode extends Component{
         }
     }
 
+    constructor(props){
+        super(props);
+
+        this.playEpisode = this.playEpisode.bind(this);
+    }
+
     getEpisodeData(){
         var id = this.props.match.params.id;
-        console.log("ID IS: " + this.props.match.params.id);
         $.getJSON('/api/public/episode/' + id).done((response) => {
             this.setState({episodeData : response});
         });
     }
+
+    playEpisode(){
+        globals.AudioPlayer.playEpisode(this.props.match.params.id);
+        this.forceUpdate();
+    }
+
+   
 
     componentDidMount(){
         this.getEpisodeData();
     }
 
     render(){
+
 
         var episodeData = this.state.episodeData;
         if(!episodeData.image) episodeData.image = defaultData.image;
@@ -44,10 +57,11 @@ class Episode extends Component{
         <div className="" id="live-container">
           <div className="row">
               <div class="col-sm-12 col-lg-8 col-xl-7 offset-xl-2">
-                <div className="card">
-                  <video controls poster={episodeData.image} className="card-img-top">
-                      {sources}
-                  </video>
+                <div className="card episode-card">
+                    <img className="card-img-top" src={episodeData.image} />
+                    <div className="episode-play-button">
+                        <i className="material-icons" onClick={this.playEpisode}>play_circle_outline</i>
+                    </div>
                 </div>
                 <div className="card-body now-playing-info">
                   <h4 className="card-title">{episodeData.title}</h4>

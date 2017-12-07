@@ -82,6 +82,14 @@ var CurrentShow = new(require('./controllers/CurrentShow.js'))(db, Shows, NowPla
 
 /* ROUTES */
 
+//Disable cache
+app.use(function(req, res, next){
+  res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); 
+  res.setHeader("Pragma", "no-cache"); 
+  res.setHeader("Expires", 0);
+  next();
+});
+
 //Static hosts
 
 app.use('/dashboard', authfn , express.static('dashboard/build')); //Dashboard

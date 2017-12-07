@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 
+import {NavLink} from 'react-router-dom';
+
 import newId from '../utils/NewID';
 
 import '../assets/css/AudioPlayer.css';
@@ -72,10 +74,13 @@ class AudioPlayer extends Component{
 
         this.play = this.play.bind(this);
         this.pause = this.pause.bind(this);
+        this.forward20 = this.forward20.bind(this);
+        this.back20 = this.back20.bind(this);
         this.reload = this.reload.bind(this);
         this.isPlaying = this.isPlaying.bind(this);
         this.changeVolumeLevel = this.changeVolumeLevel.bind(this);
         this.toggleInfoBar = this.toggleInfoBar.bind(this);
+        this.hideInfoBar = this.hideInfoBar.bind(this);
         this.goLive = this.goLive.bind(this);
 
         this.AudioElement.addEventListener('playing', () => {
@@ -95,6 +100,14 @@ class AudioPlayer extends Component{
     pause(){
         this.AudioElement.pause();
         this.forceUpdate();
+    }
+
+    forward20(){
+        this.AudioElement.currentTime += 20;
+    }
+
+    back20(){
+        this.AudioElement.currentTime -= 20;
     }
 
     reload(){
@@ -156,6 +169,10 @@ class AudioPlayer extends Component{
     toggleInfoBar(){
         var info = (this.state.showInfo)? false : true;
         this.setState({showInfo : info});
+    }
+
+    hideInfoBar(){
+        this.setState({showInfo : false});
     }
 
     changeVolumeLevel(){
@@ -241,12 +258,35 @@ class AudioPlayer extends Component{
                         <h4>{title}</h4>
                         {details.description}
                     </div>
-                    <p class="audioplayer-additional-controls">
-                        <button className="btn btn-flat" onClick={this.goLive}>Back to LCR Live</button>
-                        <i className="material-icons float-right" onClick={this.reload}>skip_next</i>
-                    </p>
+                    {(this.state.mode == 0)? (
+                        //Live content controls
+                        <div>
+                            <p class="audioplayer-additional-controls">
+                                <i className="material-icons float-right" onClick={this.reload}>skip_next</i>
+                            </p>
+                            <div class="audioplayer-nav-buttons">
+                                <NavLink to="/live" className="btn" onClick={this.hideInfoBar}>More Info</NavLink>
+                            </div>
+                        </div>
+                    ) : (
+                        //OD content controls
+                        <div>
+                            <div class="audioplayer-additional-controls">
+                                <i className="material-icons" onClick={this.back20}>skip_previous</i>
+                                {this.isPlaying() ? 
+                                    ( <i className="material-icons" onClick={this.pause} >pause_circle_outline</i>) :
+                                    ( <i className="material-icons" onClick={this.play} >play_circle_outline</i>)
+                                }
+                                <i className="material-icons" onClick={this.forward20}>skip_next</i>
+                            </div>
+                            <div class="audioplayer-nav-buttons">
+                                <NavLink to={('/episode/' + this.state.episodeID)} className="btn" onClick={this.hideInfoBar}>More Info</NavLink>
+                                <button className="btn" onClick={this.goLive}>BACK TO LIVE</button>
+                            </div>
+                        </div>
+                    )}
                 </div>
-                <div className="audioplayer-extra-mask ad" open={showInfo}>
+                <div className="audioplayer-extra-mask ad" onClick={this.hideInfoBar} open={showInfo}>
                 </div>
             </div>
         );

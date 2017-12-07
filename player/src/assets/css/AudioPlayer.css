@@ -53,6 +53,8 @@
       display: none;
       border-top-left-radius: 5px;
       border-top-right-radius: 5px;
+      --webkit-user-select: none;
+      user-select: none;
   }
 
   .audioplayer-extra i{
@@ -70,6 +72,33 @@
       border-top-left-radius: 5px;
       border-top-right-radius: 5px;
   }
+
+.audioplayer-additional-controls{
+    text-align: center;
+    padding: 15px 0px;
+}
+
+.audioplayer-additional-controls i{
+    font-size: 52px;
+}
+
+  .audioplayer-nav-buttons{
+      position: absolute;
+      bottom: 15px;
+      right: 0px;
+  }
+
+.audioplayer-nav-buttons .btn{
+    background-color: transparent;
+    color: white;
+    text-transform: uppercase;
+    cursor: pointer;
+}
+
+.audioplayer-nav-buttons .btn:focus{
+    outline: 0 !important;
+    background-color : rgba(0,0,0,0.12);
+}
 
   .audioplayer-extra-mask{
       position: fixed;

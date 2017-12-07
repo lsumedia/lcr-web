@@ -107,6 +107,10 @@ var publicAPI = new (require('./includes/PublicAPI.js'))(app, db, Shows, Episode
 
 var utilityAPI = new (require('./includes/UtilityAPI.js'))(app, db, Tokens.tokenMiddleware(), Shows, Episodes, NowPlaying, CurrentShow);
 
+//Anything else just goes to homepage (also enables the HTML5 page names)
+app.use('/*', function(req, res){
+  res.sendFile(__dirname + '/player/build/index.html');
+});
 
 /* START SERVER */
 

@@ -79,7 +79,7 @@ class ShowPage extends Component{
                 </div>
                 </div>
                 <ul className="list-group list-group-flush">
-                    <li class="list-group-item">
+                    <li class="list-group-item more-episodes">
                         Episodes
                     </li>
                     {episodeList}

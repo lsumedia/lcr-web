@@ -1,4 +1,8 @@
 
+:root{
+  --theme-color: #2586C7;
+}
+
 html{
   overflow: hidden;
 }
@@ -43,8 +47,8 @@ a{
 .navbar{
   text-transform: uppercase;
   position: fixed;
-  left: -10px;
-  right: -10px;
+  left: 0px;
+  right: 0px; 
   padding-left: 20px;
   padding-right: 20px;
   height: 65px;
@@ -84,26 +88,20 @@ a{
 }
 
 .menu-title-1{
-  padding-top: 
-  2%;
-  padding-bottom: 
-  3%;
-  padding-left: 
-  41%;
+  padding-top: 2%;
+  padding-bottom: 3%;
+  padding-left: 41%;
 }
 
 .menu-title-2{
-  padding-left: 
-  5%;
+  padding-left: 5%;
 }
 
 .menu-title-3{
 	position: relative;
 	left: 39%;
-  padding-top: 
-  4%;
-  padding-bottom: 
-  3%;
+  padding-top: 4%;
+  padding-bottom: 3%;
 }
 
 .modal-menu[open]{
@@ -116,12 +114,11 @@ a{
 }
 
 .nav-link{
-  padding-top: 
-  50%;
+  padding-top: 50%;
 }
 
 .now-playing-info{
-  background-color: #2586C7;
+  background-color: var(--theme-color)
 }
 
 .card-menu {
@@ -149,4 +146,9 @@ a{
 .episode-play-button i{
   font-size: 48px;
   cursor: pointer;
+}
+
+.more-episodes{
+  color: var(--theme-color);
+  background-color: white;
 }

@@ -33,8 +33,6 @@ class Episode extends Component{
         this.forceUpdate();
     }
 
-   
-
     componentDidMount(){
         this.getEpisodeData();
     }
@@ -56,23 +54,24 @@ class Episode extends Component{
         return (
         <div className="" id="live-container">
           <div className="row">
-              <div class="col-sm-12 col-lg-8 col-xl-7 offset-xl-2">
-                <div className="card episode-card">
-                    <img className="card-img-top" src={episodeData.image} />
-                    <div className="episode-play-button">
-                        <i className="material-icons" onClick={this.playEpisode}>play_circle_outline</i>
+                <div class="col-sm-12 col-lg-8 col-xl-7 offset-xl-2">
+                    <div className="card episode-card">
+                        <img className="card-img-top" src={episodeData.image} />
+                        <div className="episode-play-button">
+                            <i className="material-icons" onClick={this.playEpisode}>play_circle_outline</i>
+                        </div>
                     </div>
-                </div>
-                <div className="card-body now-playing-info">
-                  <h4 className="card-title">{episodeData.title}</h4>
-                  {episodeData.description}
-                  <br />
+                    <div className="card-body now-playing-info">
+                    <h4 className="card-title">{episodeData.title}</h4>
+                    {episodeData.description}
+                    </div>
                     {(episodeData.showSlug)? (
-                        <NavLink to={showPath}>
-                            More episodes
-                        </NavLink>
+                        <div className="card-body more-episodes">
+                            <NavLink to={showPath}>
+                                More episodes
+                            </NavLink>
+                        </div>
                     ): null }
-                </div>
                 </div>
                 <ul className="list-group list-group-flush">
                 </ul>

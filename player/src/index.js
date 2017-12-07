@@ -6,7 +6,7 @@ import './index.css';
 import App from './containers/App';
 
 import {
-    HashRouter,
+    BrowserRouter,
     Route,
     Switch
 } from 'react-router-dom';
@@ -16,11 +16,11 @@ import { unregister } from './registerServiceWorker';
 const history = createBrowserHistory();
 
 ReactDOM.render((
-    <HashRouter history={history}>
+    <BrowserRouter history={history}>
         <Switch>
             <Route path="/" name="Home" component={App}/>
         </Switch>
-    </HashRouter>
+    </BrowserRouter>
 ), document.getElementById('root'));
 
 unregister();

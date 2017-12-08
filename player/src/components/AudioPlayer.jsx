@@ -142,12 +142,14 @@ class AudioPlayer extends Component{
     loadAudioFile(play){
         var _this = this;
         if(_this.state.mode == 0){
+
             console.log("Load live");
             var stream = this.streams[this.state.stream];
             _this.AudioElement.src = stream.url;
             _this.AudioElement.type = stream.type;
             _this.AudioElement.load();
             if(play) this.AudioElement.play();
+            
         }else{
             $.getJSON('/api/public/episode/' + this.state.episodeID).done(function(response){
                 console.log("Load episode " + _this.state.episodeID);

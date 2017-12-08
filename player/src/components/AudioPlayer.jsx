@@ -82,6 +82,7 @@ class AudioPlayer extends Component{
         this.toggleInfoBar = this.toggleInfoBar.bind(this);
         this.hideInfoBar = this.hideInfoBar.bind(this);
         this.goLive = this.goLive.bind(this);
+        this.updatePageTitle = this.updatePageTitle.bind(this);
 
         this.AudioElement.addEventListener('playing', () => {
             this.forceUpdate();
@@ -195,16 +196,32 @@ class AudioPlayer extends Component{
 
     }
 
+    updatePageTitle(){
+
+        var prefix = "LCR";
+
+        if(this.state.mode == 0){
+            $.getJSON('/api/public/songs/now').done(function(response){
+                document.title = prefix + ' - ' + response.raw.title + ' by ' + response.raw.artist;
+            });
+        }else{
+            document.title = prefix + ' - ' + this.state.episode.title;
+        }
+
+    }
+
     componentWillMount(){
         this.id = newId("audio");
     }
 
     componentDidMount(){
         this.loadAudioFile(this.props.autoplay);
+        this.updatePageTitle();
+        this.updateTitleInterval = setInterval( this.updatePageTitle, 5000);
     }
 
     componentWillUnmount(){
-
+        clearInterval(this.updateTitleInterval);
     }
 
     render(){

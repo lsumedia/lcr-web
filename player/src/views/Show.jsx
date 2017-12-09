@@ -82,7 +82,7 @@ class ShowPage extends Component{
         <div className="" id="live-container">
           <div className="row">
                 <div class="col-sm-12 col-lg-8 col-xl-7 offset-xl-2">
-                    <div className="card">
+                    <div className="card episode-card">
                     <img className="card-img-top" src={showData.image} alt="Show Image" />
                     </div>
                     <div className="card-body now-playing-info">

@@ -1,6 +1,9 @@
 
 :root{
   --theme-color: #2586C7;
+  --theme-text-color: #fff;
+  --background-color: #eee;
+  --text-color : #333;
 }
 
 html{
@@ -9,8 +12,9 @@ html{
 
 body{
   margin-bottom: 70px;
-  background-color: rgba(59,66,76,0.95);
-  color: white;
+  background-color: var(--background-color);
+  color: var(--text-color);
+  font-size: 18px;
 }
 
 a:hover{
@@ -23,8 +27,8 @@ a:hover{
 
 .card{
   border-radius: 0px;
-  background-color: rgba(59,66,76,0.95);
-  color: white;
+  background-color: var(--background-color);
+  color: var(--text-color);
 }
 
 .card-img-top {
@@ -52,7 +56,7 @@ a{
   padding-left: 20px;
   padding-right: 20px;
   height: 65px;
-  box-shadow: 0px 10px 20px rgba(30,30,30,0.5);
+  box-shadow: 0px 10px 20px rgba(30,30,30,0.2);
   z-index: 50;
 }
 
@@ -77,20 +81,19 @@ a{
 }
 
 .modal-menu{
-  background-color: #2586C7;
+  background-color: #ddd;
   z-index: 40;
   display: none;
 }
 
 .menu-title{
-  padding-left: 
-  5%;
+  padding-left: 15px;
 }
 
 .menu-title-1{
-  padding-top: 2%;
-  padding-bottom: 3%;
-  padding-left: 41%;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  text-align:  center;
 }
 
 .menu-title-2{
@@ -108,7 +111,8 @@ a{
 }
 
 .nav-option:hover{
-  background-color: #555555;
+  background-color: var(--theme-color);
+  color: var(--theme-text-color);
   text-decoration: none;
 }
 
@@ -117,7 +121,8 @@ a{
 }
 
 .now-playing-info{
-  background-color: var(--theme-color)
+  background-color: var(--theme-color);
+  color: var(--theme-text-color);
 }
 
 .card-menu {
@@ -133,7 +138,8 @@ a{
 
 .episode-card{
   position: relative;
-
+  color: var(--theme-text-color);
+  border: none;
 }
 
 .episode-play-button{
@@ -153,11 +159,16 @@ a{
 }
 
 .episode-entry-title{
-  font-size: 1.2em;
+  font-size: 20px;
   font-weight: 500;
 }
 
 .episode-entry-play{
   font-size: 38px;
   line-height: 50px;
+}
+
+.current-song-card{
+    background-color: var(--theme-text-color);
+    color: var(--theme-color);
 }

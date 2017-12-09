@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Route, Switch, Redirect, NavLink } from 'react-router-dom';
 import defaultData from '../Variables.jsx';
 
-/* global $ */
+/* global $, globals*/
 
 function ShowList(props){
     const shows = props.shows;
@@ -50,9 +50,14 @@ class Recent extends Component{
 
         var listItems = episodes.map((episode) => {
             var path = '/episode/' + episode._id;
+            var playAction = (e) =>{
+                globals.AudioPlayer.playEpisode(episode._id);
+                e.preventDefault();
+            }
             return (
                 <NavLink to={path} className="list-group-item" key={episode._id}>
                     {episode.title}
+                    <i className="material-icons float-right" onClick={playAction}>play_circle_outline</i><br />
                 </NavLink>
             );
         });

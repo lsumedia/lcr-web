@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 
 /* global $ */
 
-import audiotrack from '../assets/img/audiotrack.svg';
+import audiotrack from '../assets/img/ic_radio_black_24px.svg';
 
 
 class NowPlaying extends Component{
@@ -81,7 +81,7 @@ class NowPlaying extends Component{
                 {/* <div class="card-header">
                     Recent songs
                 </div> */}
-                <div className="card-body">
+                <div className="card-body current-song-card">
                     {/* <span style={{float: "right"}} >Now</span> --> */}
                     <div class="media current-song">
                         <img class="mr-3" src={image} width="64" height="64" />

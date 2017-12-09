@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Route, Switch, Redirect, NavLink } from 'react-router-dom';
 import defaultData from '../Variables.jsx';
 
-/* global $ */
+/* global $, globals */
 
 function ShowList(props){
     const shows = props.shows;
@@ -56,11 +56,23 @@ class ShowPage extends Component{
 
         var episodeList = this.state.episodes.map((episode) => {
             var path = '/episode/' + episode._id;
+            var episodeDate = new Date(episode.publishTime);
+
+            var dateString = episodeDate.getDate() + "/" + (episodeDate.getMonth() + 1)+ "/" + episodeDate.getFullYear();
+
+            var description = (episode.description.length > 40)? episode.description.substr(0,37) + '...' : episode.description;
+
+            var playAction = (e) =>{
+                globals.AudioPlayer.playEpisode(episode._id);
+                e.preventDefault();
+            }
+
             return (
                 <NavLink to={path} class="list-group-item">
                     <div className="text-left">
-                        {episode.title}<br />
-                        {episode.description}
+                        <span className="episode-entry-title">{episode.title} {dateString}</span>
+                        <i className="material-icons float-right episode-entry-play" onClick={playAction}>play_circle_outline</i><br />
+                        {description}
                     </div>
                  </NavLink>
             );

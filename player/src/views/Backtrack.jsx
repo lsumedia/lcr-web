@@ -17,7 +17,7 @@ function ShowList(props){
     return (
         <div className="card" >
         <h3 className="menu-title-3">Shows</h3>
-                <ul className="list-group list-group-flush hide-md-and-down">
+                <ul className="list-group list-group-flush">
                     {listItems}
                 </ul>
             </div>
@@ -30,6 +30,42 @@ class Featured extends Component{
 
 class Recent extends Component{
     
+    state = {
+        episodes : []
+    }
+
+    getEpisodes(){
+        $.getJSON('/api/public/episode?limit=5').done((response) => {
+            this.setState({episodes : response});
+        });
+    }
+
+    componentWillMount(){
+        this.getEpisodes();
+    }
+
+    render(){
+
+        var episodes = this.state.episodes;
+
+        var listItems = episodes.map((episode) => {
+            var path = '/episode/' + episode._id;
+            return (
+                <NavLink to={path} className="list-group-item" key={episode._id}>
+                    {episode.title}
+                </NavLink>
+            );
+        });
+
+        return (
+            <div className="card">
+                <h4 className="menu-title-3">Recent</h4>
+                <ul className="list-group list-group-flush">
+                    {listItems}
+                </ul>
+            </div>
+        );
+    }
 }
 
 class Backtrack extends Component{
@@ -50,11 +86,12 @@ class Backtrack extends Component{
     render(){
         return (
             <div className="">
-                <Switch>
-                    <Route path="/backtrack">
-                        <ShowList shows={this.state.shows} />
-                    </Route>
-                </Switch>
+                <Recent />
+                <div className="card">
+                    <NavLink to="/show">
+                        <h4 className="menu-title-3 card-title">All Shows</h4>
+                    </NavLink>
+                </div>
             </div>
         );
     }

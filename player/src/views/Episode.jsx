@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Route, Switch, Redirect, NavLink } from 'react-router-dom';
-import { defaultData } from '../Variables.jsx';
+import { defaultData, daysOfWeek, months } from '../Variables.jsx';
 
 //import * as videojs from 'video.js';
 /* global $, videojs, globals */
@@ -51,6 +51,13 @@ class Episode extends Component{
             )
         });
 
+        var episodeDate = new Date(episodeData.publishTime);
+
+        //var dateString = episodeDate.getDate() + "/" + (episodeDate.getMonth() + 1)+ "/" + episodeDate.getFullYear();
+        var dateString =  episodeDate.getDate() + " " + months[episodeDate.getMonth()] + " " + episodeDate.getFullYear();
+
+        var publishInfo = ((episodeData.type == "episode")? "Originally broadcast on " : "Published on ") + dateString;
+
         return (
         <div className="" id="live-container">
           <div className="row">
@@ -63,7 +70,8 @@ class Episode extends Component{
                     </div>
                     <div className="card-body now-playing-info">
                     <h4 className="card-title">{episodeData.title}</h4>
-                    {episodeData.description}
+                        <p>{episodeData.description}</p>
+                        <p>{publishInfo}</p>
                     </div>
                     {(episodeData.showSlug)? (
                         <div className="card-body more-episodes">

@@ -21,6 +21,11 @@ function EpisodeController(db, config, Shows){
             });
         }
 
+        function checkEpisodeType(inType){
+            if(_this.episodeTypes[inType]) return inType;
+            return "episode";
+        }
+
         function validate(obj){
 
             var publishDate = (obj.publishTime)?  new Date(obj.publishTime) : new Date() ;
@@ -29,7 +34,7 @@ function EpisodeController(db, config, Shows){
             var episode = {
                 metafile : obj.metafile,
                 title : obj.title || "",
-                type : obj.type || null,
+                type : checkEpisodeType(obj.type),
                 description : obj.description || "",
                 showSlug : obj.showSlug || "",
                 tags : obj.tags || "",
@@ -121,7 +126,7 @@ function EpisodeController(db, config, Shows){
     
             return new Promise((resolve, reject) =>
             { 
-                col.find({}).limit(limit).skip(skip).toArray(function(err, docs){
+                col.find({}).limit(limit).skip(skip).sort({$natural : -1}).toArray(function(err, docs){
                     if(err) reject(err);
                     else resolve(docs);
                 });
@@ -142,7 +147,7 @@ function EpisodeController(db, config, Shows){
         this.getByShow = function(showSlug, limit = 0, skip = 0){
             return new Promise((resolve, reject) =>
             { 
-                col.find({showSlug : showSlug}).limit(limit).skip(skip).toArray(function(err, docs){
+                col.find({showSlug : showSlug}).limit(limit).skip(skip).sort({$natural : -1}).toArray(function(err, docs){
                     if(err) reject(err);
                     else resolve(docs);
                 });

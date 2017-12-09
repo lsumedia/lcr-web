@@ -35,36 +35,36 @@ class App extends Component {
         this.setState({open: false});
     }
 
-  render() {
+    render() {
 
-    const { open } = this.state
-    return (
-      <div className="App">
+        const { open } = this.state
+        return (
+        <div className="App">
 
-        <Nav toggleMenu={this.toggleMenu.bind(this)} hideMenu={this.hideMenu.bind(this)}/>
+            <Nav toggleMenu={this.toggleMenu.bind(this)} hideMenu={this.hideMenu.bind(this)}/>
 
-        <NavMenu open={open} toggleMenu={this.toggleMenu.bind(this)} hideMenu={this.hideMenu.bind(this)}/>
-             
-        
-        <div className="scroll-container">
+            <NavMenu open={open} toggleMenu={this.toggleMenu.bind(this)} hideMenu={this.hideMenu.bind(this)}/>
+                
             
-            <Switch>
-                <Route path="/backtrack" component={Backtrack}/>
-                <Route path="/schedule" component={Schedule}/>
-                <Route path="/episode/:id" component={Episode} />
-                <Route path="/show" component={Show} />
-                <Route path="/" component={Live}/>
-            </Switch> 
+            <div className="scroll-container">
+                
+                <Switch>
+                    <Route path="/backtrack" component={Backtrack}/>
+                    <Route path="/schedule" component={Schedule}/>
+                    <Route path="/episode/:id" component={Episode} />
+                    <Route path="/show" component={Show} />
+                    <Route path="/" component={Live}/>
+                </Switch> 
 
-        </div>
+            </div>
 
-        <AudioPlayer  
-            src="http://ice.lsu.co.uk:8080/lcrhigh" 
-            type="audio/mpeg" 
-            autoplay={false}/>
-        </div>
-    );
-  }
+            <AudioPlayer  
+                src="http://ice.lsu.co.uk:8080/lcrhigh" 
+                type="audio/mpeg" 
+                autoplay={false}/>
+            </div>
+        );
+    }
 }
 
 export default App;

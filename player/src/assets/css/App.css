@@ -98,10 +98,9 @@ a{
 }
 
 .menu-title-3{
-	position: relative;
-	left: 39%;
-  padding-top: 4%;
-  padding-bottom: 3%;
+   padding-top: 10px;
+   padding-bottom: 10px;
+   text-align: center;
 }
 
 .modal-menu[open]{
@@ -151,4 +150,14 @@ a{
 .more-episodes{
   color: var(--theme-color);
   background-color: white;
+}
+
+.episode-entry-title{
+  font-size: 1.2em;
+  font-weight: 500;
+}
+
+.episode-entry-play{
+  font-size: 38px;
+  line-height: 50px;
 }

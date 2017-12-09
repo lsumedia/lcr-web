@@ -284,7 +284,7 @@ class AudioPlayer extends Component{
                                 <i className="material-icons float-right" onClick={this.reload}>skip_next</i>
                             </p>
                             <div class="audioplayer-nav-buttons">
-                                <NavLink to="/live" className="btn" onClick={this.hideInfoBar}>More Info</NavLink>
+                                <NavLink to="/" className="btn" onClick={this.hideInfoBar}>More Info</NavLink>
                             </div>
                         </div>
                     ) : (

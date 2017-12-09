@@ -18,6 +18,7 @@ import Live from '../views/Live';
 import Backtrack from '../views/Backtrack';
 import Schedule from '../views/Schedule';
 import Episode from '../views/Episode'
+import Show from '../views/Show';
 
 class App extends Component {
 
@@ -48,11 +49,11 @@ class App extends Component {
         <div className="scroll-container">
             
             <Switch>
-                <Route path="/live" component={Live}/>
                 <Route path="/backtrack" component={Backtrack}/>
                 <Route path="/schedule" component={Schedule}/>
                 <Route path="/episode/:id" component={Episode} />
-                <Redirect from="/" to="/live" />
+                <Route path="/show" component={Show} />
+                <Route path="/" component={Live}/>
             </Switch> 
 
         </div>

@@ -43,7 +43,7 @@ class Episode extends Component{
         var episodeData = this.state.episodeData;
         if(!episodeData.image) episodeData.image = defaultData.image;
 
-        var showPath = '/backtrack/' + episodeData.showSlug;
+        var showPath = '/show/' + episodeData.showSlug;
 
         var sources = this.state.episodeData.meta.media_url.map((source) => {
             return (

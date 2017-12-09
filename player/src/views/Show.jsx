@@ -9,17 +9,17 @@ function ShowList(props){
     const listItems = shows.map((show) => {
         var path = '/show/' + show.slug;
         return (
-            <NavLink to={path} className="list-group-item" key={show.slug}>
+            <NavLink to={path} className="episode-list-card" key={show.slug}>
+                <div className="card-body">
                 {show.title}
+                </div>
             </NavLink>
         );
     });
     return (
         <div className="card" >
         <h3 className="menu-title-3">Shows</h3>
-                <ul className="list-group list-group-flush hide-md-and-down">
-                    {listItems}
-                </ul>
+                {listItems}
             </div>
     )
 }
@@ -68,10 +68,10 @@ class ShowPage extends Component{
             }
 
             return (
-                <NavLink to={path} class="list-group-item">
-                    <div className="text-left">
-                        <span className="episode-entry-title">{episode.title} {dateString}</span>
-                        <i className="material-icons float-right episode-entry-play" onClick={playAction}>play_circle_outline</i><br />
+                <NavLink to={path} class="card episode-list-card">
+                    <div class="card-body">
+                        <div className="">{episode.title} {dateString}</div>
+                        <i className="material-icons float-right" onClick={playAction}>play_circle_outline</i><br />
                         {description}
                     </div>
                  </NavLink>

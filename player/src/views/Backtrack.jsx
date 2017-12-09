@@ -4,25 +4,6 @@ import defaultData from '../Variables.jsx';
 
 /* global $, globals*/
 
-function ShowList(props){
-    const shows = props.shows;
-    const listItems = shows.map((show) => {
-        var path = '/show/' + show.slug;
-        return (
-            <NavLink to={path} className="list-group-item" key={show.slug}>
-                {show.title}
-            </NavLink>
-        );
-    });
-    return (
-        <div className="card" >
-        <h3 className="menu-title-3">Shows</h3>
-                <ul className="list-group list-group-flush">
-                    {listItems}
-                </ul>
-            </div>
-    )
-}
 
 class Featured extends Component{
 
@@ -55,9 +36,11 @@ class Recent extends Component{
                 e.preventDefault();
             }
             return (
-                <NavLink to={path} className="list-group-item" key={episode._id}>
-                    {episode.title}
-                    <i className="material-icons float-right" onClick={playAction}>play_circle_outline</i><br />
+                <NavLink to={path} className="card episode-list-card" key={episode._id}>
+                    <div className="card-body">
+                        {episode.title}
+                        <i className="material-icons float-right" onClick={playAction}>play_circle_outline</i>
+                    </div>
                 </NavLink>
             );
         });
@@ -65,9 +48,7 @@ class Recent extends Component{
         return (
             <div className="card">
                 <h4 className="menu-title-3">Recent</h4>
-                <ul className="list-group list-group-flush">
-                    {listItems}
-                </ul>
+                {listItems}
             </div>
         );
     }
@@ -92,7 +73,7 @@ class Backtrack extends Component{
         return (
             <div className="">
                 <Recent />
-                <div className="card">
+                <div className="card episode-list-card">
                     <NavLink to="/show">
                         <h4 className="menu-title-3 card-title">All Shows</h4>
                     </NavLink>

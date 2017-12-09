@@ -110,6 +110,11 @@ a{
   display: block;
 }
 
+.nav-option{
+  margin: 10px;
+  background-color: #fff;
+}
+
 .nav-option:hover{
   background-color: var(--theme-color);
   color: var(--theme-text-color);
@@ -158,6 +163,14 @@ a{
   background-color: white;
 }
 
+.episode-list-card{
+  background-color: #fff;
+  margin: 4px 6px;
+}
+
+.episode-list-card:hover{
+  text-decoration: none;
+}
 .episode-entry-title{
   font-size: 20px;
   font-weight: 500;

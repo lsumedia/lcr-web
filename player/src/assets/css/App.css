@@ -83,7 +83,13 @@ a{
 .modal-menu{
   background-color: #ddd;
   z-index: 40;
-  display: none;
+  max-width: 300px;
+  left : -300px;
+  transition: left 0.5s ease-in-out;
+}
+
+.modal-menu[open]{
+  left: 0px;
 }
 
 .menu-title{
@@ -106,9 +112,6 @@ a{
    text-align: center;
 }
 
-.modal-menu[open]{
-  display: block;
-}
 
 .nav-option{
   margin: 10px;

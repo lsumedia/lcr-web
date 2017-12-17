@@ -1,7 +1,7 @@
 
 
 
-import defaultPoster from './assets/img/insta.gif';
+import defaultPoster from './assets/img/lcr_splash_grey.png';
 
 export var defaultData = {
     title: "LCR Live",

@@ -281,9 +281,9 @@ class AudioPlayer extends Component{
                         //Live content controls
                         <div>
                             <p class="audioplayer-additional-controls">
-                                <i className="material-icons float-right" onClick={this.reload}>skip_next</i>
                             </p>
                             <div class="audioplayer-nav-buttons">
+                                <button className="btn" onClick={this.reload}>Reload Stream</button>
                                 <NavLink to="/" className="btn" onClick={this.hideInfoBar}>More Info</NavLink>
                             </div>
                         </div>

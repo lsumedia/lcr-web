@@ -85,7 +85,7 @@ a{
   z-index: 40;
   max-width: 300px;
   left : -300px;
-  transition: left 0.5s ease-in-out;
+  transition: left 0.3s ease-in-out;
 }
 
 .modal-menu[open]{

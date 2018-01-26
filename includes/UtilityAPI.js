@@ -1,10 +1,10 @@
 
 var express = require('express');
 
-function UtilityAPI(app, db, auth, Shows, Episodes, NowPlaying, CurrentShow){
+function UtilityAPI(app, db, auth, Controllers){
    
     app.get('/api/utility/currentshow', auth, function(req,res){
-       CurrentShow.getCurrentShow().then(
+       Controllers.CurrentShow.getCurrentShow().then(
             function(currentShow){
                 res.send(currentShow);
             },
@@ -15,7 +15,7 @@ function UtilityAPI(app, db, auth, Shows, Episodes, NowPlaying, CurrentShow){
     });
 
     app.post('/api/utility/currentshow', auth, express.json(), function(req, res){
-        CurrentShow.setCurrentShow(req.body).then(function(currentShow){
+        Controllers.CurrentShow.setCurrentShow(req.body).then(function(currentShow){
             res.send(currentShow);
         }, function(err){
             res.status(500).send();
@@ -23,7 +23,7 @@ function UtilityAPI(app, db, auth, Shows, Episodes, NowPlaying, CurrentShow){
     });
 
     app.delete('/api/utility/currentshow', auth, function(req,res){
-        CurrentShow.clearCurrentShow().then(function(currentShow){
+        Controllers.CurrentShow.clearCurrentShow().then(function(currentShow){
             res.send(currentShow);
         }, function(err){
             res.status(500).send();
@@ -36,8 +36,8 @@ function UtilityAPI(app, db, auth, Shows, Episodes, NowPlaying, CurrentShow){
     app.post('/api/utility/episode/', auth, express.json(), function(req, res){
 
         console.log("utility: request to add episode");
-        
-        Episodes.insert(req.body).then(function(episode){
+
+        Controllers.Episodes.insert(req.body).then(function(episode){
                 res.send(episode);
             },function(err){
                 res.status(400).send(err);
@@ -48,7 +48,7 @@ function UtilityAPI(app, db, auth, Shows, Episodes, NowPlaying, CurrentShow){
     app.post('/api/utility/episode/:id', auth, express.json(), function(req, res){
         var id = req.params.id;
 
-        Episodes.update(id, req.body).then(function(show){
+        Controllers.Episodes.update(id, req.body).then(function(show){
                 res.send(show);
             },function(err){
                 res.status(404).send(err);
@@ -58,7 +58,7 @@ function UtilityAPI(app, db, auth, Shows, Episodes, NowPlaying, CurrentShow){
 
     app.delete('/api/utility/episode/:id', auth, express.json(), function(req, res){
 
-        Episodes.delete(req.params.id).then(function(show){
+        Controllers.Episodes.delete(req.params.id).then(function(show){
             res.status(200).send("Deleted episode " + req.params.id);
         },function(err){
             res.status(404).send(err);

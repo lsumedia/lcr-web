@@ -11,7 +11,7 @@ const request = require('request');
  * @param {*} NowPlaying 
  * @param {*} CurrentShow 
  */
-function PublicAPI(app, db, Shows, Episodes, NowPlaying, CurrentShow){
+function PublicAPI(app, db, Controllers){
 
 
     app.get('/api/public/show', function(req, res){
@@ -19,7 +19,7 @@ function PublicAPI(app, db, Shows, Episodes, NowPlaying, CurrentShow){
         var limit = parseInt(req.query.limit) || 0;
         var skip = parseInt(req.query.skip) || 0;
 
-        Shows.getShowsAll(limit, skip).then(function(shows){
+        Controllers.Shows.getShowsAll(limit, skip).then(function(shows){
                 res.send(shows);
             },function(){
                 res.status(404).send('Not found');
@@ -27,7 +27,7 @@ function PublicAPI(app, db, Shows, Episodes, NowPlaying, CurrentShow){
     });
     
     app.get('/api/public/show/:slug', function(req, res){
-        Shows.getShowBySlug(req.params.slug).then(function(show){
+        Controllers.Shows.getShowBySlug(req.params.slug).then(function(show){
             res.send(show);
         },function(){
             res.status(404).send('Not found');
@@ -39,7 +39,7 @@ function PublicAPI(app, db, Shows, Episodes, NowPlaying, CurrentShow){
         var skip = parseInt(req.query.skip) || 0;
         var showSlug = req.params.showSlug;
         
-        Episodes.getByShow(showSlug, limit, skip).then(function(episodes){
+        Controllers.Episodes.getByShow(showSlug, limit, skip).then(function(episodes){
                 res.send(episodes);
             },function(){
                 res.status(404).send('Not found');
@@ -51,7 +51,7 @@ function PublicAPI(app, db, Shows, Episodes, NowPlaying, CurrentShow){
         var limit = parseInt(req.query.limit) || 0;
         var skip = parseInt(req.query.skip) || 0;
         
-        Episodes.getAll(limit, skip).then(function(episodes){
+        Controllers.Episodes.getAll(limit, skip).then(function(episodes){
                 res.send(episodes);
             },function(){
                 res.status(404).send('Not found');
@@ -59,7 +59,7 @@ function PublicAPI(app, db, Shows, Episodes, NowPlaying, CurrentShow){
     });
 
     app.get('/api/public/episodetypes', function(req, res){
-        Episodes.getEpisodeTypes().then(function(types){
+        Controllers.Episodes.getEpisodeTypes().then(function(types){
                 res.send(types);
             }, function(){
                 res.status(500).send("Error, where there should never be an error. Something has gone badly wrong");
@@ -67,7 +67,7 @@ function PublicAPI(app, db, Shows, Episodes, NowPlaying, CurrentShow){
     });
 
     app.get('/api/public/episode/:id', function(req, res){
-        Episodes.getById(req.params.id).then(function(show){
+        Controllers.Episodes.getById(req.params.id).then(function(show){
             res.send(show);
         },function(){
             res.status(404).send('Not found');
@@ -77,7 +77,7 @@ function PublicAPI(app, db, Shows, Episodes, NowPlaying, CurrentShow){
     /* CURRENT SHOW DATA */
 
     app.get('/api/public/currentshow', function(req,res){
-        CurrentShow.getCurrentShow().then(
+        Controllers.CurrentShow.getCurrentShow().then(
              function(currentShow){
                  res.send(currentShow);
              },
@@ -102,7 +102,7 @@ function PublicAPI(app, db, Shows, Episodes, NowPlaying, CurrentShow){
         var limit = parseInt(req.query.limit) || 0;
         var skip = parseInt(req.query.skip) || 0;
 
-        NowPlaying.getRecentSongs(limit, skip).then(function(docs){
+        Controllers.NowPlaying.getRecentSongs(limit, skip).then(function(docs){
             res.send(docs);
         },function(err){
             console.log(err);
@@ -111,7 +111,7 @@ function PublicAPI(app, db, Shows, Episodes, NowPlaying, CurrentShow){
     });
 
     app.get('/api/public/songs/count', function(req, res){
-        NowPlaying.getNumberOfLoggedSongs().then(function(count){
+        Controllers.NowPlaying.getNumberOfLoggedSongs().then(function(count){
             res.send(count);
         },function(err){
             console.log(err);
@@ -126,7 +126,7 @@ function PublicAPI(app, db, Shows, Episodes, NowPlaying, CurrentShow){
         var limit = parseInt(req.query.limit) || 0;
         var skip = parseInt(req.query.skip) || 0;
 
-        NowPlaying.getSongsByArtist(artist, limit, skip).then(function(docs){
+        Controllers.NowPlaying.getSongsByArtist(artist, limit, skip).then(function(docs){
             res.send(docs);
         },function(err){
             console.log(err);
@@ -142,7 +142,7 @@ function PublicAPI(app, db, Shows, Episodes, NowPlaying, CurrentShow){
         var limit = parseInt(req.query.limit) || 0;
         var skip = parseInt(req.query.skip) || 0;
 
-        NowPlaying.getSongsByArtistAndTitle(artist, title, limit, skip).then(function(docs){
+        Controllers.NowPlaying.getSongsByArtistAndTitle(artist, title, limit, skip).then(function(docs){
             res.send(docs);
         },function(err){
             console.log(err);

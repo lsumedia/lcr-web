@@ -47,6 +47,9 @@ function EpisodeController(db, config, Shows){
     
         this.insert = function(obj){
     
+            console.log("episode: attempting to add episode, data was:");
+            console.log(obj);
+            
             return new Promise((resolve, reject) => {
 
                 var episode = validate(obj);

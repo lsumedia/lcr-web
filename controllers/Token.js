@@ -32,7 +32,10 @@ function TokenController(db){
     this.check = function(secret){
         return new Promise((resolve, reject) => {
             col.find({secret : secret}).count(function(err, result){
-                if(result > 0) resolve();
+                if(result > 0){
+                    resolve();
+                    col.update({secret : secret}, {$set : {lastUsed : Date.now()}}, false, true);   //Update lastUsed value
+                } 
                 else reject();
             });
         });

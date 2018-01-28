@@ -40,7 +40,7 @@ MongoClient.connect(dbUrl, function(err, db){
   }
     console.log("mongodb: Connected to server");
 
-/* PASSPORT AUTHENTICATION  */
+/* PASSPORT AUTHENTICATION - provides middleware to authenticate the Dashboard page */
 
 passport.use('facebook', new FacebookStrategy({
   clientID: config.facebook_app_id,
@@ -116,6 +116,7 @@ var publicAPI = new (require('./includes/PublicAPI.js'))(app, db, Controllers);
 var utilityAPI = new (require('./includes/UtilityAPI.js'))(app, db, Tokens.tokenMiddleware(), Controllers);
 
 //Anything else just goes to homepage (also enables the HTML5 page names)
+//THIS MUST GO LAST!
 app.use('/*', function(req, res){
   res.sendFile(__dirname + '/player/build/index.html');
 });

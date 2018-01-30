@@ -105,15 +105,15 @@ app.use('/', express.static('player/build')); //Public page
 
 //REST API
 
-var privateAPI = new (require('./includes/PrivateAPI.js'))(app, db, authfn, Controllers);
+var privateAPI = new (require('./route/PrivateAPI.js'))(app, db, authfn, Controllers);
 
 //Public API
 
-var publicAPI = new (require('./includes/PublicAPI.js'))(app, db, Controllers);
+var publicAPI = new (require('./route/PublicAPI.js'))(app, db, Controllers);
 
 //Utility API
 
-var utilityAPI = new (require('./includes/UtilityAPI.js'))(app, db, Tokens.tokenMiddleware(), Controllers);
+var utilityAPI = new (require('./route/UtilityAPI.js'))(app, db, Tokens.tokenMiddleware(), Controllers);
 
 //Anything else just goes to homepage (also enables the HTML5 page names)
 //THIS MUST GO LAST!

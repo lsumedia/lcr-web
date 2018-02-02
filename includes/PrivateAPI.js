@@ -126,13 +126,8 @@ function PrivateApi(app, db, auth, Controllers){
     });
 
     app.delete('/api/private/token/:id', auth, function(req,res){
-<<<<<<< HEAD
-        Controllers.Tokens.delete().then(function(response){
-            res.send(response);
-=======
         Tokens.delete(req.params.id).then(function(){
             res.send();
->>>>>>> 344e65aef3f4a188cac3163e3966dbb86a174acd
         }, function(err){
             res.status(404).send(err);
         })

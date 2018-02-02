@@ -25,14 +25,23 @@ import {
 
 class EpisodesPage extends Component {
     state = { 
-        shows : [],
         episodes : []
     };
 
+    shows = {}
+
     updateShowsList(){
         $.get('/api/private/show').done((response) => {
-            this.setState({shows: response});
+            response.map((show) => {
+                this.shows[show.slug] = show.title;
+            });
+            this.setState({});
         });
+    }
+
+    getShowBySlug(slug){
+        if(this.shows[slug]) return this.shows[slug];
+        return slug;
     }
 
     updateEpisodesList(){
@@ -101,7 +110,7 @@ class EpisodesPage extends Component {
                                                     <th>Show</th>
                                                     <th>Description</th>
                                                     <th>Tags</th>
-                                                    <th>Active</th>
+                                                    <th></th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -116,10 +125,10 @@ class EpisodesPage extends Component {
                                                         return (
                                                             <tr key={key}>
                                                                 <td>{prop.title}</td>
-                                                                <td>{prop.showSlug}</td>
+                                                                <td>{this.getShowBySlug(prop.showSlug)}</td>
                                                                 <td>{prop.description.substr(0,40)}</td>
                                                                 <td>{prop.tags}</td>
-                                                                <td>{prop.active ? "Active" : "Inactive"}</td>
+                                                                <td>{prop.active ? "Public" : "Private"}</td>
                                                             </tr>
                                                         )
                                                     })

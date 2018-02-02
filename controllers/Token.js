@@ -52,10 +52,10 @@ function TokenController(db){
 
     this.delete = function(id){
         return new Promise((resolve, reject) => {
-            
             col.deleteOne({_id: id}, function(err, results){
                 if(err || (results.result.n == 0)){ 
-                    reject(err); 
+                    console.log(results);
+                    reject(err || "token: could not delete, no results found"); 
                     return;
                 }
                 else{

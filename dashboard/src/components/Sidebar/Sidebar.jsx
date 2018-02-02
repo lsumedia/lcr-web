@@ -70,7 +70,7 @@ class Sidebar extends Component{
                         </li>
                         <li className={this.activeRoute("/tokens")}>
                             <NavLink to={'/tokens'} className="nav-link" activeClassName="active">
-                                <i className="pe-7s-clock"></i>
+                                <i className="pe-7s-key"></i>
                                 <p>Tokens</p>
                             </NavLink>
                         </li>

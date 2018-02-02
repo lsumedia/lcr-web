@@ -10,6 +10,7 @@ import Dashboard from '../../views/Dashboard/Dashboard';
 import ShowsPage from '../../views/Shows/Shows';
 import EpisodesPage from '../../views/Episodes/Episodes';
 import SchedulePage from '../../views/Schedule/Schedule'; 
+import TokensPage from '../../views/Tokens/Tokens.jsx'; 
 import Notifications from '../../views/Notifications/Notifications';
 
 import Header from '../../components/Header/Header';
@@ -42,6 +43,7 @@ class App extends Component {
                                 <Route path="/shows" component={ShowsPage}/>
                                 <Route path="/episodes" component={EpisodesPage}/>
                                 <Route path="/schedule" component={SchedulePage}/>
+                                <Route path="/tokens" component={TokensPage}/>
                                 <Redirect from="/" to="/dashboard"/>
                             </Switch>
 

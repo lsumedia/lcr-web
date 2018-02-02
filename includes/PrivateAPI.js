@@ -126,10 +126,10 @@ function PrivateApi(app, db, auth, Shows, Episodes, NowPlaying, CurrentShow, Tok
     });
 
     app.delete('/api/private/token/:id', auth, function(req,res){
-        Tokens.delete().then(function(response){
-            res.send(response);
+        Tokens.delete(req.params.id).then(function(){
+            res.send();
         }, function(err){
-            res.status(404).send(err.message);
+            res.status(404).send(err);
         })
     });
 

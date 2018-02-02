@@ -110,7 +110,7 @@ class TokensPage extends Component {
 
                                                         
                                                         var creation = new Date(prop.creation);
-                                                        var date = creation.toISOString();
+                                                        var date = creation.toDateString() + " " + creation.toLocaleTimeString();
                                                         var id = prop._id;
 
                                                         var secret = (this.secrets[id])? this.secrets[id] : (
@@ -124,7 +124,7 @@ class TokensPage extends Component {
                                                                 <td>{prop._id}</td>
                                                                 <td>{date}</td>
                                                                 <td style={{textAlign : "right"}}>{secret}</td>
-                                                                <td style={{cursor: "pointer", textAlign : "right"}} onClick={() => {this.deleteToken(id)}}><i className="fa fa-trash"></i></td>
+                                                                <td style={{cursor: "pointer", textAlign : "right"}} onClick={() => { this.deleteToken(id)}}><i className="fa fa-trash"></i></td>
                                                             </tr>
                                                         )
                                                     })

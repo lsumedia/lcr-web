@@ -80,6 +80,14 @@ var Episodes = new (require('./controllers/Episode.js'))(db, config, Shows);
 var NowPlaying = new(require('./controllers/NowPlaying.js'))(db, config);
 var CurrentShow = new(require('./controllers/CurrentShow.js'))(db, Shows, NowPlaying);
 
+var Controllers = {
+    Tokens : Tokens,
+    Shows : Shows,
+    Episodes : Episodes,
+    NowPlaying : NowPlaying,
+    CurrentShow : CurrentShow
+}
+
 /* ROUTES */
 
 //Disable cache
@@ -97,15 +105,15 @@ app.use('/', express.static('player/build')); //Public page
 
 //REST API
 
-var privateAPI = new (require('./includes/PrivateAPI.js'))(app, db, authfn, Shows, Episodes, NowPlaying, CurrentShow, Tokens);
+var privateAPI = new (require('./includes/PrivateAPI.js'))(app, db, authfn, Controllers);
 
 //Public API
 
-var publicAPI = new (require('./includes/PublicAPI.js'))(app, db, Shows, Episodes, NowPlaying, CurrentShow, Tokens);
+var publicAPI = new (require('./includes/PublicAPI.js'))(app, db, Controllers);
 
 //Utility API
 
-var utilityAPI = new (require('./includes/UtilityAPI.js'))(app, db, Tokens.tokenMiddleware(), Shows, Episodes, NowPlaying, CurrentShow);
+var utilityAPI = new (require('./includes/UtilityAPI.js'))(app, db, Tokens.tokenMiddleware(), Controllers);
 
 //Anything else just goes to homepage (also enables the HTML5 page names)
 app.use('/*', function(req, res){

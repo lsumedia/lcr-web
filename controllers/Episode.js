@@ -22,7 +22,7 @@ function EpisodeController(db, config, Shows){
         }
 
         function checkEpisodeType(inType){
-            if(_this.episodeTypes[inType]) return inType;
+            if(episodeTypes[inType]) return inType;
             return "episode";
         }
 

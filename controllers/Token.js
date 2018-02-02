@@ -83,6 +83,7 @@ function TokenController(db){
             var secret = (req.get('Authorization') || req.query.token);
             
             if(!secret) {
+                console.log("token: Someone tried to make a request with no token");
                 res.status(401).send('No Token Provided');
                 return;
             }
@@ -92,6 +93,7 @@ function TokenController(db){
             _this.check(secret).then(() => {
                 next();
             }, () => {
+                console.log("token: Someone tried to use an invalid token");
                 res.status(401).send('Not Authorized');
             });
 

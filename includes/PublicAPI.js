@@ -1,5 +1,16 @@
 const request = require('request');
 
+/**
+ * 
+ * The API that services any public requests - used by the public webapp & some parts of the CMS
+ * 
+ * @param {*} app - Express app 
+ * @param {*} db  - MongoDB database object
+ * @param {*} Shows 
+ * @param {*} Episodes 
+ * @param {*} NowPlaying 
+ * @param {*} CurrentShow 
+ */
 function PublicAPI(app, db, Shows, Episodes, NowPlaying, CurrentShow){
 
 

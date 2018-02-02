@@ -35,6 +35,8 @@ function UtilityAPI(app, db, auth, Shows, Episodes, NowPlaying, CurrentShow){
 
     app.post('/api/utility/episode/', auth, express.json(), function(req, res){
 
+        console.log("utility: request to add episode");
+        
         Episodes.insert(req.body).then(function(episode){
                 res.send(episode);
             },function(err){

@@ -28,56 +28,77 @@ function EpisodeController(db, config, Shows){
 
         function validate(obj){
 
-            var publishDate = (obj.publishTime)?  new Date(obj.publishTime) : new Date() ;
-            var publishTime = publishDate.toISOString();
+            try{
+                var publishDate = (obj.publishTime)?  new Date(obj.publishTime) : new Date() ;
+                var publishTime = publishDate.toISOString();
+    
+                var episode = {
+                    metafile : obj.metafile,
+                    title : obj.title || "",
+                    type : checkEpisodeType(obj.type),
+                    description : obj.description || "",
+                    showSlug : obj.showSlug || "",
+                    tags : obj.tags || "",
+                    image : obj.image || "",
+                    public : obj.public,
+                    publishTime : obj.publishTime
+                }
+                return episode;
 
-            var episode = {
-                metafile : obj.metafile,
-                title : obj.title || "",
-                type : checkEpisodeType(obj.type),
-                description : obj.description || "",
-                showSlug : obj.showSlug || "",
-                tags : obj.tags || "",
-                image : obj.image || "",
-                public : obj.public,
-                publishTime : obj.publishTime
+            }catch(err){
+                console.log('episode: ' + err.message);
+                return false;
             }
-            return episode;
+           
         }
     
         this.insert = function(obj){
     
+            console.log("episode: attempting to add episode, data was:");
+            console.log(obj);
+
             return new Promise((resolve, reject) => {
 
                 var episode = validate(obj);
-               
-                episode._id = shortid.generate();
+
+                if(episode){
+                    episode._id = shortid.generate();
     
-                col.insertOne(episode, function(err, r){
-                    console.log('episode: Added new episode ' + episode._id);
-                    resolve(episode);
-                });
-    
+                    col.insertOne(episode, function(err, r){
+                        console.log('episode: Added new episode ' + episode._id);
+                        resolve(episode);
+                    });
+                }else{
+                    console.log("episode: failed validation");
+                    reject("Failed validation");
+                }
+            
             });
     
         }
     
         this.update = function(id, obj){
     
-            var episode = validate(obj);
-    
             return new Promise((resolve, reject) => {
+
+                var episode = validate(obj);
                 
-                col.update({_id: id}, episode, function(err, results){
-                    if(err || (results.result.n == 0)){ 
-                        reject(err); 
-                        return;
-                    }
-                    else {
-                        console.log("episode: Updated episode " + id);
-                        resolve(episode);
-                    }
-                });
+                if(episode){
+                    col.update({_id: id}, episode, function(err, results){
+                        if(err || (results.result.n == 0)){ 
+                            reject(err); 
+                            return;
+                        }
+                        else {
+                            console.log("episode: Updated episode " + id);
+                            resolve(episode);
+                        }
+                    });
+                }else{
+                    console.log("episode: failed validation");
+                    reject("Failed validation");
+                }
+               
     
             });
         }

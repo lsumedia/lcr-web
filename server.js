@@ -36,9 +36,9 @@ var UserModel = require('./model/user.js');
 //Functions for managing stuff
 var TokenTools = require('./includes/tokentools.js');
 var NowPlaying = new(require('./includes/nowplaying.js'))(config);
-//var CurrentShow = new(require('./includes/currentshow.js'))(Shows, NowPlaying);
+var CurrentShow = new(require('./includes/currentshow.js'))(NowPlaying);
 
-Controllers = { NowPlaying };
+var Controllers = { NowPlaying, CurrentShow };
 
 /* Authentication */
 

@@ -3,11 +3,10 @@ const express = require('express');
 
 const Episode = mongoose.model('episode');
 
-function UtilityAPI(app, auth){
+function UtilityAPI(app, auth, Controllers){
 
     var opts = { runValidators : true, new : true};
    
-    /* this'll have to wait...
     app.get('/api/utility/currentshow', auth, function(req,res){
        Controllers.CurrentShow.getCurrentShow().then(
             function(currentShow){
@@ -33,7 +32,7 @@ function UtilityAPI(app, auth){
         }, function(err){
             res.status(500).send();
         });
-    });*/
+    });
 
 
     /* Episodes */

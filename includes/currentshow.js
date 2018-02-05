@@ -1,7 +1,8 @@
+const mongoose = require('mongoose');
+const Show = mongoose.model('show');
 
 
-
-function CurrentShowController(Shows, NowPlaying){
+function CurrentShowController(NowPlaying){
 
     var currentShow = {};
 
@@ -37,20 +38,23 @@ function CurrentShowController(Shows, NowPlaying){
 
         return new Promise((resolve, reject) =>{
             
-            Shows.getShowBySlug(currentShow.slug).then(function(show){
-                result.show = show;
+            Show.findOne({ slug : currentShow.slug }, function(err, show){
+                if(err || !show){
+                    result.show = {};
+                }else{
+                    try{
+                        result.show = show;
 
-                if(result.image.length < 1) result.image = show.image;
-                if(result.title.length < 1) result.title = show.title;
-                if(result.description.length < 1) result.description = show.description;
-
+                        if(!result.image) result.image = show.image;
+                        if(!result.title) result.title = show.title;
+                        if(!result.description) result.description = show.description;
+                    }catch(err){
+                        console.log(err);
+                        resolve(result);
+                    }
+                   
+                }
                 resolve(result);
-
-            }, function(err){
-
-                result.show = {};
-                resolve(result);
-                
             });
 
         });

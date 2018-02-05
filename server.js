@@ -7,9 +7,9 @@ const multer = require('multer');
 const request = require('request');
 
 const passport = require('passport');
-var FacebookStrategy = require('passport-facebook').Strategy;
 
 var MongoClient = require('mongodb').MongoClient;
+const mongoose = require('mongoose');
 
 /* INITIALISATION */
 
@@ -23,7 +23,7 @@ try{
     configString = fs.readFileSync('./config.sample.json','utf8');
 }
 
-var config = JSONC.parse(configString);
+const config = JSONC.parse(configString);
 
 var app = express();
 
@@ -40,37 +40,32 @@ MongoClient.connect(dbUrl, function(err, db){
   }
     console.log("mongodb: Connected to server");
 
-/* PASSPORT AUTHENTICATION - provides middleware to authenticate the Dashboard page */
+/* PASSPORT AUTHENTICATION - provides middleware to authenticate the Dashboard page & API */
 
-passport.use('facebook', new FacebookStrategy({
-  clientID: config.facebook_app_id,
-  clientSecret: config.facebook_app_secret,
-  callbackURL: config.login_redirect
-},
-function(accessToken, refreshToken, profile, cb) {
-  return cb(null, profile);
-}
+
+passport.use(new LocalStrategy(
+  function(username, password, done) {
+    User.findOne({ username: username }, function (err, user) {
+      if (err) { return done(err); }
+      if (!user) { return done(null, false); }
+      if (!user.verifyPassword(password)) { return done(null, false); }
+      return done(null, user);
+    });
+  }
 ));
 
-passport.serializeUser(function(user, cb) {
-  cb(null, user);
+passport.serializeUser(function(user, done) {
+  done(null, user.id);
 });
 
-passport.deserializeUser(function(obj, cb) {
-  cb(null, obj);
-});
-
-app.use(passport.initialize());
-app.use(passport.session());
-
-app.get('/auth/facebook/callback', 
-  passport.authenticate('facebook', { failureRedirect: '/login.html' }),
-  function(req, res) {
-    res.redirect('/dashboard');
+passport.deserializeUser(function(id, done) {
+  User.findById(id, function(err, user) {
+    done(err, user);
+  });
 });
 
 //Enable authentication if it's on (ie. not dev mode)
-var authfn = (config.authenticate)? passport.authenticate('facebook') : (req, res, next) => { next(); };
+var authfn = (config.authenticate)? passport.authenticate('local', {failureRedirect : '/login'}) : (req, res, next) => { next(); };
 
 /* CONTROLLERS */
 

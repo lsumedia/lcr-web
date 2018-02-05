@@ -13,4 +13,4 @@ var ShowSchema = new Schema(
 );  
 
 
-module.exports = mongoose.model('shows', SchowSchema);
+module.exports = mongoose.model('shows', ShowSchema);

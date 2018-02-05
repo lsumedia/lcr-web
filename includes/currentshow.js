@@ -1,7 +1,7 @@
 
 
 
-function CurrentShowController(db, Shows, NowPlaying){
+function CurrentShowController(Shows, NowPlaying){
 
     var currentShow = {};
 

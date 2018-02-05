@@ -33,9 +33,8 @@ EpisodeSchema.pre('save', next => {
 });
 
 EpisodeSchema.pre('save', next => {
-    var id = shortid.generate();
     if(!this._id){
-        this._id = id;
+        this._id = shortid.generate();
     }
 });
 

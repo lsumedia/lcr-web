@@ -3,6 +3,7 @@ const request = require('request');
 
 const schedule = require('node-schedule');
 
+
 function NowPlaying (db, config){
 
     var currentSongTitle = "";

@@ -1,10 +1,13 @@
+const mongoose = require('mongoose');
+const express = require('express');
 
-var express = require('express');
+const Token = mongoose.model('token');
+const TokenTools = require('../includes/tokentools.js');
 
-function PrivateApi(app, db, auth, Controllers){
+function PrivateApi(app, auth){
    
 
-    /* Shows */
+    /* Shows *//*
 
     app.get('/api/private/show/', auth, function(req, res){
 
@@ -58,7 +61,7 @@ function PrivateApi(app, db, auth, Controllers){
 
     });
 
-    /* Episodes */
+    /* Episodes *//*
 
     app.get('/api/private/episode', auth, function(req, res){
 
@@ -118,19 +121,17 @@ function PrivateApi(app, db, auth, Controllers){
 
     //Create token
     app.post('/api/private/token', auth, function(req,res){
-        Controllers.Tokens.generate().then(function(token){
-            res.status(200).send(token);
-        }, function(err){
-            res.status(500).send(err.message);
-        })
+        TokenTools.generate(function(err, token){
+            if(err) res.status(500).send(err.message);
+            else res.status(200).send(token);
+        });
     });
 
     app.delete('/api/private/token/:id', auth, function(req,res){
-        Controllers.Tokens.delete().then(function(response){
-            res.send(response);
-        }, function(err){
-            res.status(404).send(err.message);
-        })
+        Token.findByIdAndRemove(req.params.id, function(err, doc){
+            if(err) res.status(404).send(err.message);
+            else res.send(doc);
+        });
     });
 
     //List of tokens (provides only id & creation time/expiry)
@@ -139,19 +140,18 @@ function PrivateApi(app, db, auth, Controllers){
         var limit = parseInt(req.query.limit) || 0;
         var skip = parseInt(req.query.skip) || 0;
 
-        Controllers.Tokens.getAll(limit, skip).then(function(docs){
-            res.send(docs);
-        },function(err){
-            res.status(500).send(err.message);
+        Token.find({}, '_id createdAt').limit(limit).skip(skip).exec(function(err,docs){
+            if(err) res.status(500).send(err.message);
+            else res.send(docs);
+
         });
     });
 
     //Get individual token (including secret)
     app.get('/api/private/token/:id', auth, function(req, res){
-        Controllers.Tokens.getSecret(req.params.id).then(function(doc){
-            res.send(doc);
-        }, function(err){
-            res.status(404).send("Not found");
+        Token.findById(req.params.id).exec(function(err,doc){
+            if(err) res.status(500).send(err.message);
+            else res.send(doc);
         });
     });
 

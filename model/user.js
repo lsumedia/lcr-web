@@ -21,7 +21,7 @@ UserSchema.methods.setPassword = function(password){
 UserSchema.methods.validPassword = function(password) {
     var hash = crypto.pbkdf2Sync(password, this.salt, 10000, 512, 'sha512').toString('hex');
     return this.hash === hash;
-;
+};
 
 UserSchema.methods.generateJWT = function() {
     var today = new Date();
@@ -45,5 +45,4 @@ UserSchema.methods.toAuthJSON = function(){
     };
 };
 
-
-mongoose.model('User', UserSchema);
+module.exports = mongoose.model('User', UserSchema);

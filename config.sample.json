@@ -1,7 +1,6 @@
 {
     "port" : 9000,              //The port to run the server on
     "authenticate" : true,      //Whether to use authentication for private areas. ALWAYS TRUE FOR PRODUCTION!
-    "auth_secret" : "",         //Secret for JSON Web Token authentication
     "db_host" : "localhost",    //MongoDB server hostname
     "db_port" : "27017",        //MongoDB server port
     "db_name" : "lcr",          //Database name

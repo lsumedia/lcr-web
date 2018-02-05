@@ -4,7 +4,7 @@ var shortid = require('shortid');
 var crypto = require('crypto');
 
 var TokenSchema = new Schema({
-    _id : {type : String, default : shortid.generate()},
+    _id : {type : String},
     secret : {type : String, required : false}
 }, {timestamps: true});
 

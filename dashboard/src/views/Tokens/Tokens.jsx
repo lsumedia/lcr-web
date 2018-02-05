@@ -113,11 +113,10 @@ class TokensPage extends Component {
                                                         var date = creation.toDateString() + " " + creation.toLocaleTimeString();
                                                         var id = prop._id;
 
-                                                        var secret = (this.secrets[id])? this.secrets[id] : (
-                                                            <span onClick={() => {this.getSecretForToken(id)}} style={{cursor: "pointer"}}>
-                                                                <i className="fa fa-lock"></i>
-                                                                Reveal Secret
-                                                            </span>);
+                                                        var secret = (this.secrets[id])? 
+                                                            (<input type="text" className="form-control" readonly  value={this.secrets[id]} /> )
+                                                            : (
+                                                            <input type="text" onClick={() => {this.getSecretForToken(id)}} style={{cursor: "pointer"}} className="form-control" value="Click to reveal secret" />);
 
                                                         return (
                                                             <tr key={key}>

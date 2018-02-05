@@ -1,19 +1,20 @@
+const mongoose = require('mongoose');
 const request = require('request');
+
+const Episode = mongoose.model('episode');
+const Show = mongoose.model('show');
+
+const Token = mongoose.model('token');
+const TokenTools = require('../includes/tokentools.js');
 
 /**
  * 
  * The API that services any public requests - used by the public webapp & some parts of the CMS
- * 
- * @param {*} app - Express app 
- * @param {*} db  - MongoDB database object
- * @param {*} Shows 
- * @param {*} Episodes 
- * @param {*} NowPlaying 
- * @param {*} CurrentShow 
+
  */
-function PublicAPI(app, db, Controllers){
+function PublicAPI(app, Controllers){
 
-
+/*
     app.get('/api/public/show', function(req, res){
 
         var limit = parseInt(req.query.limit) || 0;
@@ -74,7 +75,7 @@ function PublicAPI(app, db, Controllers){
         });
     });
 
-    /* CURRENT SHOW DATA */
+    /* CURRENT SHOW DATA *//*
 
     app.get('/api/public/currentshow', function(req,res){
         Controllers.CurrentShow.getCurrentShow().then(
@@ -89,12 +90,8 @@ function PublicAPI(app, db, Controllers){
 
     /* RAW TRACK DATA */
 
-    app.get('/api/public/nowplaying', function(req,res){
-        request('http://ice.lsu.co.uk:8080/status-json.xsl').pipe(res);
-    });
-
     app.get('/api/public/songs/now', function(req,res){
-        res.send(NowPlaying.currentTrackInfo());
+        res.send(Controllers.NowPlaying.currentTrackInfo());
     });
 
     app.get('/api/public/songs/recent', function(req,res){

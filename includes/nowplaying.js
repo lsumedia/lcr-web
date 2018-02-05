@@ -1,10 +1,10 @@
-
+const mongoose = require('mongoose');
 const request = require('request');
-
 const schedule = require('node-schedule');
 
+const Song = mongoose.model('song');
 
-function NowPlaying (db, config){
+function NowPlaying (config){
 
     var currentSongTitle = "";
 
@@ -13,8 +13,6 @@ function NowPlaying (db, config){
     var interval = 10000;
 
     var songLogExpiry = 2592000000;  //delete songs older than this (default: 1 month)
-
-    var col = db.collection('playedsongs');
 
     function getCurrentSong(){
         request.get(config.ice_status, function(error, response, body){
@@ -41,11 +39,13 @@ function NowPlaying (db, config){
 
     function addSongToLog(artist, songName){
         //console.log('"' + songName + '" by "' + artist + '"');
-        col.insertOne({
+        var newSong = new Song({
             artist : artist,
             title : songName,
             timestamp : Date.now()
         });
+
+        newSong.save();
     }
 
     function filterGeniusResults(results){
@@ -85,9 +85,9 @@ function NowPlaying (db, config){
 
         console.log('songlog: cleanup - deleting songs played before ' + ageThresholdDate.toISOString());
 
-        col.remove({timestamp: {$lte : ageThreshold }}, function(err, r){
+        Song.remove({timestamp: {$lte : ageThreshold }}, function(err, result){
             if(err) console.log("songlog: " + err.message)
-            else console.log("songlog: removed " + r.result.n + " old records");
+            else console.log("songlog: removed " +  result.n + " old records");
         });
 
     }
@@ -98,7 +98,7 @@ function NowPlaying (db, config){
 
     this.getRecentSongs = function(limit = 0, skip =  0){
         return new Promise((resolve, reject) => {
-            col.find({}).sort({timestamp : -1}).limit(limit).skip(skip).toArray((err, docs) => {
+            Song.find().sort({timestamp : -1}).limit(limit).skip(skip).exec((err, docs) => {
                 if(err) reject(err);
                 else resolve(docs);
             });
@@ -107,7 +107,7 @@ function NowPlaying (db, config){
 
     this.getNumberOfLoggedSongs = function(){
         return new Promise((resolve, reject) => {
-            col.find({}).count((err, count) => {
+            Song.count({}, (err, count) => {
                 if(err) reject(err);
                 resolve({
                     count: count
@@ -118,7 +118,7 @@ function NowPlaying (db, config){
 
     this.getSongsByArtist = function(artist, limit = 0, skip = 0){
         return new Promise((resolve, reject) => {
-            col.find({artist : artist}).sort({timestamp : -1}).limit(limit).skip(skip).toArray((err, docs) => {
+            Song.find({artist : artist}).sort({timestamp : -1}).limit(limit).skip(skip).exec((err, docs) => {
                 if(err) reject(err);
                 else resolve(docs);
             });
@@ -127,7 +127,7 @@ function NowPlaying (db, config){
 
     this.getSongsByTitle = function(title, limit = 0, skip = 0){
         return new Promise((resolve, reject) => {
-            col.find({title : title}).sort({timestamp : -1}).limit(limit).skip(skip).toArray((err, docs) => {
+            Song.find({title : title}).sort({timestamp : -1}).limit(limit).skip(skip).exec((err, docs) => {
                 if(err) reject(err);
                 else resolve(docs);
             });
@@ -136,7 +136,7 @@ function NowPlaying (db, config){
 
     this.getSongsByArtistAndTitle = function(artist, title, limit = 0, skip = 0){
         return new Promise((resolve, reject) => {
-            col.find({artist : artist, title : title}).sort({timestamp : -1}).limit(limit).skip(skip).toArray((err, docs) => {
+            Song.find({artist : artist, title : title}).sort({timestamp : -1}).limit(limit).skip(skip).exec((err, docs) => {
                 if(err) reject(err);
                 else resolve(docs);
             });

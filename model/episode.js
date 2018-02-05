@@ -1,41 +1,41 @@
-let mongoose = require('mongoose');
-let Schema = mongoose.Schema;
-var shortid = require('shortid');
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
+const uniqueValidator = require('mongoose-unique-validator')
+const shortid = require('shortid');
 
 var episodeTypes = [
     "episode",
     "podcast",
     "mix",
     "update"
-]
+];
 
 var EpisodeSchema = new Schema(
     {
         _id : { type : String, required : false},
         metafile : { type : String, required: true},
         title : { type : String, required: true},
-        type : { type : String, enum : episodeTypes, required: true},
-        description : { type : String, required: false},
+        type : { type : String, enum : episodeTypes, required: false, default : "episode"},
+        description : { type : String, required: true},
         showSlug : { type : String, required: false},
         tags : { type : String, required: false},
         image : { type : String, required: false},
         public : { type : Boolean, required: false, default : false},
-        publishTime : { type : Date, required: true}
+        publishTime : { type : Date, required: false}
+    }, 
+    {
+        timestamps: true
     }
-);  
+);
 
-EpisodeSchema.pre('save', next => {
+EpisodeSchema.plugin(uniqueValidator);
+
+EpisodeSchema.pre('validate', function(next){
     var publishDate = new Date();
-    if(!this.publishTime){
-        this.publishTime = publishDate.toISOString();
-    }
+    if(!this.publishTime) this.publishTime = publishDate.toISOString();
+    if(!this.description) this.description = ""; 
+    if(!this._id) this._id = shortid.generate();
     next();
 });
 
-EpisodeSchema.pre('save', next => {
-    if(!this._id){
-        this._id = shortid.generate();
-    }
-});
-
-module.exports = mongoose.model('episodes', EpisodeSchema);
+module.exports = mongoose.model('episode', EpisodeSchema);

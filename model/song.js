@@ -4,7 +4,8 @@ var shortid = require('shortid');
 
 var SongSchema = new Schema({
     artist : String,
-    title : String
-}, {timestamps: true});
+    title : String,
+    timestamp : Date
+});
 
-module.exports = mongoose.model('playedsongs', SongSchema);
+module.exports = mongoose.model('song', SongSchema);

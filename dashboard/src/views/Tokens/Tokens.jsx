@@ -23,30 +23,17 @@ import {
 
 /* global $ */
 
-class EpisodesPage extends Component {
+class TokensPage extends Component {
     state = { 
-        episodes : []
+        tracks : [],
+        tokens : []
     };
+    
+    secrets = {};
 
-    shows = {}
-
-    updateShowsList(){
-        $.get('/api/private/show').done((response) => {
-            response.map((show) => {
-                this.shows[show.slug] = show.title;
-            });
-            this.setState({});
-        });
-    }
-
-    getShowBySlug(slug){
-        if(this.shows[slug]) return this.shows[slug];
-        return slug;
-    }
-
-    updateEpisodesList(){
-        $.get('/api/private/episode').done((response) => {
-            this.setState({episodes: response});
+    updateTokensList(){
+        $.get('/api/private/token').done((response) => {
+            this.setState({tokens: response});
         });
     }
 
@@ -60,11 +47,15 @@ class EpisodesPage extends Component {
         });
     }
 
+    generateNewToken(){
+        $.post(`/api/private/token/`).done((response) => {
+            this.updateTokensList();
+        });
+    }
 
-
-    deleteShow(id){
+    deleteToken(id){
         $.ajax({ 
-            url : `/api/private/show/${id}`, 
+            url : `/api/private/token/${id}`, 
             method : "delete",
             data : {}
         }).done((response) => {
@@ -74,8 +65,7 @@ class EpisodesPage extends Component {
 
 
     componentWillMount(){
-        this.updateShowsList();
-        this.updateEpisodesList();
+        this.updateTokensList();
     }
 
     componentWillUnmount(){
@@ -84,7 +74,9 @@ class EpisodesPage extends Component {
     constructor(props){
         super(props);
     
-        this.updateShowsList = this.updateShowsList.bind(this);
+        this.updateTokensList = this.updateTokensList.bind(this);
+        this.getSecretForToken = this.getSecretForToken.bind(this);
+        this.generateNewToken = this.generateNewToken.bind(this);
     }
 
     render() {
@@ -94,41 +86,45 @@ class EpisodesPage extends Component {
                     <div className="row">
                         <div className="col-md-12">
                             <Card
-                                statsIcon=""
+                                statsIcon="fa fa-lock"
                                 id="songlist"
                                 classes=""
-                                title="Episodes"
+                                title="Authentication tokens"
                                 category=""
-                                stats=""
+                                stats="Tokens can be used for authenticating external applications"
                                 content={
                                     <div style={{textAlign : "right"}}> 
-                                        <button className="btn btn-flat" onClick={() => { }}>Add Episode</button>
+                                        <button className="btn btn-flat" onClick={() => {this.generateNewToken()}}>Generate New Token</button>
                                         <Table hover>
                                             <thead>
                                                 <tr>
-                                                    <th>Title</th>
-                                                    <th>Show</th>
-                                                    <th>Description</th>
-                                                    <th>Tags</th>
-                                                    <th></th>
+                                                    <th>ID</th>
+                                                    <th>Created At</th>
+                                                    <th style={{textAlign : "right"}}>Secret</th>
+                                                    <th style={{textAlign : "right"}}>Delete</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 {
-                                                    this.state.episodes.map((prop,key) => {
+                                                    this.state.tokens.map((prop,key) => {
 
                                                         
                                                         var creation = new Date(prop.creation);
                                                         var date = creation.toDateString() + " " + creation.toLocaleTimeString();
                                                         var id = prop._id;
 
+                                                        var secret = (this.secrets[id])? this.secrets[id] : (
+                                                            <span onClick={() => {this.getSecretForToken(id)}} style={{cursor: "pointer"}}>
+                                                                <i className="fa fa-lock"></i>
+                                                                Reveal Secret
+                                                            </span>);
+
                                                         return (
                                                             <tr key={key}>
-                                                                <td>{prop.title}</td>
-                                                                <td>{this.getShowBySlug(prop.showSlug)}</td>
-                                                                <td>{prop.description.substr(0,40)}</td>
-                                                                <td>{prop.tags}</td>
-                                                                <td>{prop.active ? "Public" : "Private"}</td>
+                                                                <td>{prop._id}</td>
+                                                                <td>{date}</td>
+                                                                <td style={{textAlign : "right"}}>{secret}</td>
+                                                                <td style={{cursor: "pointer", textAlign : "right"}} onClick={() => { this.deleteToken(id)}}><i className="fa fa-trash"></i></td>
                                                             </tr>
                                                         )
                                                     })
@@ -146,4 +142,4 @@ class EpisodesPage extends Component {
     }
 }
 
-export default EpisodesPage;
+export default TokensPage;

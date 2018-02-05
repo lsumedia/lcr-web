@@ -22,7 +22,7 @@ function PrivateApi(app, auth){
         Show.find({}).limit(limit).skip(skip).exec(function(err,docs){
             if(err) res.status(500).send(err);
             else res.send(docs);
-        })
+        });
     });
     
     //Get one show
@@ -81,7 +81,7 @@ function PrivateApi(app, auth){
         Episode.find({}).limit(limit).skip(skip).exec(function(err,docs){
             if(err) res.status(500).send(err);
             else res.send(docs);
-        })
+        });
     });
     
     //Get a specific episode (WITHOUT grabbing metadata)

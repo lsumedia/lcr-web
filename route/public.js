@@ -23,7 +23,7 @@ function PublicAPI(app, Controllers){
         Show.find({}).limit(limit).skip(skip).exec(function(err,docs){
             if(err) res.status(500).send(err);
             else res.send(docs);
-        })
+        });
     });
     
     app.get('/api/public/show/:slug', function(req, res){
@@ -81,7 +81,7 @@ function PublicAPI(app, Controllers){
              function(){
                  res.status(500).send();
              }
-        )
+        );
      });
 
     /* RAW TRACK DATA */

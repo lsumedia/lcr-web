@@ -12,7 +12,6 @@ TokenSchema.pre('validate', function(next){
     if(!this._id) this._id = shortid.generate();
     crypto.randomBytes(48, (err, buffer) => {
        var secret = buffer.toString('hex');
-       console.log("made a secret, it's " + secret);
        if(!this.secret) this.secret = secret;
        next();
     });

@@ -109,7 +109,7 @@ class TokensPage extends Component {
                                                     this.state.tokens.map((prop,key) => {
 
                                                         
-                                                        var creation = new Date(prop.creation);
+                                                        var creation = new Date(prop.createdAt);
                                                         var date = creation.toDateString() + " " + creation.toLocaleTimeString();
                                                         var id = prop._id;
 

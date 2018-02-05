@@ -1,7 +1,11 @@
+const mongoose = require('mongoose');
+const express = require('express');
 
-var express = require('express');
+const Episode = mongoose.model('episode');
 
-function UtilityAPI(app, db, auth, Controllers){
+function UtilityAPI(app, auth, Controllers){
+
+    var opts = { runValidators : true, new : true};
    
     app.get('/api/utility/currentshow', auth, function(req,res){
        Controllers.CurrentShow.getCurrentShow().then(
@@ -33,35 +37,34 @@ function UtilityAPI(app, db, auth, Controllers){
 
     /* Episodes */
 
+    //Add episode
     app.post('/api/utility/episode/', auth, express.json(), function(req, res){
 
         console.log("utility: request to add episode");
 
-        Controllers.Episodes.insert(req.body).then(function(episode){
-                res.send(episode);
-            },function(err){
-                res.status(400).send(err);
-            });
+        var newEpisode = new Episode(req.body);
 
+        newEpisode.save(function(err){
+            if(err) res.status(400).send(err);
+            else res.send(newEpisode);
+        });
     });
 
+    //Update an episode
     app.post('/api/utility/episode/:id', auth, express.json(), function(req, res){
-        var id = req.params.id;
 
-        Controllers.Episodes.update(id, req.body).then(function(show){
-                res.send(show);
-            },function(err){
-                res.status(404).send(err);
-            });
-
+        Episode.findByIdAndUpdate(req.params.id, req.body, opts, function(err, raw){
+            if(err) res.status(404).send(err);
+            else res.send(raw);
+        });
     });
 
-    app.delete('/api/utility/episode/:id', auth, express.json(), function(req, res){
+     //Delete an episode
+     app.delete('/api/utility/episode/:id', auth, express.json(), function(req, res){
 
-        Controllers.Episodes.delete(req.params.id).then(function(show){
-            res.status(200).send("Deleted episode " + req.params.id);
-        },function(err){
-            res.status(404).send(err);
+        Episode.findByIdAndRemove(req.params.id, function(err, doc){
+            if(err) res.status(404).send(err.message);
+            else res.send(doc);
         });
 
     });

@@ -1,36 +1,36 @@
+const mongoose = require('mongoose');
 const request = require('request');
+
+const Episode = mongoose.model('episode');
+const Show = mongoose.model('show');
+
+const Token = mongoose.model('token');
+const TokenTools = require('../includes/tokentools.js');
 
 /**
  * 
  * The API that services any public requests - used by the public webapp & some parts of the CMS
- * 
- * @param {*} app - Express app 
- * @param {*} db  - MongoDB database object
- * @param {*} Shows 
- * @param {*} Episodes 
- * @param {*} NowPlaying 
- * @param {*} CurrentShow 
+
  */
-function PublicAPI(app, db, Controllers){
+function PublicAPI(app, Controllers){
 
-
+    
     app.get('/api/public/show', function(req, res){
 
         var limit = parseInt(req.query.limit) || 0;
         var skip = parseInt(req.query.skip) || 0;
 
-        Controllers.Shows.getShowsAll(limit, skip).then(function(shows){
-                res.send(shows);
-            },function(){
-                res.status(404).send('Not found');
-            });
+        Show.find({}).limit(limit).skip(skip).exec(function(err,docs){
+            if(err) res.status(500).send(err);
+            else res.send(docs);
+        });
     });
     
     app.get('/api/public/show/:slug', function(req, res){
-        Controllers.Shows.getShowBySlug(req.params.slug).then(function(show){
-            res.send(show);
-        },function(){
-            res.status(404).send('Not found');
+        Show.findOne({slug : req.params.slug}).exec(function(err,doc){
+            if(err) res.status(500).send(err);
+            else if(!doc) res.status(404).send("Not Found");
+            else res.send(doc);
         });
     });
 
@@ -39,38 +39,35 @@ function PublicAPI(app, db, Controllers){
         var skip = parseInt(req.query.skip) || 0;
         var showSlug = req.params.showSlug;
         
-        Controllers.Episodes.getByShow(showSlug, limit, skip).then(function(episodes){
-                res.send(episodes);
-            },function(){
-                res.status(404).send('Not found');
-            });
+        Episode.find({showSlug : showSlug}).limit(limit).skip(skip).exec(function(err,docs){
+            if(err) res.status(500).send(err);
+            else res.send(docs);
+        });
     });
 
     app.get('/api/public/episode', function(req, res){
         
         var limit = parseInt(req.query.limit) || 0;
         var skip = parseInt(req.query.skip) || 0;
-        
-        Controllers.Episodes.getAll(limit, skip).then(function(episodes){
-                res.send(episodes);
-            },function(){
-                res.status(404).send('Not found');
-            });
-    });
 
-    app.get('/api/public/episodetypes', function(req, res){
-        Controllers.Episodes.getEpisodeTypes().then(function(types){
-                res.send(types);
-            }, function(){
-                res.status(500).send("Error, where there should never be an error. Something has gone badly wrong");
-            });
+        Episode.find({public : true}).limit(limit).skip(skip).exec(function(err,docs){
+            if(err) res.status(500).send(err);
+            else res.send(docs);
+        });
     });
 
     app.get('/api/public/episode/:id', function(req, res){
-        Controllers.Episodes.getById(req.params.id).then(function(show){
-            res.send(show);
-        },function(){
-            res.status(404).send('Not found');
+
+        Episode.findById(req.params.id).exec(function(err,doc){
+            if(err) res.status(500).send(err);
+            else if(!doc || !doc.public) res.status(404).send("Not Found");
+            else {
+                doc.getMetaData(function(err, meta){
+                    doc.set({meta : meta});
+                    if(err) res.status(404).send("Could not fetch metadata for episode");
+                    else res.send(doc);
+                });
+            }
         });
     });
 
@@ -84,17 +81,13 @@ function PublicAPI(app, db, Controllers){
              function(){
                  res.status(500).send();
              }
-        )
+        );
      });
 
     /* RAW TRACK DATA */
 
-    app.get('/api/public/nowplaying', function(req,res){
-        request('http://ice.lsu.co.uk:8080/status-json.xsl').pipe(res);
-    });
-
     app.get('/api/public/songs/now', function(req,res){
-        res.send(NowPlaying.currentTrackInfo());
+        res.send(Controllers.NowPlaying.currentTrackInfo());
     });
 
     app.get('/api/public/songs/recent', function(req,res){

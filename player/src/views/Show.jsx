@@ -79,7 +79,7 @@ class ShowPage extends Component{
         });
 
         return (
-        <div className="" id="live-container">
+        <div className="live-container" id="live-container">
           <div className="row">
                 <div class="col-sm-12 col-lg-8 col-xl-7 offset-xl-2">
                     <div className="card episode-card">

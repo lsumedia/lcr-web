@@ -26,9 +26,9 @@ a:hover{
 }
 
 .card{
-  border-radius: 0px;
-  background-color: var(--background-color);
-  color: var(--text-color);
+  /* border-radius: 0px; */
+  /*background-color: var(--background-color);
+  color: var(--text-color); */
 }
 
 .card-img-top {
@@ -78,6 +78,12 @@ a{
   overflow-x: hidden;
   overflow-y: auto;
   padding-top: 0px;
+}
+
+@media only screen and (min-width: 992px) {
+  .live-container {
+     padding : 40px 20px;
+  }
 }
 
 .modal-menu{
@@ -187,4 +193,8 @@ a{
 .current-song-card{
     background-color: var(--theme-text-color);
     color: var(--theme-color);
+}
+
+.login-container{
+  margin-top : 40px;
 }

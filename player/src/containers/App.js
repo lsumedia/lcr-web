@@ -19,6 +19,7 @@ import Backtrack from '../views/Backtrack';
 import Schedule from '../views/Schedule';
 import Episode from '../views/Episode'
 import Show from '../views/Show';
+import Login from '../views/Login';
 
 class App extends Component {
 
@@ -53,6 +54,7 @@ class App extends Component {
                     <Route path="/schedule" component={Schedule}/>
                     <Route path="/episode/:id" component={Episode} />
                     <Route path="/show" component={Show} />
+                    <Route path="/login" component={Login} />
                     <Route path="/" component={Live}/>
                 </Switch> 
 

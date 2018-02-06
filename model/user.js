@@ -3,8 +3,7 @@ var uniqueValidator = require('mongoose-unique-validator')
 var crypto = require('crypto');
 
 var UserSchema = new mongoose.Schema({
-  username: {type: String, lowercase: true, required: [true, "can't be blank"], match: [/^[a-zA-Z0-9]+$/, 'is invalid'], index: true},
-  email: {type: String, lowercase: true, required: [true, "can't be blank"], match: [/\S+@\S+\.\S+/, 'is invalid'], index: true},
+  email: {type: String, lowercase: true, required: [true, "can't be blank"], match: [/\S+@\S+\.\S+/, 'is invalid'], index: true, unique : true},
   bio: String,
   image: String,
   hash: String,
@@ -30,14 +29,13 @@ UserSchema.methods.generateJWT = function() {
     
     return jwt.sign({
         id: this._id,
-        username: this.username,
+        email: this.email,
         exp: parseInt(exp.getTime() / 1000),
     }, secret);
 };
 
 UserSchema.methods.toAuthJSON = function(){
     return {
-        username: this.username,
         email: this.email,
         token: this.generateJWT(),
         bio: this.bio,
@@ -45,4 +43,4 @@ UserSchema.methods.toAuthJSON = function(){
     };
 };
 
-module.exports = mongoose.model('User', UserSchema);
+module.exports = mongoose.model('user', UserSchema);

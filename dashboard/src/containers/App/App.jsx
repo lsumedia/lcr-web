@@ -36,7 +36,7 @@ class App extends Component {
                     <NotificationSystem ref="notificationSystem" style={style}/>
                     <Sidebar {...this.props} />
                     <div id="main-panel" className="main-panel">
-                        {/* <Header {...this.props}/> */}
+                        <Header {...this.props}/>
 
                             <Switch>
                                 <Route path="/dashboard" component={Dashboard}/>
@@ -47,7 +47,7 @@ class App extends Component {
                                 <Redirect from="/" to="/dashboard"/>
                             </Switch>
 
-                        {/* <Footer /> */}
+                        <Footer />
                     </div>
                 </div>
 

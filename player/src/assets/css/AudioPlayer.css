@@ -49,6 +49,7 @@
       left: 15px;
       right: 15px;
       height: 350px;
+      max-width: 500px;
       background-color: var(--player-bg-color);
       /* display: none; */
       border-top-left-radius: 5px;

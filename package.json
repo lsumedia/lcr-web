@@ -18,7 +18,10 @@
   },
   "homepage": "https://github.com/lsumedia/lcr-web#readme",
   "dependencies": {
+    "body-parser": "^1.18.2",
+    "cookie-parser": "^1.4.3",
     "express": "^4.16.2",
+    "express-session": "^1.15.6",
     "get-folder-size": "^1.0.0",
     "http": "0.0.0",
     "json-comments": "^0.2.1",
@@ -30,6 +33,7 @@
     "node-schedule": "^1.2.5",
     "passport": "^0.4.0",
     "passport-facebook": "^2.1.1",
+    "passport-local": "^1.0.0",
     "readline-sync": "^1.4.7",
     "request": "^2.83.0",
     "shortid": "^2.2.8",

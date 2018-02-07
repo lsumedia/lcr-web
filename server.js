@@ -7,7 +7,6 @@ const request = require('request');
 const passport = require('passport');
 const mongoose = require('mongoose');
 const cookieSession = require('cookie-session');
-const flash = require('express-flash');
 
 /* Load server config */
 var configString;

@@ -17,8 +17,8 @@ class HeaderLinks extends Component{
                 <Nav>
                 </Nav>
                 <Nav pullRight>
-                    <NavItem eventKey={1} href="#">Account</NavItem>
-                    <NavItem eventKey={3} href="#">Log out</NavItem>
+                    <NavItem eventKey={1} href="">{this.props.email}</NavItem>
+                    <NavItem eventKey={3} href="/endsession">Log out</NavItem>
                 </Nav>
             </div>
         );

@@ -3,14 +3,26 @@ import { Navbar } from 'react-bootstrap';
 
 import HeaderLinks from './HeaderLinks.jsx';
 
+/* global $ */
+
 class Header extends Component{
     constructor(props){
         super(props);
         this.mobileSidebarToggle = this.mobileSidebarToggle.bind(this);
         this.state = {
-            sidebarExists: false
+            sidebarExists: false,
+            sessionData : {}
         };
+        this.getAccountData();
     }
+
+    getAccountData(){
+        $.get('/sessiondata').done((data) => {
+            console.log(data);
+            this.setState({sessionData : data});
+        });
+    }
+
     mobileSidebarToggle(e){
         if(this.state.sidebarExists === false){
             this.setState({
@@ -37,7 +49,7 @@ class Header extends Component{
                     <Navbar.Toggle onClick={this.mobileSidebarToggle}/>
                 </Navbar.Header>
                 <Navbar.Collapse id="header_navbar">
-                    <HeaderLinks />
+                    <HeaderLinks email={this.state.sessionData.email} />
                 </Navbar.Collapse>
             </Navbar>
         );

@@ -21,15 +21,15 @@ try{
 
 const config = JSONC.parse(configString);
 
+var port = process.env.PORT || config.port;
+
 /* Initialisation */
 
 var app = express();
 
-var secret = 'adaifjdpmoaufaiomdpuxcvbnmqyydunuapo'
-
 app.use(cookieSession({
     name : 'session',
-    keys : [secret],
+    keys : [config.secret],
     maxAge: 24 * 60 * 60 * 1000 // 24 hours
 }));
 
@@ -37,7 +37,7 @@ app.use(express.urlencoded({extended : false}));
 app.use(passport.initialize());
 app.use(passport.session());
 
-var server = http.createServer(app);
+//var server = http.createServer(app);
 
 /* Models */
 
@@ -57,17 +57,17 @@ var Controllers = { NowPlaying, CurrentShow };
 
 /* Authentication */
 
-app.post('/startsession', passport.authenticate('local', { 
-        failureRedirect: '/login?failed',
-        failureFlash : true
-    }),
+app.post('/startsession', Authentication.startSessionMiddleware,
     function(req, res){
         res.redirect('/dashboard');
     }
 );
 
-var UserAuth = (config.authenticate)? passport.authenticate('local', {failureRedirect : '/login'}) : (req, res, next) => { next(); };
+app.get('/endsession', Authentication.endSessionMiddleware);
 
+app.get('/sessiondata', Authentication.sessionData);
+
+var UserAuth = (config.authenticate)? Authentication.userMiddleware : (req, res, next) => { next(); };
 
 /* Routes */
 
@@ -104,10 +104,10 @@ mongoose.connect(dbUrl).then(
     err => { console.log("mongoose: Error connecting to database"); console.log(err)}
 )
 
-if(Number.isInteger(config.port)){
+if(Number.isInteger(port)){
     
-    server.listen(config.port, function () {
-      console.log('server: listening on port ' + config.port);
+    app.listen(port, function () {
+      console.log('server: listening on port ' + port);
     });
   
 }

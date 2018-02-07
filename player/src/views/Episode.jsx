@@ -59,9 +59,8 @@ class Episode extends Component{
         var publishInfo = ((episodeData.type == "episode")? "Originally broadcast on " : "Published on ") + dateString;
 
         return (
-        <div className="live-container" id="live-container">
-          <div className="row">
-                <div class="col-sm-12 col-lg-8 col-xl-7 offset-xl-2">
+        <div className="container live-container" id="live-container">
+                <div class="">
                     <div className="card episode-card">
                         <img className="card-img-top" src={episodeData.image} />
                         <div className="episode-play-button">
@@ -83,7 +82,6 @@ class Episode extends Component{
                 </div>
                 <ul className="list-group list-group-flush">
                 </ul>
-            </div> 
         </div>)
     }
 }

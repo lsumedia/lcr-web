@@ -1,6 +1,7 @@
-var mongoose = require('mongoose');
-var uniqueValidator = require('mongoose-unique-validator')
-var crypto = require('crypto');
+const mongoose = require('mongoose');
+const uniqueValidator = require('mongoose-unique-validator')
+const crypto = require('crypto');
+const jwt = require('jsonwebtoken');
 
 var UserSchema = new mongoose.Schema({
   email: {type: String, lowercase: true, required: [true, "can't be blank"], match: [/\S+@\S+\.\S+/, 'is invalid'], index: true, unique : true},

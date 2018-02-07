@@ -6,8 +6,7 @@ const multer = require('multer');
 const request = require('request');
 const passport = require('passport');
 const mongoose = require('mongoose');
-const cookieParser = require('cookie-parser');
-const session = require('express-session');
+const cookieSession = require('cookie-session');
 const flash = require('express-flash');
 
 /* Load server config */
@@ -26,15 +25,17 @@ const config = JSONC.parse(configString);
 
 var app = express();
 
-app.use(session({
-    secret : 'adaifjdpmoaufaiomdpuxcvbnmqyydunuapo',
-    resave: true,
-    saveUninitialized: false
+var secret = 'adaifjdpmoaufaiomdpuxcvbnmqyydunuapo'
+
+app.use(cookieSession({
+    name : 'session',
+    keys : [secret],
+    maxAge: 24 * 60 * 60 * 1000 // 24 hours
 }));
-app.use(flash());
+
+app.use(express.urlencoded({extended : false}));
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(express.urlencoded({extended : false}));
 
 var server = http.createServer(app);
 
@@ -57,17 +58,15 @@ var Controllers = { NowPlaying, CurrentShow };
 /* Authentication */
 
 app.post('/startsession', passport.authenticate('local', { 
-        successRedirect : '/dashboard',
-        failureRedirect: '/login',
+        failureRedirect: '/login?failed',
         failureFlash : true
     }),
     function(req, res){
-        res.send("auth succeeeded");
+        res.redirect('/dashboard');
     }
 );
 
 var UserAuth = (config.authenticate)? passport.authenticate('local', {failureRedirect : '/login'}) : (req, res, next) => { next(); };
-//var authfn = (req, res, next) => { next(); };
 
 
 /* Routes */

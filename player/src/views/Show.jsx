@@ -79,23 +79,19 @@ class ShowPage extends Component{
         });
 
         return (
-        <div className="live-container" id="live-container">
-          <div className="row">
-                <div class="col-sm-12 col-lg-8 col-xl-7 offset-xl-2">
-                    <div className="card episode-card">
-                    <img className="card-img-top" src={showData.image} alt="Show Image" />
-                    </div>
-                    <div className="card-body now-playing-info">
-                    <h4 className="card-title">{showData.title}</h4>
-                    {showData.description}
-                    </div><div className="card-body more-episodes">
-                        Episodes
-                    </div>
-                    <ul className="list-group list-group-flush">
-                        {episodeList}
-                    </ul>
-                </div>
-          </div> 
+        <div className="">
+            <div className="card episode-card">
+            <img className="card-img-top" src={showData.image} alt="Show Image" />
+            </div>
+            <div className="card-body now-playing-info">
+            <h4 className="card-title">{showData.title}</h4>
+            {showData.description}
+            </div><div className="card-body more-episodes">
+                Episodes
+            </div>
+            <ul className="list-group list-group-flush">
+                {episodeList}
+            </ul>
       </div>)
     }
 }
@@ -117,7 +113,7 @@ class Show extends Component{
 
     render(){
         return (
-            <div className="">
+            <div className="container live-container">
                 <Switch>
                     <Route path="/show/:slug" component={ShowPage} />
                     <Route path="/show">

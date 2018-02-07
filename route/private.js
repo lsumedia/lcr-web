@@ -19,7 +19,7 @@ function PrivateApi(app, auth){
         var limit = parseInt(req.query.limit) || 0;
         var skip = parseInt(req.query.skip) || 0;
 
-        Show.find({}).limit(limit).skip(skip).exec(function(err,docs){
+        Show.find({}, null, { sort : { slug : 1 }}).limit(limit).skip(skip).exec(function(err,docs){
             if(err) res.status(500).send(err);
             else res.send(docs);
         });
@@ -78,7 +78,7 @@ function PrivateApi(app, auth){
         var limit = parseInt(req.query.limit) || 0;
         var skip = parseInt(req.query.skip) || 0;
 
-        Episode.find({}).limit(limit).skip(skip).exec(function(err,docs){
+        Episode.find({}, null, { sort : { $natural : -1 }}).limit(limit).skip(skip).exec(function(err,docs){
             if(err) res.status(500).send(err);
             else res.send(docs);
         });

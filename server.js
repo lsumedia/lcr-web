@@ -7,6 +7,7 @@ const request = require('request');
 const passport = require('passport');
 const mongoose = require('mongoose');
 const cookieSession = require('cookie-session');
+const flash = require('express-flash');
 
 /* Load server config */
 var configString;
@@ -32,6 +33,7 @@ app.use(cookieSession({
     maxAge: 24 * 60 * 60 * 1000 // 24 hours
 }));
 
+app.use(flash());
 app.use(express.urlencoded({extended : false}));
 app.use(passport.initialize());
 app.use(passport.session());

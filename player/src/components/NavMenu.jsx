@@ -25,7 +25,7 @@ class NavMenu extends Component{
                             <p className="menu-title-2"> What's next</p>
                         </div>
                     </NavLink>
-                    <NavLink to={'/login'} onClick={this.props.hideMenu} className="card nav-option">
+                    <NavLink to={'/dashboard'} onClick={this.props.hideMenu} className="card nav-option">
                         <div className="card-body card-menu">
                             <h4 className="card-title menu-title">Committee Login</h4>
                         </div>

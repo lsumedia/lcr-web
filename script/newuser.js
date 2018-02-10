@@ -12,22 +12,40 @@ const config = JSONC.parse(configString);
 var dbUrl = `mongodb://${config.db_host}:${config.db_port}/${config.db_name}`;
 
 mongoose.connect(dbUrl).then(
-    () => { console.log("mongoose: Connected successfully to server")},
+    () => { 
+        console.log("mongoose: Connected successfully to server")
+        makeNewUser();
+    },
     err => { console.log("mongoose: Error connecting to database"); console.log(err)}
 );
 
-console.log("New User Script");
+function makeNewUser(){
 
-var email = readlineSync.question("Enter a valid email address:");
+    console.log("New User Script");
 
-var password = readlineSync.question("Enter password:", { hideEchoBack : true });
+    var email = readlineSync.question("Enter a valid email address:");
 
-var newUser = new User({ email });
+    var password1 = readlineSync.question("Enter password:", { hideEchoBack : true });
+    var password2 = readlineSync.question("Confirm password:", { hideEchoBack : true });
 
-newUser.setPassword(password);
+    if(password1 != password2){ 
+        console.log("Passwords do not match");
+        makeNewUser(); 
+    }
 
-newUser.save(function(err){
-    if(err) console.log("Error creating new user: "  + err.message);
-    else console.log("Created new user with email " + email);
-    process.exit();
-});
+    var newUser = new User({ email });
+
+    newUser.setPassword(password1);
+
+    newUser.save(function(err){
+        if(err){ 
+            console.log("Error creating new user: "  + err.message); 
+            makeNewUser();
+        }
+        else{
+            console.log("Created new user with email " + email)
+            process.exit();
+        } 
+    });
+
+}

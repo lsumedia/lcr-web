@@ -60,7 +60,13 @@ class EpisodesPage extends Component {
         });
     }
 
-
+    toggleShowVisibility(id, publicState){
+        return $.post(
+            `/api/private/episode/${id}`,
+            {
+                public : publicState
+        });
+    }
 
     deleteShow(id){
         $.ajax({ 
@@ -110,7 +116,8 @@ class EpisodesPage extends Component {
                                                     <th>Show</th>
                                                     <th>Description</th>
                                                     <th>Tags</th>
-                                                    <th></th>
+                                                    <th>Date Published</th>
+                                                    <th className="text-right">Publish</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -118,9 +125,18 @@ class EpisodesPage extends Component {
                                                     this.state.episodes.map((prop,key) => {
 
                                                         
-                                                        var creation = new Date(prop.creation);
+                                                        var creation = new Date(prop.publishTime);
                                                         var date = creation.toDateString() + " " + creation.toLocaleTimeString();
                                                         var id = prop._id;
+
+                                                        var btnColor = "btn " + ((prop.public) ? 'btn-success ' : 'btn-danger');
+                                                        
+                                                        var publicButtonOnclick = () => {
+                                                            console.log("hello there");
+                                                            this.toggleShowVisibility(prop._id, !prop.public).then(() => {
+                                                                this.updateEpisodesList();
+                                                            });
+                                                        }
 
                                                         return (
                                                             <tr key={key}>
@@ -128,7 +144,12 @@ class EpisodesPage extends Component {
                                                                 <td>{this.getShowBySlug(prop.showSlug)}</td>
                                                                 <td>{prop.description.substr(0,40)}</td>
                                                                 <td>{prop.tags}</td>
-                                                                <td>{prop.active ? "Public" : "Private"}</td>
+                                                                <td>{date}</td>
+                                                                <td className="text-right">
+                                                                    <button className={btnColor} onClick={publicButtonOnclick}>
+                                                                        {prop.public ? "Public" : "Private"}
+                                                                    </button>
+                                                                </td>
                                                             </tr>
                                                         )
                                                     })

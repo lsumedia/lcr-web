@@ -25,7 +25,11 @@ import {
 
 class EpisodesPage extends Component {
     state = { 
-        episodes : []
+        episodes : [],
+        limit : 10,
+        page : 0,
+        episodeCount : 0,
+        searchTerm : ""
     };
 
     shows = {}
@@ -44,10 +48,25 @@ class EpisodesPage extends Component {
         return slug;
     }
 
+    updateLists(){
+        this.updateShowsList();
+        this.updateEpisodeCount();
+        this.updateEpisodesList();
+    }
+
     updateEpisodesList(){
-        $.get('/api/private/episode').done((response) => {
+        var limit = this.state.limit;
+        var offset = limit + (this.state.page * limit);
+        $.get(`/api/private/episode?limit=${limit}&offset=${offset}`).done((response) => {
             this.setState({episodes: response});
         });
+    }
+
+    updateEpisodeCount(){
+         $.get(`/api/private/episode/count`).done((response) => {
+            this.setState({episodeCount: response.count});
+        });
+
     }
 
     getSecretForToken(id){
@@ -78,10 +97,35 @@ class EpisodesPage extends Component {
         });
     }
 
+    nextPage(){
+
+    }
+
+    previousPage(){
+        /*if(page <= 0){
+            this.page = 0;
+        }else{
+            this.page = this.page - 1;
+        } */
+    }
+
+    pagination(){
+
+        
+
+        return(
+            <ul className="pagination">
+                <li className=""><a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
+                <li className=""><a href="#">1</a></li>
+                <li className=""><a href="#">2</a></li>
+                <li className=""><a href="#" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>
+            </ul>
+        );
+    }
+
 
     componentWillMount(){
-        this.updateShowsList();
-        this.updateEpisodesList();
+        this.updateLists();
     }
 
     componentWillUnmount(){
@@ -103,11 +147,12 @@ class EpisodesPage extends Component {
                                 statsIcon=""
                                 id="songlist"
                                 classes=""
-                                title="Episodes"
+                                title="Episode"
                                 category=""
                                 stats=""
                                 content={
                                     <div style={{textAlign : "right"}}> 
+                                    <div>There are {this.state.episodeCount}</div>
                                         <button className="btn btn-flat" onClick={() => { }}>Add Episode</button>
                                         <Table hover>
                                             <thead>
@@ -134,7 +179,7 @@ class EpisodesPage extends Component {
                                                         var publicButtonOnclick = () => {
                                                             console.log("hello there");
                                                             this.toggleShowVisibility(prop._id, !prop.public).then(() => {
-                                                                this.updateEpisodesList();
+                                                                this.updateLists();
                                                             });
                                                         }
 
@@ -156,6 +201,7 @@ class EpisodesPage extends Component {
                                                 }
                                             </tbody>
                                         </Table>
+                                        
                                     </div>
                                 }
                             />

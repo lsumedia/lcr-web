@@ -89,11 +89,13 @@ Add an episode
     "showSlug" : "slug-of-show-or-null",
     "tags" : "space seperated keywords",
     "image" : "url of 16:9 poster image",
+    "length" : 0,
     "public" : true
 }
 ```
 
 Response is the validated entry with an additional uniquely generated parameter "_id"
+Specifying the showSlug is not required
 
 #### POST /api/utility/episode/:id
 

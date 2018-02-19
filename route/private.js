@@ -83,6 +83,17 @@ function PrivateApi(app, auth){
             else res.send(docs);
         });
     });
+
+    //Get number of episodes
+    app.get('/api/private/episode/count', auth, function(req, res){
+
+        Episode.count({}).exec(function(err,count){
+            if(err) res.status(500).send(err);
+            else res.send({
+                count : count
+            });
+        });
+    });
     
     //Get a specific episode (WITHOUT grabbing metadata)
     app.get('/api/private/episode/:id', auth, function(req, res){

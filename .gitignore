@@ -61,4 +61,6 @@ config.json
 dist
 build/
 dashboard/build/
-backup/
+
+# don't git de backups
+backups/

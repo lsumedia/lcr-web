@@ -5,7 +5,7 @@ const Episode = mongoose.model('episode');
 const Show = mongoose.model('show');
 
 //Make sure the backup folder exists
-var backupDir = './backup';
+var backupDir = './backups';
 
 if(!fs.existsSync(backupDir)){
     fs.mkdirSync(backupDir);
@@ -16,7 +16,7 @@ function generateFileName(type){
     var re = /:/g;
     var dateString = nowdate.toISOString().replace(re, '-');
 
-    return './backup/' + type + '_' + dateString + '.json';
+    return backupDir + '/' + type + '_' + dateString + '.json';
 }
 
 function grabEpisodes(callback){

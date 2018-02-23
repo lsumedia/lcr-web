@@ -34,7 +34,7 @@ class BackupPage extends Component {
                                         </div>
                                         <div>
                                             <h5>Shows</h5>
-                                            <a href="/api/private/backup/show" download="episodes.json"><button className="btn btn-default">Download Shows backup</button></a>
+                                            <a href="/api/private/backup/show" download="shows.json"><button className="btn btn-default">Download Shows backup</button></a>
                                         </div>
                                     </div>
                                 }

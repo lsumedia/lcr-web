@@ -216,11 +216,12 @@ function PrivateApi(app, auth){
     //Backup Episodes
 
     app.get('/api/private/backup/episode', auth, function(req,res){
+       
         res.setHeader('Content-Type', 'application/json');
-        res.setHeader('Content-disposition','attachment; filename=episodes.json');
+        res.setHeader('Content-disposition','attachment; filename=' + BackupTools.downloadFilename('episodes'));
         BackupTools.backupEpisodes(function(err, docs){
             if(err) res.status(500).send(err.message);
-            else res.send(docs);
+            else res.send(JSON.stringify(docs,null,4));
         })
     });
 
@@ -231,11 +232,12 @@ function PrivateApi(app, auth){
     //Backup Shows 
     
     app.get('/api/private/backup/show', auth, function(req,res){
+
         res.setHeader('Content-Type', 'application/json');
-        res.setHeader('Content-disposition','attachment; filename=shows.json');
+        res.setHeader('Content-disposition','attachment; filename=' + BackupTools.downloadFilename('shows'));
         BackupTools.backupShows(function(err, docs){
             if(err) res.status(500).send(err.message);
-            else res.send(docs);
+            else res.send(JSON.stringify(docs,null,4));
         })
     });
 

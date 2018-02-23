@@ -11,7 +11,7 @@ if(!fs.existsSync(backupDir)){
     fs.mkdirSync(backupDir);
 }
 
-function generateFileName(type){
+function generateFilename(type){
     var nowdate = new Date();
     var re = /:/g;
     var dateString = nowdate.toISOString().replace(re, '-');
@@ -21,7 +21,7 @@ function generateFileName(type){
 
 function grabEpisodes(callback){
     Episode.find().exec(function(err,docs){
-        var backupName = generateFileName('episode');
+        var backupName = generateFilename('episode');
         var jsonstring = JSON.stringify(docs, null, 4);
 
         fs.writeFile(backupName, jsonstring, 'utf8', (err) => {
@@ -35,7 +35,7 @@ function grabEpisodes(callback){
 
 function grabShows(callback){
     Show.find().exec(function(err,docs){
-        var backupName = generateFileName('show');
+        var backupName = generateFilename('show');
         var jsonstring = JSON.stringify(docs, null, 4);
 
         fs.writeFile(backupName, jsonstring, 'utf8', (err) => {
@@ -54,10 +54,23 @@ module.exports = {
     backupShows : function(callback){
        grabShows(callback);
     },
-    restoreEpisodes : function(){
-        grabEpisode();
+    restoreEpisodes : function(restoreFile, callback){
+        //Perform a local backup before restoring
+        grabEpisode(function(err, docs){
+            
+        });
     },
-    restoreShows : function(){
-        grabShows();
+    restoreShows : function(restoreFile, callback){
+        //Perform a local backup before restoring
+        grabShows(function(err, docs){
+            
+        });
+    },
+    downloadFilename : function(type){
+        var nowdate = new Date();
+        var re = /:/g;
+        var dateString = nowdate.toISOString().replace(re, '-');
+    
+        return type + '_' + dateString + '.json';
     }
 }

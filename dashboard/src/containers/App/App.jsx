@@ -7,6 +7,7 @@ import {
 import NotificationSystem from 'react-notification-system';
 
 import Dashboard from '../../views/Dashboard/Dashboard';
+import BackupPage from '../../views/Backup/Backup';
 import ShowsPage from '../../views/Shows/Shows';
 import EpisodesPage from '../../views/Episodes/Episodes';
 import SchedulePage from '../../views/Schedule/Schedule'; 
@@ -44,6 +45,7 @@ class App extends Component {
                                 <Route path="/episodes" component={EpisodesPage}/>
                                 <Route path="/schedule" component={SchedulePage}/>
                                 <Route path="/tokens" component={TokensPage}/>
+                                <Route path="/backup" component={BackupPage}/>
                                 <Redirect from="/" to="/dashboard"/>
                             </Switch>
 

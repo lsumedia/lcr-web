@@ -76,6 +76,12 @@ class Sidebar extends Component{
                                 <p>Tokens</p>
                             </NavLink>
                         </li>
+                        <li className={this.activeRoute("/backup")}>
+                            <NavLink to={'/backup'} className="nav-link" activeClassName="active">
+                                <i className="pe-7s-server"></i>
+                                <p>Backup</p>
+                            </NavLink>
+                        </li>
                     </ul>
                 </div>
             </div>

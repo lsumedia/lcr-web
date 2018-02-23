@@ -7,6 +7,8 @@ const Show = mongoose.model('show');
 const Token = mongoose.model('token');
 const TokenTools = require('../includes/tokentools.js');
 
+const BackupTools = require('../includes/backup.js');
+
 function PrivateApi(app, auth){
    
     var opts = { runValidators : true, new : true};
@@ -34,6 +36,30 @@ function PrivateApi(app, auth){
             else res.send(doc);
         });
 
+    });
+
+    //Get episodes by show
+    app.get('/api/private/episode/byshow/:showSlug', auth, function(req,res){
+        var limit = parseInt(req.query.limit) || 0;
+        var skip = parseInt(req.query.skip) || 0;
+        var showSlug = req.params.showSlug;
+        
+        Episode.find({showSlug : showSlug}, null, { sort : { $natural : -1 }}).limit(limit).skip(skip).exec(function(err,docs){
+            if(err) res.status(500).send(err);
+            else res.send(docs);
+        });
+    });
+
+    //Search episodes with a string
+
+    app.get('/api/private/episode/search/:term', auth, function(req,res){
+
+        var re = new RegExp(req.params.term, 'i');
+
+        Episode.find().or([{'title' : {$regex : re}},{'descrip[tion' : {$regex : re}},{'tags' : {$regex : re}}]).sort({'title':1}).exec(function(err,docs){
+            if(err) res.status(400).send(err);
+            else res.send(docs);
+        });
     });
 
     //Add a show
@@ -176,6 +202,44 @@ function PrivateApi(app, auth){
     });
 
     /* Users */
+
+    //Change password
+
+    //Update bio & email preferences
+
+    //Delete user
+
+    //Create user
+
+    /* Backup & Restore */
+
+    //Backup Episodes
+
+    app.get('/api/private/backup/episode', auth, function(req,res){
+        res.setHeader('Content-Type', 'application/json');
+        res.setHeader('Content-disposition','attachment; filename=shows.json');
+        BackupTools.backupEpisodes(function(err, docs){
+            if(err) res.status(500).send(err.message);
+            else res.send(docs);
+        })
+    });
+
+    //Restore Episodes
+
+    
+
+    //Backup Shows 
+    
+    app.get('/api/private/backup/show', auth, function(req,res){
+        res.setHeader('Content-Type', 'application/json');
+        res.setHeader('Content-disposition','attachment; filename=shows.json');
+        BackupTools.backupShows(function(err, docs){
+            if(err) res.status(500).send(err.message);
+            else res.send(docs);
+        })
+    });
+
+    //Restore Shows
 
 }
 

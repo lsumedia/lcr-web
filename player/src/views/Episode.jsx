@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Route, Switch, Redirect, NavLink } from 'react-router-dom';
 import { defaultData, daysOfWeek, months } from '../Variables.jsx';
+import ScalableContainer from '../components/ScalableContainer';
 
 //import * as videojs from 'video.js';
 /* global $, videojs, globals */
@@ -59,7 +60,8 @@ class Episode extends Component{
         var publishInfo = ((episodeData.type == "episode")? "Originally broadcast on " : "Published on ") + dateString;
 
         return (
-        <div className="container live-container" id="live-container">
+        <ScalableContainer content={
+            <div>
                 <div class="">
                     <div className="card episode-card">
                         <img className="card-img-top" src={episodeData.image} />
@@ -82,7 +84,8 @@ class Episode extends Component{
                 </div>
                 <ul className="list-group list-group-flush">
                 </ul>
-        </div>)
+            </div>
+        }/>)
     }
 }
 

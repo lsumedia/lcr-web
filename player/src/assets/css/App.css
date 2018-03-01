@@ -150,6 +150,11 @@ a{
   background-color: rgba(59,66,76,0.95);
 }
 
+.square-card{
+  border-radius: 0px;
+  border:none;
+}
+
 .episode-card{
   position: relative;
   color: var(--theme-text-color);

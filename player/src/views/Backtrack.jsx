@@ -1,13 +1,11 @@
 import React, { Component } from 'react';
 import { Route, Switch, Redirect, NavLink } from 'react-router-dom';
 import { defaultData, daysOfWeek, months } from '../Variables.jsx';
+import ScalableContainer from '../components/ScalableContainer';
 
 /* global $, globals*/
 
 
-class Featured extends Component{
-
-}
 
 class Recent extends Component{
     
@@ -38,7 +36,7 @@ class Recent extends Component{
             var episodeDate = new Date(episode.publishTime);
             var dateString =  episodeDate.getDate() + " " + months[episodeDate.getMonth()] + " " + episodeDate.getFullYear();
             return (
-                <NavLink to={path} className="card episode-list-card" key={episode._id}>
+                <NavLink to={path} className="list-group-item" key={episode._id}> 
                     <div className="card-body">
                         {episode.title} <span className="text-grey">{dateString}</span>
                         <i className="material-icons float-right" onClick={playAction}>play_circle_outline</i>
@@ -48,11 +46,11 @@ class Recent extends Component{
         });
 
         return (
-            <div> 
-                <div className="card episode-list-card">
-                    <h4 className="menu-title-3">Recent</h4>
-                </div>
-                {listItems}
+            <div className="card square-card"> 
+                <h4 className="menu-title-3">Recent</h4>
+                <ul class="list-group list-group-flush">
+                    {listItems}
+                </ul>
             </div>
         );
     }
@@ -67,7 +65,6 @@ class Backtrack extends Component{
             this.setState({shows : response});
         });
     }
-
     
     componentDidMount(){
         this.getShowsList();
@@ -75,14 +72,16 @@ class Backtrack extends Component{
 
     render(){
         return (
-            <div className="container live-container">
-                <Recent />
-                <div className="card episode-list-card">
-                    <NavLink to="/show">
-                        <h4 className="menu-title-3 card-title">All Shows</h4>
-                    </NavLink>
+            <ScalableContainer content={
+                <div>
+                    <Recent />
+                    <div className="card square-card">
+                        <NavLink to="/show">
+                            <h4 className="menu-title-3 card-title">All Shows</h4>
+                        </NavLink>
+                    </div>
                 </div>
-            </div>
+            } />
         );
     }
 }

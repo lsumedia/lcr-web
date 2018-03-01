@@ -6,8 +6,8 @@ const slugMaker = require('slug');
 var ShowSchema = new Schema(
     {
         title : { type : String, required : true},
-        description : { type : String, required : true},
-        tags : { type : String, required : false},
+        description : { type : String, required : false, default : ""},
+        tags : { type : String, required : false, default : ""},
         image : { type : String, required : false},
         slug: { type : String, required : false, index : true, unique : true},
         active :  { type : Boolean, required : false, default : true}, 

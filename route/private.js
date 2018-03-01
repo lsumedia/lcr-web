@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const express = require('express');
+const multer = require('multer');
 
 const Episode = mongoose.model('episode');
 const Show = mongoose.model('show');

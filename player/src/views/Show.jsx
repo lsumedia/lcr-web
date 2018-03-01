@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Route, Switch, Redirect, NavLink } from 'react-router-dom';
 import defaultData from '../Variables.jsx';
+import ScalableContainer from '../components/ScalableContainer';
 
 /* global $, globals */
 
@@ -9,7 +10,7 @@ function ShowList(props){
     const listItems = shows.map((show) => {
         var path = '/show/' + show.slug;
         return (
-            <NavLink to={path} className="episode-list-card" key={show.slug}>
+            <NavLink to={path} className="list-group-item" key={show.slug}>
                 <div className="card-body">
                 {show.title}
                 </div>
@@ -17,10 +18,14 @@ function ShowList(props){
         );
     });
     return (
-        <div className="card" >
-        <h3 className="menu-title-3">Shows</h3>
-                {listItems}
+        <ScalableContainer content={
+            <div className="card">
+                <h4 className="menu-title-3">Shows</h4>
+                <ul className="list-group list-group-flush">
+                        {listItems}
+                </ul>
             </div>
+        }/>
     )
 }
 
@@ -68,31 +73,37 @@ class ShowPage extends Component{
             }
 
             return (
-                <NavLink to={path} class="card episode-list-card">
-                    <div class="card-body">
+                <NavLink to={path} class="list-group-item">
+                    <div class="">
                         <div className="">{episode.title} {dateString}</div>
                         <i className="material-icons float-right" onClick={playAction}>play_circle_outline</i><br />
                         {description}
                     </div>
-                 </NavLink>
+                </NavLink>
             );
         });
 
         return (
-        <div className="">
-            <div className="card episode-card">
-            <img className="card-img-top" src={showData.image} alt="Show Image" />
+        <ScalableContainer content={
+            <div>
+                <div className="card episode-card">
+                    <img className="card-img-top" src={showData.image} alt="Show Image" />
+                </div>
+                <div className="card-body now-playing-info">
+                <h4 className="card-title">{showData.title}</h4>
+                {showData.description}
+                </div>
+                <div className="card square-card">
+                    <div className="card-body more-episodes">
+                        Episodes
+                    </div>
+                    <ul className="list-group list-group-flush">
+                        {episodeList}
+                    </ul>
+                </div>
+               
             </div>
-            <div className="card-body now-playing-info">
-            <h4 className="card-title">{showData.title}</h4>
-            {showData.description}
-            </div><div className="card-body more-episodes">
-                Episodes
-            </div>
-            <ul className="list-group list-group-flush">
-                {episodeList}
-            </ul>
-      </div>)
+        }/>)
     }
 }
 
@@ -113,14 +124,12 @@ class Show extends Component{
 
     render(){
         return (
-            <div className="container live-container">
-                <Switch>
-                    <Route path="/show/:slug" component={ShowPage} />
-                    <Route path="/show">
-                        <ShowList shows={this.state.shows} />
-                    </Route>
-                </Switch>
-            </div>
+            <Switch>
+                <Route path="/show/:slug" component={ShowPage} />
+                <Route path="/show">
+                    <ShowList shows={this.state.shows} />
+                </Route>
+            </Switch>
         );
     }
 }

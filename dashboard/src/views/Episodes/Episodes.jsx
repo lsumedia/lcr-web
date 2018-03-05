@@ -55,8 +55,10 @@ class EpisodesPage extends Component {
     }
 
     updateEpisodesList(){
-        var limit = this.state.limit;
-        var offset = limit + (this.state.page * limit);
+        //var limit = this.state.limit;
+        //var offset = limit + (this.state.page * limit);
+        var limit = 0;
+        var offset = 0;
         $.get(`/api/private/episode?limit=${limit}&offset=${offset}`).done((response) => {
             this.setState({episodes: response});
         });
@@ -152,7 +154,6 @@ class EpisodesPage extends Component {
                                 stats=""
                                 content={
                                     <div style={{textAlign : "right"}}> 
-                                    <div>There are {this.state.episodeCount}</div>
                                         <button className="btn btn-flat" onClick={() => { }}>Add Episode</button>
                                         <Table hover>
                                             <thead>

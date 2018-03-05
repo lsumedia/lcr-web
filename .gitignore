@@ -64,3 +64,4 @@ dashboard/build/
 
 # don't git de backups
 backups/
+uploads/

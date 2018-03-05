@@ -18,7 +18,7 @@ var EpisodeSchema = new Schema(
         meta : { type : Object, required : false, default : {}},
         title : { type : String, required: true},
         type : { type : String, enum : episodeTypes, required: false, default : "episode"},
-        description : { type : String, required: true},
+        description : { type : String, required: false, default : ""},
         showSlug : { type : String, required: false},
         tags : { type : String, required: false},
         image : { type : String, required: false},

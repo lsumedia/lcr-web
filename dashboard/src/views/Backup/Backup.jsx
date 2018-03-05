@@ -18,24 +18,46 @@ class BackupPage extends Component {
             <div className="content">
                 <div className="container-fluid">
                     <div className="row">
-                        <div className="col-md-12">
+                        <div className="col-md-6">
                             <Card
                                 statsIcon="fa fa-clock-o"
                                 id="songlist"
                                 classes=""
-                                title="Backup & Restore"
+                                title="Episodes"
                                 category=""
                                 stats=""
                                 content={
                                     <div>
                                         <div>
-                                            <h5>Episodes</h5>
                                             <a href="/api/private/backup/episode" download="episodes.json"><button className="btn btn-default">Download Episodes backup</button></a>
                                         </div>
+                                        <form encType="multipart/form-data" action="/api/private/backup/episode" method="post">
+                                            <label for="episodes-upload">Restore episodes from file</label>
+                                            <input id="episodes-upload" name="episodes" type="file" />
+                                            <input className="btn btn-default" type="submit" value="Upload" />
+                                        </form>
+                                    </div>
+                                }
+                            />
+                        </div>
+                        <div className="col-md-6">
+                            <Card
+                                statsIcon="fa fa-clock-o"
+                                id="songlist"
+                                classes=""
+                                title="Shows"
+                                category=""
+                                stats=""
+                                content={
+                                    <div>
                                         <div>
-                                            <h5>Shows</h5>
                                             <a href="/api/private/backup/show" download="shows.json"><button className="btn btn-default">Download Shows backup</button></a>
                                         </div>
+                                        <form encType="multipart/form-data" action="/api/private/backup/show" method="post">
+                                            <label for="shows-upload">Restore shows from file</label>
+                                            <input id="shows-upload" name="shows" type="file" />
+                                            <input className="btn btn-default" type="submit" value="Upload" />
+                                        </form>
                                     </div>
                                 }
                             />

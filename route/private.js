@@ -1,6 +1,9 @@
 const mongoose = require('mongoose');
 const express = require('express');
 const multer = require('multer');
+const fs = require('fs');
+
+var upload = multer({dest : 'uploads/'});
 
 const Episode = mongoose.model('episode');
 const Show = mongoose.model('show');
@@ -228,7 +231,16 @@ function PrivateApi(app, auth){
 
     //Restore Episodes
 
-    
+    app.post('/api/private/backup/episode', auth, upload.single('episodes'), function(req, res){
+
+        fs.readFile(req.file.path, function(err, data){
+            var json = JSON.parse(data);
+            BackupTools.restoreEpisodes(json, function(err, data){
+                if(err) res.send(err);
+                else res.redirect('/dashboard/#/backup');
+            });
+        });
+    });
 
     //Backup Shows 
     
@@ -243,7 +255,16 @@ function PrivateApi(app, auth){
     });
 
     //Restore Shows
+    app.post('/api/private/backup/show', auth, upload.single('shows'), function(req, res){
 
+        fs.readFile(req.file.path, function(err, data){
+            var json = JSON.parse(data);
+            BackupTools.restoreShows(json, function(err, data){
+                if(err) res.send(err);
+                else res.redirect('/dashboard/#/backup');
+            });
+        });
+    });
 }
 
 module.exports = PrivateApi;

@@ -47,6 +47,50 @@ function grabShows(callback){
     });
 }
 
+function restoreEpisodes(restoreFile, callback){
+    try{
+        
+        if(!Array.isArray(restoreFile)) throw("backup: Restore file must contain an array");
+
+        Episode.remove({}, function(err){
+            var count = 0;
+            restoreFile.forEach(function(doc){
+                count++;
+                var restoreEpisode = new Episode(doc);
+                restoreEpisode.save();
+            });
+            console.log("backup: restoring " + count + " files from backup");
+            callback(null, restoreFile);
+        });
+
+    }catch(err){
+        console.log(err);
+        callback(err, null);
+    }
+}
+
+function restoreShows(restoreFile, callback){
+    try{
+        
+        if(!Array.isArray(restoreFile)) throw("backup: Restore file must contain an array");
+
+        Show.remove({}, function(err){
+            var count = 0;
+            restoreFile.forEach(function(doc){
+                count++;
+                var restoreEpisode = new Show(doc);
+                restoreEpisode.save();
+            });
+            console.log("backup: restoring " + count + " files from backup");
+            callback(null, restoreFile);
+        });
+
+    }catch(err){
+        console.log(err);
+        callback(err, null);
+    }
+}
+
 module.exports = {
     backupEpisodes : function(callback){
         grabEpisodes(callback);
@@ -56,14 +100,14 @@ module.exports = {
     },
     restoreEpisodes : function(restoreFile, callback){
         //Perform a local backup before restoring
-        grabEpisode(function(err, docs){
-            
+        grabEpisodes(function(err, docs){
+            restoreEpisodes(restoreFile, callback);
         });
     },
     restoreShows : function(restoreFile, callback){
         //Perform a local backup before restoring
         grabShows(function(err, docs){
-            
+            restoreShows(restoreFile, callback);
         });
     },
     downloadFilename : function(type){

@@ -33,7 +33,7 @@ class BackupPage extends Component {
                                         </div>
                                         <form encType="multipart/form-data" action="/api/private/backup/episode" method="post">
                                             <label for="episodes-upload">Restore episodes from file</label>
-                                            <input id="episodes-upload" name="episodes" type="file" />
+                                            <input id="episodes-upload" name="episodes" type="file"  className="form-control"/>
                                             <input className="btn btn-default" type="submit" value="Upload" />
                                         </form>
                                     </div>
@@ -55,8 +55,8 @@ class BackupPage extends Component {
                                         </div>
                                         <form encType="multipart/form-data" action="/api/private/backup/show" method="post">
                                             <label for="shows-upload">Restore shows from file</label>
-                                            <input id="shows-upload" name="shows" type="file" />
-                                            <input className="btn btn-default" type="submit" value="Upload" />
+                                            <input id="shows-upload" name="shows" type="file" className="form-control" />
+                                            <input className="btn btn-default" type="submit" value="Upload"/>
                                         </form>
                                     </div>
                                 }

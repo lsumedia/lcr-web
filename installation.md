@@ -29,15 +29,15 @@ Add pm2 to startup applications
 
 `pm2 startup systemd`
 
-### Clone deployment branch
+### Clone repository
 
 Move to the /var/www directory
 
 `cd /var/www`
 
-Clone the deployment branch
+Clone the master branch
 
-`git clone https://github.com/lsumedia/lcr-web.git -b deploy`
+`git clone https://github.com/lsumedia/lcr-web.git`
 
 Move into the new folder 
 

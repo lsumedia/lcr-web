@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Route, Switch, Redirect, NavLink } from 'react-router-dom';
 import { defaultData, daysOfWeek, months } from '../Variables.jsx';
 import ScalableContainer from '../components/ScalableContainer';
+import { ShowList } from './Show';
 
 /* global $, globals*/
 
@@ -34,12 +35,16 @@ class Recent extends Component{
                 e.preventDefault();
             }
             var episodeDate = new Date(episode.publishTime);
-            var dateString =  episodeDate.getDate() + " " + months[episodeDate.getMonth()] + " " + episodeDate.getFullYear();
+            var dateString = episodeDate.getDate() + " " + months[episodeDate.getMonth()];
+
+            var title = episode.title;
+
             return (
-                <NavLink to={path} className="list-group-item" key={episode._id}> 
-                    <div className="card-body">
-                        {episode.title} <span className="text-grey">{dateString}</span>
-                        <i className="material-icons float-right" onClick={playAction}>play_circle_outline</i>
+                <NavLink to={path} className="list-group-item episode-list-item">
+                    <div className="">
+                        <span className="float-left">{title}</span>
+                        <span className="episode-date float-left">{dateString}</span>
+                        <i className="material-icons episode-play float-right" onClick={playAction}>play_circle_outline</i>
                     </div>
                 </NavLink>
             );
@@ -47,8 +52,8 @@ class Recent extends Component{
 
         return (
             <div className="card square-card"> 
-                <h4 className="menu-title-3">Recent</h4>
-                <ul class="list-group list-group-flush">
+                <div className="lcr-list-title">Recent</div>
+                <ul className="list-group list-group-flush">
                     {listItems}
                 </ul>
             </div>
@@ -75,11 +80,7 @@ class Backtrack extends Component{
             <ScalableContainer content={
                 <div>
                     <Recent />
-                    <div className="card square-card">
-                        <NavLink to="/show">
-                            <h4 className="menu-title-3 card-title">All Shows</h4>
-                        </NavLink>
-                    </div>
+                    <ShowList shows={this.state.shows} />
                 </div>
             } />
         );

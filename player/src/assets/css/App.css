@@ -4,6 +4,7 @@
   --theme-text-color: #fff;
   --background-color: #eee;
   --text-color : #333;
+  --background-text-color: #999;
 }
 
 html{
@@ -155,6 +156,15 @@ a{
   border:none;
 }
 
+.lcr-list-title{
+  width: 100%;
+  color: var(--theme-text-color);
+  background-color: var(--theme-color);
+  height: 55px;
+  line-height: 45px;
+  padding: 5px 20px;
+}
+
 .episode-card{
   position: relative;
   color: var(--theme-text-color);
@@ -190,9 +200,20 @@ a{
   font-weight: 500;
 }
 
+
 .episode-entry-play{
   font-size: 38px;
   line-height: 50px;
+}
+
+.episode-date{
+  /* text-transform: uppercase; */
+  color: var(--background-text-color);
+  margin-left: 7px;
+}
+
+.episode-play{
+  color: var(--theme-color);
 }
 
 .current-song-card{

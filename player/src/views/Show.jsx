@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Route, Switch, Redirect, NavLink } from 'react-router-dom';
-import defaultData from '../Variables.jsx';
+import defaultData, { months } from '../Variables.jsx';
 import ScalableContainer from '../components/ScalableContainer';
 
 /* global $, globals */
@@ -11,21 +11,17 @@ function ShowList(props){
         var path = '/show/' + show.slug;
         return (
             <NavLink to={path} className="list-group-item" key={show.slug}>
-                <div className="card-body">
                 {show.title}
-                </div>
             </NavLink>
         );
     });
     return (
-        <ScalableContainer content={
-            <div className="card">
-                <h4 className="menu-title-3">Shows</h4>
-                <ul className="list-group list-group-flush">
-                        {listItems}
-                </ul>
-            </div>
-        }/>
+        <div className="card square-card">
+            <div className="lcr-list-title">All shows</div>
+            <ul className="list-group list-group-flush">
+                    {listItems}
+            </ul>
+        </div>
     )
 }
 
@@ -59,11 +55,13 @@ class ShowPage extends Component{
         var showData = this.state.showmeta;
         if(!showData.image) showData.image = defaultData.image;
 
-        var episodeList = this.state.episodes.map((episode) => {
+        var numEpisodes = this.state.episodes.length;
+
+        var episodeList = this.state.episodes.map((episode, index) => {
             var path = '/episode/' + episode._id;
             var episodeDate = new Date(episode.publishTime);
 
-            var dateString = episodeDate.getDate() + "/" + (episodeDate.getMonth() + 1)+ "/" + episodeDate.getFullYear();
+            var dateString = months[episodeDate.getMonth()] + " " + episodeDate.getDate();
 
             var description = (episode.description.length > 40)? episode.description.substr(0,37) + '...' : episode.description;
 
@@ -72,12 +70,16 @@ class ShowPage extends Component{
                 e.preventDefault();
             }
 
+            var title = episode.title;
+
+            if(title == showData.title) title = "Episode " + (numEpisodes - index);
+
             return (
-                <NavLink to={path} class="list-group-item">
-                    <div class="">
-                        <div className="">{episode.title} {dateString}</div>
-                        <i className="material-icons float-right" onClick={playAction}>play_circle_outline</i><br />
-                        {description}
+                <NavLink to={path} className="list-group-item episode-list-item">
+                    <div className="">
+                        <span className="float-left">{title}</span>
+                        <span className="episode-date float-left">{dateString}</span>
+                        <i className="material-icons episode-play float-right" onClick={playAction}>play_circle_outline</i>
                     </div>
                 </NavLink>
             );
@@ -94,9 +96,9 @@ class ShowPage extends Component{
                 {showData.description}
                 </div>
                 <div className="card square-card">
-                    <div className="card-body more-episodes">
+                    {/* <div className="card-body more-episodes">
                         Episodes
-                    </div>
+                    </div> */}
                     <ul className="list-group list-group-flush">
                         {episodeList}
                     </ul>
@@ -135,3 +137,5 @@ class Show extends Component{
 }
 
 export default Show;
+
+export { ShowList }

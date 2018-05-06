@@ -63,24 +63,7 @@ class Dashboard extends Component {
             <div className="content">
                 <div className="container-fluid">
                     <div className="row">
-                        <div className="col-lg-3 col-sm-6">
-                            <StatsCard
-                                bigIcon={<i className="pe-7s-music text-info"></i>}
-                                statsText="Current listeners"
-                                statsValue="43"
-                                statsIcon={<i className="fa fa-refresh"></i>}
-                                statsIconText="App & web"
-                            />
-                        </div>
-                        <div className="col-lg-3 col-sm-6">
-                            <StatsCard
-                                bigIcon={<i className="pe-7s-server text-success"></i>}
-                                statsText="Storage space used"
-                                statsValue="500 MB"
-                                statsIcon={<i className="fa fa-calendar-o"></i>}
-                                statsIconText="3.4 GB remaining"
-                            />
-                        </div>
+                        
                     </div>
                     <div className="row">
                         <div className="col-md-12">

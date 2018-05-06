@@ -13,7 +13,7 @@ const TokenTools = require('../includes/tokentools.js');
 
 const BackupTools = require('../includes/backup.js');
 
-function PrivateApi(app, auth){
+function PrivateApi(app, auth, Controllers){
    
     var opts = { runValidators : true, new : true};
 

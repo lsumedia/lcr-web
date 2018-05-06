@@ -8,6 +8,7 @@ const passport = require('passport');
 const mongoose = require('mongoose');
 const cookieSession = require('cookie-session');
 const flash = require('express-flash');
+const WebSocketServer = require('websocket').server;
 
 /* Load server config */
 var configString;
@@ -38,7 +39,14 @@ app.use(express.urlencoded({extended : false}));
 app.use(passport.initialize());
 app.use(passport.session());
 
-//var server = http.createServer(app);
+var server = http.createServer(app);
+
+/* WebSocket */
+
+var wsServer = new WebSocketServer({
+    httpServer : server,
+    autoAcceptConnections : false
+});
 
 /* Models */
 
@@ -53,8 +61,9 @@ var TokenTools = require('./includes/tokentools.js');
 var Authentication = require('./includes/authentication.js');
 var NowPlaying = new(require('./includes/nowplaying.js'))(config);
 var CurrentShow = new(require('./includes/currentshow.js'))(NowPlaying);
+var StudioSwithcer = new(require('./includes/studioswitcher.js'))();
 
-var Controllers = { NowPlaying, CurrentShow };
+var Controllers = { NowPlaying, CurrentShow, StudioSwithcer };
 
 /* Authentication */
 
@@ -87,7 +96,7 @@ app.use('/', express.static('player/build')); //Public page
 
 //REST API
 
-var privateAPI = new (require('./route/private.js'))(app, UserAuth);      //Private (CMS)
+var privateAPI = new (require('./route/private.js'))(app, UserAuth, Controllers);      //Private (CMS)
 var publicAPI = new (require('./route/public.js'))(app, Controllers);   //Public (Homepage)
 var utilityAPI = new (require('./route/utility.js'))(app, TokenTools.tokenMiddleware, Controllers);  //Utility (Studio interface)
 
@@ -107,7 +116,7 @@ mongoose.connect(dbUrl).then(
 
 if(Number.isInteger(port)){
     
-    app.listen(port, function () {
+    server.listen(port, function () {
       console.log('server: listening on port ' + port);
     });
   

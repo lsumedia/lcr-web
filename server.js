@@ -107,7 +107,12 @@ res.sendFile(__dirname + '/player/build/index.html');
 
 /* Start Database and Server */
 
-var dbUrl = `mongodb://${config.db_host}:${config.db_port}/${config.db_name}`;
+var dbUrl;
+
+if(config.db_username)
+    dbUrl = `mongodb://${config.db_username}:${config.db_password}@${config.db_host}:${config.db_port}/${config.db_name}`;
+else 
+    dbUrl = `mongodb://${config.db_host}:${config.db_port}/${config.db_name}`;
 
 mongoose.connect(dbUrl).then(
     () => { console.log("mongoose: Connected successfully to server")},

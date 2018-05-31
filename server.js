@@ -61,9 +61,9 @@ var TokenTools = require('./includes/tokentools.js');
 var Authentication = require('./includes/authentication.js');
 var NowPlaying = new(require('./includes/nowplaying.js'))(config);
 var CurrentShow = new(require('./includes/currentshow.js'))(NowPlaying);
-var StudioSwithcer = new(require('./includes/studioswitcher.js'))();
+var StudioSwitcher = new(require('./includes/studioswitcher.js'))();
 
-var Controllers = { NowPlaying, CurrentShow, StudioSwithcer };
+var Controllers = { NowPlaying, CurrentShow, StudioSwitcher };
 
 /* Authentication */
 

@@ -90,13 +90,26 @@ a{
 .modal-menu{
   background-color: #ddd;
   z-index: 40;
-  max-width: 300px;
-  left : -300px;
+  width: 100%;
+  left : -100%;
   transition: left 0.3s ease-in-out;
+}
+
+@media only screen and (min-width: 500px){
+  .modal-menu{
+    width: 300px;
+    left: -300px;
+  }
 }
 
 .modal-menu[open]{
   left: 0px;
+}
+
+.modal-menu .separator-horizontal{
+  width: calc(100% - 24px);
+  border-bottom: 1px solid #888;
+  margin: 0px 12px;
 }
 
 .menu-title{

@@ -3,11 +3,6 @@
   "name": "LCR Player",
   "icons": [
     {
-      "src": "favicon.ico",
-      "sizes": "16x16",
-      "type": "image/ico"
-    },
-    {
       "src": "lcr_white_square_256x256.png",
       "sizes": "256x256",
       "type": "image/png"

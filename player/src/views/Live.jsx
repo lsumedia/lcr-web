@@ -43,7 +43,7 @@ class Live extends Component {
     var ShowLink;
     
     if(showData.show && showData.show.slug){
-        var path = '/backtrack/' + showData.show.slug;
+        var path = '/show/' + showData.show.slug;
         ShowLink = (<NavLink to={path}>More from {showData.show.title}</NavLink>);
     }
 

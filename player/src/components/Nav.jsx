@@ -28,8 +28,9 @@ class Nav extends Component{
                     <Route path={'/backtrack'} render={() => <span>Browse</span>} />
                     <Route path={'/show'} render={() => <span>Browse</span>} />
                     <Route path={'/episode'} render={() => <span>Browse</span>} />
-                    <Route path={'/message'} render={() => <span>Message</span>} />
+                    <Route path={'/message'} render={() => <span>Message the Studio</span>} />
                     <Route path={'/schedule'} render={() => <span>Schedule</span>} />
+                    <Route path={'/search'} render={() => <span>Search</span>} />
 
                     <Route exact path='/' component={logojsx} />
                 </div>

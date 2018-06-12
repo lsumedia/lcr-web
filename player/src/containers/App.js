@@ -55,6 +55,8 @@ class App extends Component {
                     <Route path="/schedule" component={Schedule}/>
                     <Route path="/episode/:id" component={Episode} />
                     <Route path="/show" component={Show} />
+                    <Route path="/search" component={Schedule}/>
+                    <Route path="/message" component={Schedule}/>
                     <Route path="/login" component={Login} />
                     <Route path="/" component={Live}/>
                 </Switch> 

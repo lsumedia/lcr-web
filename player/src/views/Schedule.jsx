@@ -5,7 +5,7 @@ import React, { Component } from 'react';
 class Schedule extends Component{
     render(){
         return (
-            <h4>Schedule</h4>
+            <div></div>
         );
     }
 }

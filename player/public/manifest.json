@@ -3,24 +3,24 @@
   "name": "LCR Player",
   "icons": [
     {
-      "src": "lcr_white_square_256x256.png",
+      "src": "/lcr_white_square_256x256.png",
       "sizes": "256x256",
       "type": "image/png"
     },
     {
-      "src": "lcr_white_square_192x192.png",
+      "src": "/lcr_white_square_192x192.png",
       "sizes": "192x192",
       "type": "image/png"
     },
     {
-      "src": "lcr_white_square.png",
+      "src": "/lcr_white_square.png",
       "sizes": "1818x1818",
       "type": "image/png"
     }
   ],
-  "start_url": "./index.html",
+  "start_url": "./",
   "display": "standalone",
   "theme_color": "#2586C7",
   "background_color": "#2586C7",
-  "scope" : "/index.html"
+  "scope" : "/"
 }

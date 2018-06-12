@@ -25,12 +25,12 @@ a:hover{
 .list-group-item {
   background-color: inherit;
 }
-
+/*
 .card{
   /* border-radius: 0px; */
   /*background-color: var(--background-color);
-  color: var(--text-color); */
-}
+  color: var(--text-color); *//*
+}*/
 
 .card-img-top {
   border-radius: 0px;

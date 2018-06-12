@@ -12,6 +12,7 @@ import '../assets/css/App.css';
 import Nav from '../components/Nav';
 import NavMenu from '../components/NavMenu';
 import AudioPlayer from '../components/AudioPlayer';
+import BottomNav from '../components/BottomNav/BottomNav'
 
 //Pages
 import Live from '../views/Live';
@@ -43,8 +44,6 @@ class App extends Component {
         <div className="App">
 
             <Nav toggleMenu={this.toggleMenu.bind(this)} hideMenu={this.hideMenu.bind(this)}/>
-
-            <NavMenu open={open} toggleMenu={this.toggleMenu.bind(this)} hideMenu={this.hideMenu.bind(this)}/>
                 
             
             <div className="scroll-container">
@@ -60,10 +59,16 @@ class App extends Component {
 
             </div>
 
+
+
             <AudioPlayer  
                 src="http://ice.lsu.co.uk:8080/lcrhigh" 
                 type="audio/mpeg" 
-                autoplay={false}/>
+                autoplay={false}
+            />
+
+            <BottomNav />
+
             </div>
         );
     }

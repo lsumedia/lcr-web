@@ -58,16 +58,21 @@ a{
   padding-right: 20px;
   height: 65px;
   box-shadow: 0px 10px 20px rgba(30,30,30,0.2);
-  z-index: 50;
+  z-index: 30;
+  text-align: center;
 }
 
 .navbar-lcr{
   color: white;
-  background-color: #2586C7;
+  background-color: #2586C7; 
 }
 
 .navbar i{
   cursor: pointer;
+}
+
+.navbar .navbar-brand{
+  margin: auto;
 }
 
 .scroll-container{
@@ -75,7 +80,7 @@ a{
   top: 65px;
   left: 0px;
   right: 0px;
-  bottom: 55px;
+  bottom: 110px;
   overflow-x: hidden;
   overflow-y: auto;
   padding-top: 0px;

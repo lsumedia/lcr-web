@@ -1,0 +1,29 @@
+
+.bottom-nav{
+    position: fixed;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    width: 100%;
+    height: 55px;
+    background-color: var(--theme-color);
+    --webkit-user-select: none;
+    user-select: none;
+    z-index: 50;
+    text-align: center;
+    color: var(--theme-text-color);
+}
+
+.bottom-nav-option{
+    border-bottom: 1px solid transparent;
+    margin: 5px;
+}
+
+.bottom-nav-option.active{
+    border-bottom-color: var(--theme-text-color);
+}
+
+.bottom-nav-option i{
+    font-size: 30px;
+    margin-top: 8px;
+}

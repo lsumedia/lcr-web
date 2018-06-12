@@ -1,16 +1,18 @@
 
 :root{
-    --player-bg-color: #2586C7;
+    --player-bg-color: #444444;
+    --player-bg:  linear-gradient(to bottom, #444444 0%,#0e0e0e 100%);
+    --player-text-color: #fff;
 }
 
 .audioplayer{
     position: fixed;
     left: 0px;
     right: 0px;
-    bottom: 0px;
+    bottom: 55px;
     width: 100%;
     height: 55px;
-    background-color: var(--player-bg-color);
+    background: var(--player-bg);
     --webkit-user-select: none;
     user-select: none;
     z-index: 50;
@@ -44,11 +46,10 @@
 
   .audioplayer-extra{
       position: fixed;
-      bottom: 55px;
-      z-index: 30;
-      left: 15px;
-      right: 15px;
-      height: 350px;
+      z-index: 40;
+      left: 0px;
+      right: 0px;
+      height: calc(100vh - 225px);
       max-width: 500px;
       background-color: var(--player-bg-color);
       /* display: none; */
@@ -56,7 +57,7 @@
       border-top-right-radius: 5px;
       --webkit-user-select: none;
       user-select: none;
-      bottom: -400px;
+      bottom: -100%;
       transition: bottom 0.3s ease-in-out;
   }
 
@@ -72,8 +73,6 @@
       background-color: white;
       color: var(--player-bg-color);
       padding: 15px;
-      border-top-left-radius: 5px;
-      border-top-right-radius: 5px;
   }
 
 .audioplayer-additional-controls{
@@ -117,7 +116,7 @@
   }
 
   .audioplayer-extra[open]{
-      bottom: 55px;
+      bottom: 110px;
   }
 
   .audioplayer-extra-mask[open]{

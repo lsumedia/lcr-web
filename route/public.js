@@ -39,7 +39,7 @@ function PublicAPI(app, Controllers){
         var skip = parseInt(req.query.skip) || 0;
         var showSlug = req.params.showSlug;
         
-        Episode.find({showSlug : showSlug}, null, { sort : { $natural : -1 }}).limit(limit).skip(skip).exec(function(err,docs){
+        Episode.find({showSlug : showSlug, public : true}, null, { sort : { $natural : -1 }}).limit(limit).skip(skip).exec(function(err,docs){
             if(err) res.status(500).send(err);
             else res.send(docs);
         });

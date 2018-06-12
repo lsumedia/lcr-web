@@ -238,7 +238,6 @@ class AudioPlayer extends Component{
         var volume_icon = volume_icons[this.state.volume];
 
         var showInfo = this.state.showInfo;
-        var menu_icon = (this.state.showInfo)? "keyboard_arrow_down" : "keyboard_arrow_up";
 
         
 
@@ -265,7 +264,6 @@ class AudioPlayer extends Component{
                         {/*<span>{niceTime(this.AudioElement.duration)}</span> */}
                         <span className="audioplayer-summary" onClick={this.toggleInfoBar}>
                             {shortTitle}
-                            <i className="material-icons float-right">{menu_icon}</i>
                         </span>
                         <span>
                             <i className="material-icons float-right" onClick={this.changeVolumeLevel}>{volume_icon}</i>

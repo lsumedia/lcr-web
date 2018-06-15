@@ -44,7 +44,7 @@
 
   .audioplayer-background-image{
     position: absolute;
-    top: 0px;
+    top: 60px;
     bottom: 0px;
     left: 0px;
     right: 0px;
@@ -69,6 +69,7 @@
       border-top-right-radius: 5px;
       --webkit-user-select: none;
       user-select: none;
+      overflow: hidden;
   }
 
   @media only screen and (min-width: 500px){

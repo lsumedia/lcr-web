@@ -273,7 +273,9 @@ class AudioPlayer extends Component{
                 </div>
                 <div className="audioplayer-extra ad" open={showInfo}>
                     <div className="audioplayer-extra-menu">
-                            <span></span>
+                            <span>
+                                <i className="material-icons invisible">close</i>
+                            </span>
                             <span>Player</span>
                             <span>
                                 <i onClick={this.hideInfoBar} className="material-icons">close</i>

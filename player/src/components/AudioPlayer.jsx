@@ -272,6 +272,7 @@ class AudioPlayer extends Component{
                     </div>
                 </div>
                 <div className="audioplayer-extra ad" open={showInfo}>
+                  
                     <div className="audioplayer-extra-title">
                         <h4>{title}</h4>
                         {details.description}
@@ -303,6 +304,9 @@ class AudioPlayer extends Component{
                             </div>
                         </div>
                     )}
+
+                    <div className="audioplayer-background-image" style={{backgroundImage : "url('" + details.image + "')"}}>
+                    </div>
                 </div>
                 <div className="audioplayer-extra-mask ad" onClick={this.hideInfoBar} open={showInfo}>
                 </div>

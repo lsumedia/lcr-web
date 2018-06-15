@@ -1,7 +1,7 @@
 
 :root{
     --player-bg-color: #444444;
-    --player-bg:  linear-gradient(to bottom, #444444 0%,#0e0e0e 100%);
+    --player-bg:  linear-gradient(to bottom, #4e4e4e 0%,#0e0e0e 100%);
     --player-text-color: #fff;
 }
 
@@ -13,7 +13,6 @@
     width: 100%;
     height: 55px;
     background: var(--player-bg);
-    --webkit-user-select: none;
     user-select: none;
     z-index: 50;
   }
@@ -43,6 +42,17 @@
       font-size: 24px;
   }
 
+  .audioplayer-background-image{
+    position: absolute;
+    top: 0px;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    z-index: -10;
+    overflow: hidden;
+    filter: blur(100px);
+    background-size: cover;
+  }
 
   .audioplayer-extra{
       position: fixed;

@@ -6,8 +6,6 @@ import { ShowList } from './Show';
 
 /* global $, globals*/
 
-
-
 class Recent extends Component{
     
     state = {

@@ -8,6 +8,7 @@ import '../assets/css/AudioPlayer.css';
 
 import { defaultData } from '../Variables.jsx';
 
+
 /* global $, globals */
 
 function isLive(duration){

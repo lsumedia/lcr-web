@@ -16,6 +16,14 @@ function logojsx(){
     );
 }
 
+function searchBar(){
+    return (
+        <div class="form-group">
+            <input type="text" placeholder="Search" id="top-search-bar" className="form-control" />
+        </div>
+    )
+}
+
 class Nav extends Component{
     render(){
         return(
@@ -30,8 +38,7 @@ class Nav extends Component{
                     <Route path={'/episode'} render={() => <span>Browse</span>} />
                     <Route path={'/message'} render={() => <span>Message the Studio</span>} />
                     <Route path={'/schedule'} render={() => <span>Schedule</span>} />
-                    <Route path={'/search'} render={() => <span>Search</span>} />
-
+                    <Route path={'/search'} component={searchBar} />
                     <Route exact path='/' component={logojsx} />
                 </div>
             </Switch>

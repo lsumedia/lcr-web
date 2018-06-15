@@ -74,6 +74,11 @@ a{
   margin: auto;
 }
 
+.navbar-brand .form-control{
+    width: 500px;
+    max-width: 90vw;
+}
+
 .scroll-container{
   position: fixed;
   top: 65px;

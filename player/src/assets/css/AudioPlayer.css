@@ -44,7 +44,7 @@
 
   .audioplayer-background-image{
     position: absolute;
-    top: 60px;
+    top: 0px;
     bottom: 0px;
     left: 0px;
     right: 0px;
@@ -65,8 +65,6 @@
       left: -500px;
       background-color: var(--player-bg-color);
       /* display: none; */
-      border-top-left-radius: 5px;
-      border-top-right-radius: 5px;
       --webkit-user-select: none;
       user-select: none;
       overflow: hidden;
@@ -90,9 +88,23 @@
       padding: 15px;
   }
 
+  .audioplayer-extra-menu{
+      color: var(--player-text-color);
+      border-bottom: 1px solid rgba(255,255,255,0.03);
+      background-color: rgba(0,0,0,0.12);
+      height: 40px;
+      line-height: 40px;
+      display: flex;
+      justify-content: space-between;
+  }
+
+  .audioplayer-extra-menu i{
+      line-height: 40px;
+      padding-right: 5px;
+  }
+
   .audioplayer-extra-title{
-      background-color: white;
-      color: var(--player-bg-color);
+      color: var(--player-text-color);
       padding: 15px;
   }
 

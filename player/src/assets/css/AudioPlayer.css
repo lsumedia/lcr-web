@@ -1,6 +1,6 @@
 
 :root{
-    --player-bg-color: #444444;
+    --player-bg-color: rgba(68,68,68,1);
     --player-bg:  linear-gradient(to bottom, #4e4e4e 0%, #0e0e0e 100%);
     --player-text-color: #fff;
 }
@@ -109,14 +109,14 @@
       color: var(--player-text-color);
       border-bottom: 1px solid rgba(255,255,255,0.03);
       background-color: rgba(0,0,0,0.12);
-      height: 55px;
-      line-height: 55px;
+      height: 45px;
+      line-height: 45px;
       display: flex;
       justify-content: space-between;
   }
 
   .audioplayer-extra-menu i{
-      line-height: 55px;
+      line-height: 45px;
       padding-right: 10px;
   }
 

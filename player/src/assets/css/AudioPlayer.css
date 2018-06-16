@@ -51,7 +51,7 @@
     right: 0px;
     z-index: -10;
     overflow: hidden;
-    /* filter: blur(100px); */
+    filter: blur(10px);
     background-size: cover;
     background-position-x: center;
     background-position-y: center;

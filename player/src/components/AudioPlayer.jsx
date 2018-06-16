@@ -255,7 +255,7 @@ class AudioPlayer extends Component{
         return (
             <div>
                 <div className="audioplayer" open={showInfo}>
-                    <div className="controls">
+                    <div className="controls audioplayer-controls">
                         <span>
                             {this.isPlaying() ? 
                                 ( <i className="material-icons" onClick={this.pause} >pause_circle_outline</i>) :
@@ -269,6 +269,11 @@ class AudioPlayer extends Component{
                         <span>
                             <i className="material-icons float-right" onClick={this.changeVolumeLevel}>{volume_icon}</i>
                         </span>
+                        {(this.state.mode == 1)? (
+                        <div className="audioplayer-controls-background-image" style={{backgroundImage : "url('" + details.image + "')"}}>
+                        </div>
+                        ) : ""
+                        }
                     </div>
                 </div>
                 <div className="audioplayer-extra ad" open={showInfo}>

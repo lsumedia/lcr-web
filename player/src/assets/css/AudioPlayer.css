@@ -1,7 +1,7 @@
 
 :root{
     --player-bg-color: #444444;
-    --player-bg:  linear-gradient(to bottom, #4e4e4e 0%,#0e0e0e 100%);
+    --player-bg:  linear-gradient(to bottom, #4e4e4e 0%, #0e0e0e 100%);
     --player-text-color: #fff;
 }
 
@@ -15,6 +15,7 @@
     background: var(--player-bg);
     user-select: none;
     z-index: 50;
+    overflow: hidden;
   }
 
   .audioplayer[open]{
@@ -40,6 +41,21 @@
   .audioplayer-summary{
       cursor: pointer;
       font-size: 24px;
+  }
+
+  .audioplayer-controls-background-image{
+    position: absolute;
+    top: 0px;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    z-index: -10;
+    overflow: hidden;
+    /* filter: blur(100px); */
+    background-size: cover;
+    background-position-x: center;
+    background-position-y: center;
+    opacity: 0.4;
   }
 
   .audioplayer-background-image{
@@ -93,15 +109,15 @@
       color: var(--player-text-color);
       border-bottom: 1px solid rgba(255,255,255,0.03);
       background-color: rgba(0,0,0,0.12);
-      height: 40px;
-      line-height: 40px;
+      height: 55px;
+      line-height: 55px;
       display: flex;
       justify-content: space-between;
   }
 
   .audioplayer-extra-menu i{
-      line-height: 40px;
-      padding-right: 5px;
+      line-height: 55px;
+      padding-right: 10px;
   }
 
   
@@ -147,7 +163,7 @@
       top:  0px;
       left: 0px;
       right: 0px;
-      bottom: 0px;
+      bottom: 110px;
       z-index: 25;
       background-color: rgba(0,0,0,0.5);
       transition: background-color 2s;

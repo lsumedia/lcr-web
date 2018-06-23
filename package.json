@@ -26,6 +26,7 @@
     "express-session": "^1.15.6",
     "get-folder-size": "^1.0.0",
     "http": "0.0.0",
+    "jimp": "^0.2.28",
     "json-comments": "^0.2.1",
     "jsonwebtoken": "^8.1.1",
     "mongodb": "^2.2.33",

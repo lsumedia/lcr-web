@@ -10,7 +10,7 @@ var ShowSchema = new Schema(
         tags : { type : String, required : false, default : ""},
         image : { type : String, required : false},
         slug: { type : String, required : false, index : true, unique : true},
-        active :  { type : Boolean, required : false, default : true}, 
+        active :  { type : Boolean, required : false, default : true}
     }, 
     {
         timestamps: true

@@ -27,7 +27,10 @@ function NowPlaying (config){
                     var songName = parts.join(' - ');
 
                     currentSongTitle = track;
-                    addSongToLog(artist, songName);
+                    addSongToLog({
+                        artist : artist,
+                        title : songName
+                    });
                     getSongData(artist, songName);
                 }
             }catch(err){
@@ -44,18 +47,7 @@ function NowPlaying (config){
         
         return new Promise((resolve, reject) => {
 
-            var timeStamp = Date.now();
-
-            var newSong = new Song({
-                artist : songData.artist,
-                title : songData.title,
-                album : songData.album,
-                commercial : songData.commercial,
-                length : songData.length,
-                timestamp : timeStamp
-            });
-    
-            newSong.save();
+            addSongToLog(songData);
 
             getSongData(songData.artist, songData.title);
 
@@ -66,10 +58,15 @@ function NowPlaying (config){
 
     function addSongToLog(songData){
         //console.log('"' + songName + '" by "' + artist + '"');
+        var timeStamp = Date.now();
+
         var newSong = new Song({
-            artist : artist,
-            title : songName,
-            timestamp : Date.now()
+            artist : songData.artist,
+            title : songData.title,
+            album : songData.album,
+            commercial : songData.commercial,
+            length : songData.length,
+            timestamp : timeStamp
         });
 
         newSong.save();

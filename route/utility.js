@@ -68,6 +68,18 @@ function UtilityAPI(app, auth, Controllers){
         });
 
     });
+
+    /* Songs */
+
+    //Update current song
+    app.post('/api/utility/songs/now', auth, express.json(), function(req, res){
+
+        Controllers.NowPlaying.updateCurrentSong(req.body).then(() => {
+            res.send("Updated song info");
+        }, (err) => {
+            res.status(400).send(err);
+        });
+    });
 }
 
 module.exports = UtilityAPI;

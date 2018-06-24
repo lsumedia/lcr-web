@@ -31,13 +31,40 @@ function NowPlaying (config){
                     getSongData(artist, songName);
                 }
             }catch(err){
-                console.log("nowplaying err: " + err.message);
+                //console.log("nowplaying err: " + err.message);
             }
             
         });
     }
 
-    function addSongToLog(artist, songName){
+    this.updateCurrentSong = function(songData){
+
+        currentSongData = songData;
+        currentSongTitle = songData.title;
+        
+        return new Promise((resolve, reject) => {
+
+            var timeStamp = Date.now();
+
+            var newSong = new Song({
+                artist : songData.artist,
+                title : songData.title,
+                album : songData.album,
+                commercial : songData.commercial,
+                length : songData.length,
+                timestamp : timeStamp
+            });
+    
+            newSong.save();
+
+            getSongData(songData.artist, songData.title);
+
+            resolve();
+
+        });
+    }
+
+    function addSongToLog(songData){
         //console.log('"' + songName + '" by "' + artist + '"');
         var newSong = new Song({
             artist : artist,
@@ -143,8 +170,10 @@ function NowPlaying (config){
         });
     }
 
-    getCurrentSong();
-    var songGetInterval = setInterval(getCurrentSong, interval);
+    if(config.ice_status){
+        getCurrentSong();
+        var songGetInterval = setInterval(getCurrentSong, interval);
+    }
 
     cleanDatabase();
     var cleanupSchedule = schedule.scheduleJob('0 0 0 * * *', cleanDatabase);

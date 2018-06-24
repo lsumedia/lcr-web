@@ -101,6 +101,20 @@ Specifying the showSlug is not required
 
 Update an Episode entry. Request format is the same as for inserting a new episode. Note that all fields must be provided.
 
+#### POST /api/utility/songs/now
+
+Set the current now playing song. Expects JSON in the following format:
+
+```json
+{
+    "artist" : "artist name",
+    "title" : "song title",
+    "album" : "name of associated album",
+    "commercial" : "set to true if now playing broadcast is in commercial rather than a song",
+    "length" : "length in seconds (int)"
+}
+```
+
 ### Recorder Workflow
 
 When the show starts:
@@ -117,6 +131,12 @@ When the show ends:
 1. `DELETE /api/utility/currentshow` to clear the current show data
 2. Generate meta file & write to web file server
 3. `POST /api/utility/episode` to add episode to database
+
+### Studio Switcher Workflow
+
+## WebSocket API
+
+
 
 
 ## Private

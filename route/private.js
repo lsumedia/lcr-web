@@ -136,6 +136,24 @@ function PrivateApi(app, auth, Controllers){
 
     });
 
+
+    //Get a specific episode WITH metadata (same as /api/public/episode but also returns private episodes)
+    app.get('/api/private/episodefull/:id', auth, function(req, res){
+
+        Episode.findById(req.params.id).exec(function(err,doc){
+            if(err) res.status(500).send(err);
+            else if(!doc) res.status(404).send("Not Found");
+            else {
+                doc.getMetaData(function(err, meta){
+                    doc.set({meta : meta});
+                    if(err) res.status(404).send("Could not fetch metadata for episode");
+                    else res.send(doc);
+                });
+            }
+        });
+
+    });
+
     //Add new episode
     app.post('/api/private/episode/', auth, express.json(), function(req, res){
 

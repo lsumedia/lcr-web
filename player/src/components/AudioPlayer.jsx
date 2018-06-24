@@ -85,7 +85,7 @@ class AudioPlayer extends Component{
         this.goLive = this.goLive.bind(this);
         this.updatePageTitle = this.updatePageTitle.bind(this);
 
-        this.AudioElement.addEventListener('playing', () => {
+        this.AudioElement.addEventListener('timeupdate', () => {
             this.forceUpdate();
         });
 
@@ -240,17 +240,20 @@ class AudioPlayer extends Component{
 
         var showInfo = this.state.showInfo;
 
-        
+        var details, title, shortTitle, currentTime, duration;
 
         try{
-            var details = this.getContentDetails();
-            var title = details.title;
-            var shortTitle = (title.length > 16)? title.substr(0,13) + '...' : title;
+            details = this.getContentDetails();
+            title = details.title;
+            shortTitle = (title.length > 16)? title.substr(0,13) + '...' : title;
+
+            currentTime = niceTime(this.AudioElement.currentTime);
+            duration = niceTime(this.AudioElement.duration);
+
         }catch(e){
             title = "";
             shortTitle = "";
         }
-
 
         return (
             <div>
@@ -304,12 +307,26 @@ class AudioPlayer extends Component{
                         //OD content controls
                         <div>
                             <div class="audioplayer-additional-controls">
-                                <i className="material-icons" onClick={this.back20}>skip_previous</i>
-                                {this.isPlaying() ? 
-                                    ( <i className="material-icons" onClick={this.pause} >pause_circle_outline</i>) :
-                                    ( <i className="material-icons" onClick={this.play} >play_circle_outline</i>)
-                                }
-                                <i className="material-icons" onClick={this.forward20}>skip_next</i>
+                                <div className="audioplayer-control-buttons">
+                                    <i className="material-icons" onClick={this.back20}>skip_previous</i>
+                                    {this.isPlaying() ? 
+                                        ( <i className="material-icons" onClick={this.pause} >pause_circle_outline</i>) :
+                                        ( <i className="material-icons" onClick={this.play} >play_circle_outline</i>)
+                                    }
+                                    <i className="material-icons" onClick={this.forward20}>skip_next</i>
+                                </div>
+                                <div className="audioplayer-seek-controls">
+                                    <span>{currentTime}</span>
+                                    <input className="control-item seekbar" type="range" min="0" 
+                                        max="500"
+                                        value={(this.AudioElement.currentTime / this.AudioElement.duration) * 500} 
+                                        onChange={(evt) => { 
+                                            var value = evt.target.value;
+                                            var time = (value / 500) * this.AudioElement.duration;
+                                            this.AudioElement.currentTime = time;
+                                        }}></input>
+                                    <span>{duration}</span>
+                                </div>
                             </div>
                             <div class="audioplayer-nav-buttons">
                                 <NavLink to={('/episode/' + this.state.episodeID)} className="btn" onClick={this.hideInfoBar}>More Info</NavLink>

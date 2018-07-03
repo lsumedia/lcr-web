@@ -6,7 +6,7 @@ const Song = mongoose.model('song');
 
 function NowPlaying (config){
 
-    var currentSongTitle = "";
+    var _this = this;
 
     var currentSongData = {};
 
@@ -14,7 +14,11 @@ function NowPlaying (config){
 
     var songLogExpiry = 2592000000;  //delete songs older than this (default: 1 month)
 
-    function getCurrentSong(){
+    //used for checking if song has updated for Icecast fetch
+    var currentSongTitle = "";
+
+    //fetch icecast data
+    function fetchCurrentSong(){
         request.get(config.ice_status, function(error, response, body){
             try{
                 var statusJSON = JSON.parse(body);
@@ -24,34 +28,35 @@ function NowPlaying (config){
 
                     var parts = track.split(' - ');
                     var artist = parts.shift();
-                    var songName = parts.join(' - ');
+                    var title = parts.join(' - '); //in case song title contains " - ", will rejoin the string
 
                     currentSongTitle = track;
-                    addSongToLog({
+
+                    _this.updateCurrentSong({
                         artist : artist,
-                        title : songName
+                        title : title
                     });
-                    getSongData(artist, songName);
                 }
             }catch(err){
-                //console.log("nowplaying err: " + err.message);
+                console.log("nowplaying err: " + err.message);
+                //console.log(err);
             }
             
         });
     }
 
+    //push update song
     this.updateCurrentSong = function(songData){
-
-        currentSongData = songData;
-        currentSongTitle = songData.title;
         
         return new Promise((resolve, reject) => {
 
-            addSongToLog(songData);
+            var newSong = addSongToLog(songData);
+
+            currentSongData = newSong;
 
             getSongData(songData.artist, songData.title);
 
-            resolve();
+            resolve(newSong);
 
         });
     }
@@ -70,6 +75,8 @@ function NowPlaying (config){
         });
 
         newSong.save();
+
+        return newSong;
     }
 
     function filterGeniusResults(results){
@@ -168,8 +175,8 @@ function NowPlaying (config){
     }
 
     if(config.ice_status){
-        getCurrentSong();
-        var songGetInterval = setInterval(getCurrentSong, interval);
+        fetchCurrentSong();
+        var songGetInterval = setInterval(fetchCurrentSong, interval);
     }
 
     cleanDatabase();

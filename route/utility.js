@@ -74,8 +74,8 @@ function UtilityAPI(app, auth, Controllers){
     //Update current song
     app.post('/api/utility/songs/now', auth, express.json(), function(req, res){
 
-        Controllers.NowPlaying.updateCurrentSong(req.body).then(() => {
-            res.send("Updated song info");
+        Controllers.NowPlaying.updateCurrentSong(req.body).then((info) => {
+            res.send(info);
         }, (err) => {
             res.status(400).send(err);
         });

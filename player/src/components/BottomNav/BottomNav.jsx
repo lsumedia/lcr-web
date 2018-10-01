@@ -25,7 +25,7 @@ export default class BottomNav extends Component{
                     <NavLink to={'/backtrack'} className="bottom-nav-option" isActive={isBrowsing} activeClassName="active">
                         <i className="material-icons">queue_music</i>
                     </NavLink>
-
+{/*
                     <NavLink to={'/search'} className="bottom-nav-option" activeClassName="active">
                         <i className="material-icons">search</i>
                     </NavLink>
@@ -38,7 +38,7 @@ export default class BottomNav extends Component{
                         <i className="material-icons">sms</i>
                     </NavLink>
 
-
+*/}
                 </div>
 
             </div>

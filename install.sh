@@ -1,8 +1,8 @@
 cp config.sample.json config.json
-npm install
+npm install --unsafe-perm=true --allow-root
 cd player
-npm install
-npm run build
+npm install --unsafe-perm=true --allow-root
+npm run build --unsafe-perm=true --allow-root
 cd ../dashboard
-npm install
-npm run build
+npm install --unsafe-perm=true --allow-root
+npm run build --unsafe-perm=true --allow-root

@@ -3,6 +3,8 @@ import {Tooltip,OverlayTrigger} from 'react-bootstrap';
 import Checkbox from '../../elements/CustomCheckbox/CustomCheckbox.jsx';
 import Button from '../../elements/CustomButton/CustomButton.jsx';
 
+/* global globals */
+
 export class Tasks extends Component{
     handleCheckbox = event => {
         const target = event.target;

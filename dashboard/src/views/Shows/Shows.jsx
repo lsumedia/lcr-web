@@ -21,7 +21,7 @@ import {
     tdArray
 } from '../../variables/Variables.jsx';
 
-/* global $ */
+/* global $, globals */
 
 class ShowsPage extends Component {
     state = { 

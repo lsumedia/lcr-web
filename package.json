@@ -4,6 +4,15 @@
   "description": "Web components for LCR App",
   "main": "server.js",
   "scripts": {
+    "start:dashboard" : "cd dashboard && npm start",
+    "start:player" : "cd player && npm start",
+    "build:dashboard" : "cd dashboard && npm install && npm run build",
+    "build:player" : "cd player && npm install && npm run build",
+    "build-frontend" : "npm run build:dashboard && npm run build:player",
+    "build-server" : "npm install",
+    "build" : "npm install && npm run build-frontend",
+    "newuser" : "cd script && node newuser.js",
+    "release" : "npm run build && npm start",
     "test": "mocha",
     "start": "node server.js"
   },

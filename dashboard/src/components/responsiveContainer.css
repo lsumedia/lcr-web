@@ -1,0 +1,37 @@
+
+
+.responsive-container{
+
+    --border-radius: 15px;
+
+    margin-top: 40px;
+    padding: 15px;
+    background-color: var(--modal-bg);
+
+    border-radius: var(--border-radius);
+    min-height: 300px;
+    box-shadow: 0px 2px 10px rgba(0,0,0,0.3);
+
+    position: relative;
+
+}
+
+.responsive-container.has-title{
+    padding-top: 55px;
+}
+
+.responsive-container-title{
+    
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    height: 40px;
+    background-color: var(--lcr-blue);
+    border-top-left-radius:  var(--border-radius);
+    border-top-right-radius: var(--border-radius);
+    padding: 0px 15px;
+    line-height: 40px;
+    font-size: 1.15em;
+    color: white;
+}

@@ -2,4 +2,14 @@ body {
   margin: 0;
   padding: 0;
   font-family: sans-serif;
+  background-color: var(--body-bg);
+}
+
+:root{
+
+  --body-bg: #eee;
+  --modal-bg: #fff;
+
+  --lcr-blue: #2586c7;
+
 }

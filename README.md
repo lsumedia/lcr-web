@@ -21,9 +21,15 @@ Once you've installed all the dependencies, you can run the server in dev mode b
 
 `npm start` to start running the backend
 
-`npm start:dashboard` and/or `npm start:player` to run the frontend sites in development mode; they will start their own development servers and 
+then, in a separate console window
+
+`npm start:dashboard` and/or `npm start:player` to run the frontend sites in development mode, they will proxy through to the backend server.
 
 ### Updating
+
+Simply pull the latest commit using `git pull`, then rebuild the site using `npm run build`
+
+For Linux servers...
 
 Execute update.sh to perform the following:
 
@@ -38,5 +44,5 @@ After updating, run "pm2 restart lcr" to restart the server
 A script is provided to make initial user accounts in order to log into the system.
 
 This can be done by executing `npm run newuser`. It will prompt you for a username and password
-and, assuming the database is correctly configured, will create a new user.
+and, assuming the database is correctly configured, will create a new user account that can be used to log in.
 

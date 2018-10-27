@@ -1,0 +1,13 @@
+.dashboard .lister{
+    overflow-x: auto;
+    white-space: nowrap;
+}
+
+.dashboard .lister .card{
+    display: inline-block;
+    margin: 10px;
+}
+
+.dashboard .lister .card a{
+    color: inherit;
+}

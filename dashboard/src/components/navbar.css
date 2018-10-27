@@ -1,0 +1,9 @@
+
+.navbar{
+    background-color: var(--lcr-blue);
+    color: white;
+}
+
+.navbar a{
+    color: inherit;
+}

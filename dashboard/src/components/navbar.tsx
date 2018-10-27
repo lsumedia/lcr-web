@@ -10,6 +10,8 @@ import {
     NavItem,
     NavLink } from 'reactstrap';
 
+import './navbar.css';
+
 export class MainNavigation extends React.Component<any, any>{
     
     constructor(props: any) {
@@ -30,8 +32,8 @@ export class MainNavigation extends React.Component<any, any>{
     public render(){
         return(
             <div>
-        <Navbar color="light" light expand="md">
-          <NavbarBrand href="/">Loughborough Campus Radio</NavbarBrand>
+        <Navbar fixed="top" expand="md">
+          <NavbarBrand href="/">LCR Admin</NavbarBrand>
           <NavbarToggler onClick={this.toggle} />
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="ml-auto" navbar>

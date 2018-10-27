@@ -1,8 +1,8 @@
 import * as React from 'react';
 import Axios from 'axios';
-import { ResponsiveContainer } from '../components/responsiveContainer';
+import { ResponsiveContainer } from '../../components/responsiveContainer';
 
-import { EpisodeCard } from '../miniviews/episodeCard';
+import { EpisodeCard } from '../../miniviews/episodeCard';
 
 import './dashboard.css';
 
@@ -38,15 +38,12 @@ class EpisodeLister extends React.Component<any, any>{
 export class DashboardView extends React.Component{
 
     render(){
-        return (<div>
-            <ResponsiveContainer title="Recent episodes">
+        return (<div className="dashboard">
+            <ResponsiveContainer title="Most recent episodes">
                 <EpisodeLister />
             </ResponsiveContainer>
             <ResponsiveContainer title="Recent songs">
                 
-            </ResponsiveContainer>
-            <ResponsiveContainer title="Recent shows">
-                Hello everybody
             </ResponsiveContainer>
         </div>);
     }

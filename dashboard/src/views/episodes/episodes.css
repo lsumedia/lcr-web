@@ -1,0 +1,17 @@
+.episodes .lister{
+    overflow-x: auto;
+}
+
+.episodes .lister .card{
+    display: inline-block;
+    margin: 10px;
+}
+
+.episodes .lister .card .card-title{
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.episodes .lister .card a{
+    color: inherit;
+}

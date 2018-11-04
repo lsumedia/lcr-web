@@ -96,9 +96,9 @@ app.use('/', express.static('player/build')); //Public page
 
 //REST API
 
-var privateAPI = new (require('./route/private.js'))(app, UserAuth, Controllers);      //Private (CMS)
+var privateAPI = new (require('./route/private.js'))(app, UserAuth, Controllers);      //Private (CMS) (Cookie authentication)
 var publicAPI = new (require('./route/public.js'))(app, Controllers);   //Public (Homepage)
-var utilityAPI = new (require('./route/utility.js'))(app, TokenTools.tokenMiddleware, Controllers);  //Utility (Studio interface)
+var utilityAPI = new (require('./route/utility.js'))(app, TokenTools.tokenMiddleware, Controllers);  //Utility (Studio interface) (Bearer token authentication)
 
 //Anything else just goes to homepage (enables the HTML5 page paths) - This must go last!
 app.use('/*', function(req, res){

@@ -5,7 +5,7 @@ var crypto = require('crypto');
 
 var TokenSchema = new Schema({
     _id : {type : String},
-    secret : {type : String, required : false}
+    secret : {type : String, required : false},
 }, {timestamps: true});
 
 TokenSchema.pre('validate', function(next){

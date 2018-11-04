@@ -207,7 +207,7 @@ function PrivateApi(app, auth, Controllers){
         var limit = parseInt(req.query.limit) || 0;
         var skip = parseInt(req.query.skip) || 0;
 
-        Token.find({}, '_id createdAt').limit(limit).skip(skip).exec(function(err,docs){
+        Token.find({}, '_id createdAt updatedAt').limit(limit).skip(skip).exec(function(err,docs){
             if(err) res.status(500).send(err.message);
             else res.send(docs);
 

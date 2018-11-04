@@ -6,19 +6,29 @@ export class LoadingIndicator extends React.Component<any, any>{
 
     render(){
 
-        return (<div style={{
+        const containerStyles: React.CSSProperties = {
             position: "fixed",
             width: "100%"
-            }}>
-            <img style={{
-                marginLeft: "auto",
-                marginRight: "auto",
-                display: "block",
-                marginTop: "30vh",
-                width: "150px"
-            }} src={loadAnimation} />
+        }
+
+        const imageStyles: React.CSSProperties = {
+            marginLeft: "auto",
+            marginRight: "auto",
+            display: "block",
+            marginTop: "30vh",
+            width: "150px"
+        }
+
+        const messageStyles: React.CSSProperties = {
+            textAlign: "center",
+            marginTop: "15px",
+            fontSize: "1.2em"
+        }
+
+        return (<div style={containerStyles}>
+            <img style={imageStyles} src={loadAnimation} />
             {(this.props.message)?
-            <div>{this.props.message}</div> :
+            <div style={messageStyles}>{this.props.message}</div> :
             ""
             }
         </div>);

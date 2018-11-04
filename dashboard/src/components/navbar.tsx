@@ -52,6 +52,9 @@ export class MainNavigation extends React.Component<any, any>{
               <NavItem>
                 <NavLink tag={Link} to="/dashboard/users">Users</NavLink>
               </NavItem>
+              <NavItem>
+                <NavLink tag={Link} to="/dashboard/backups">Backups</NavLink>
+              </NavItem>
             </Nav>
           </Collapse>
         </Navbar>

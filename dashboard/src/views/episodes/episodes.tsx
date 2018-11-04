@@ -39,7 +39,7 @@ export class EpisodeListView extends React.Component<any, any>{
 
         try{
 
-            if(this.state.episodeCount == null || this.state.episodes == null) throw "Loading";
+            if(this.state.episodeCount == null || this.state.episodes == null) throw new Error("Loading...");
 
             let navigation = (
                 <div>

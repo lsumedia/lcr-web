@@ -21,8 +21,12 @@ module.exports = {
 
         secret = secret.replace(/Bearer/g,'').trim();
 
-        Token.count({ secret : secret }, function(err, count){
-            if(count > 0) next();
+        Token.find({ secret : secret }, function(err, matches){
+            if(matches.length > 0){
+                const token = matches[0];
+                Token.findByIdAndUpdate(token._id, {}, { new: true }, (err, res) => {});
+                next();
+            } 
             else{
                 console.log("token: Someone tried to use an invalid token");
                 res.status(401).send('Not Authorized');

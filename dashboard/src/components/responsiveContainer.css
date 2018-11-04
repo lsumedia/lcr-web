@@ -18,7 +18,7 @@
 }
 
 .responsive-container.has-title{
-    padding-top: 55px;
+    padding-top: 55px !important;
 }
 
 .responsive-container-title{
@@ -35,4 +35,8 @@
     line-height: 40px;
     font-size: 1.15em;
     color: white;
+}
+
+.responsive-container.no-padding{
+    padding: 0px;
 }

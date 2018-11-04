@@ -255,7 +255,7 @@ function PrivateApi(app, auth, Controllers){
             var json = JSON.parse(data);
             BackupTools.restoreEpisodes(json, function(err, data){
                 if(err) res.send(err);
-                else res.redirect('/dashboard/#/backup');
+                else res.redirect('/dashboard/backup');
             });
         });
     });
@@ -279,7 +279,7 @@ function PrivateApi(app, auth, Controllers){
             var json = JSON.parse(data);
             BackupTools.restoreShows(json, function(err, data){
                 if(err) res.send(err);
-                else res.redirect('/dashboard/#/backup');
+                else res.redirect('/dashboard/backup');
             });
         });
     });

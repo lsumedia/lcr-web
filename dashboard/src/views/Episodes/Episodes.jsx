@@ -163,7 +163,8 @@ class EpisodesPage extends Component {
                                                     <th>Description</th>
                                                     <th>Tags</th>
                                                     <th>Date Published</th>
-                                                    <th className="text-right">Publish</th>
+													<th>Listen</th>
+                                                    <th>Publish</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -183,6 +184,12 @@ class EpisodesPage extends Component {
                                                                 this.updateLists();
                                                             });
                                                         }
+														var listenButtonOnClick = () => {
+															$.getJSON('/api/private/episodefull/' + prop._id).done(function(response){
+																var audio_file_url = response.meta.media_url[0].url;
+																window.open(audio_file_url, "_blank");
+															});
+														}
 
                                                         return (
                                                             <tr key={key}>
@@ -191,7 +198,11 @@ class EpisodesPage extends Component {
                                                                 <td>{prop.description.substr(0,40)}</td>
                                                                 <td>{prop.tags}</td>
                                                                 <td>{date}</td>
-                                                                <td className="text-right">
+																<td>
+                                                                    <button className={"btn btn-flat"} onClick={listenButtonOnClick}>
+                                                                        Listen
+                                                                    </button></td>
+                                                                <td>
                                                                     <button className={btnColor} onClick={publicButtonOnclick}>
                                                                         {prop.public ? "Public" : "Private"}
                                                                     </button>

@@ -1,0 +1,13 @@
+{
+    "port" : 9000,              //The port to run the server on
+    "authenticate" : true,      //Whether to use authentication for private areas. ALWAYS TRUE FOR PRODUCTION!
+    "secret" : "",              //Secret for session cookies (random string)
+    "db_host" : "localhost",    //MongoDB server hostname
+    "db_port" : "27017",        //MongoDB server port
+    "db_name" : "lcr",          //Database name
+    "db_name_test" : "lcr-test", //Database to use for testing (will be cleared each time, so make sure nothing important ends up here!),
+    "db_username" : "",        //Leave blank if MongoDB authentication is not in use
+    "db_password" : "",
+    "ice_status" : "",          //Icecast server status json. Leave blank to disable automatic icecast fetching
+    "genius_api_key" : ""       //Genius API access token 
+}

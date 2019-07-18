@@ -17,14 +17,14 @@ import {
     optionsBar,
     responsiveBar,
     legendBar,
-    thArray, 
+    thArray,
     tdArray
 } from '../../variables/Variables.jsx';
 
 /* global $, globals */
 
 class EpisodesPage extends Component {
-    state = { 
+    state = {
         episodes : [],
         limit : 10,
         page : 0,
@@ -90,8 +90,8 @@ class EpisodesPage extends Component {
     }
 
     deleteShow(id){
-        $.ajax({ 
-            url : `/api/private/show/${id}`, 
+        $.ajax({
+            url : `/api/private/show/${id}`,
             method : "delete",
             data : {}
         }).done((response) => {
@@ -113,7 +113,7 @@ class EpisodesPage extends Component {
 
     pagination(){
 
-        
+
 
         return(
             <ul className="pagination">
@@ -135,7 +135,7 @@ class EpisodesPage extends Component {
 
     constructor(props){
         super(props);
-    
+
         this.updateShowsList = this.updateShowsList.bind(this);
     }
 
@@ -153,8 +153,7 @@ class EpisodesPage extends Component {
                                 category=""
                                 stats=""
                                 content={
-                                    <div style={{textAlign : "right"}}> 
-                                        <button className="btn btn-flat" onClick={() => { }}>Add Episode</button>
+                                    <div style={{textAlign : "right"}}>
                                         <Table hover>
                                             <thead>
                                                 <tr>
@@ -171,25 +170,25 @@ class EpisodesPage extends Component {
                                                 {
                                                     this.state.episodes.map((prop,key) => {
 
-                                                        
+
                                                         var creation = new Date(prop.publishTime);
                                                         var date = creation.toDateString() + " " + creation.toLocaleTimeString();
                                                         var id = prop._id;
 
                                                         var btnColor = "btn " + ((prop.public) ? 'btn-success ' : 'btn-danger');
-                                                        
+
                                                         var publicButtonOnclick = () => {
                                                             console.log("hello there");
                                                             this.toggleShowVisibility(prop._id, !prop.public).then(() => {
                                                                 this.updateLists();
                                                             });
                                                         }
-														var listenButtonOnClick = () => {
-															$.getJSON('/api/private/episodefull/' + prop._id).done(function(response){
-																var audio_file_url = response.meta.media_url[0].url;
-																window.open(audio_file_url, "_blank");
-															});
-														}
+                            														var listenButtonOnClick = () => {
+                            															$.getJSON('/api/private/episodefull/' + prop._id).done(function(response){
+                            																var audio_file_url = response.meta.media_url[0].url;
+                            																window.open(audio_file_url, "_blank");
+                            															});
+                            														}
 
                                                         return (
                                                             <tr key={key}>
@@ -213,7 +212,7 @@ class EpisodesPage extends Component {
                                                 }
                                             </tbody>
                                         </Table>
-                                        
+
                                     </div>
                                 }
                             />

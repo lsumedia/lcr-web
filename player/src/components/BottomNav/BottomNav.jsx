@@ -11,13 +11,13 @@ const isBrowsing = (match, location) => {
 }
 
 export default class BottomNav extends Component{
-    
+
     render(){
         return(
             <div className="bottom-nav">
 
                 <div className="button-container justify-content-space-between">
-                    
+
                     <NavLink to={'/'} className="bottom-nav-option" activeClassName="active" exact={true}>
                         <i className="material-icons">home</i>
                     </NavLink>
@@ -25,13 +25,13 @@ export default class BottomNav extends Component{
                     <NavLink to={'/backtrack'} className="bottom-nav-option" isActive={isBrowsing} activeClassName="active">
                         <i className="material-icons">queue_music</i>
                     </NavLink>
-{/*
-                    <NavLink to={'/search'} className="bottom-nav-option" activeClassName="active">
-                        <i className="material-icons">search</i>
-                    </NavLink>
 
                     <NavLink to={'/schedule'} className="bottom-nav-option" activeClassName="active">
                         <i className="material-icons">event_note</i>
+                    </NavLink>
+{/*
+                    <NavLink to={'/search'} className="bottom-nav-option" activeClassName="active">
+                        <i className="material-icons">search</i>
                     </NavLink>
 
                     <NavLink to={'/message'} className="bottom-nav-option" activeClassName="active">

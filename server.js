@@ -55,6 +55,7 @@ var EpisodeModel = require('./model/episode.js');
 var TokenModel = require('./model/token.js');
 var SongModel = require('./model/song.js');
 var UserModel = require('./model/user.js');
+var ScheduleSlotModel = require('./model/scheduleslot.js');
 
 //Functions for managing stuff
 var TokenTools = require('./includes/tokentools.js');

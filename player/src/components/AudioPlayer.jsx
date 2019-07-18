@@ -68,7 +68,7 @@ class AudioPlayer extends Component{
 
     constructor(props){
         super(props);
-        
+
         globals.AudioPlayer = this;
 
         this.AudioElement = new Audio();
@@ -119,7 +119,7 @@ class AudioPlayer extends Component{
     }
 
     playEpisode(id){
-        
+
         this.setState({
             mode : 1,
             episodeID : id
@@ -128,7 +128,7 @@ class AudioPlayer extends Component{
         });
 
     }
-    
+
     goLive(){
 
         this.setState({
@@ -150,12 +150,12 @@ class AudioPlayer extends Component{
             _this.AudioElement.type = stream.type;
             _this.AudioElement.load();
             if(play) this.AudioElement.play();
-            
+
         }else{
             $.getJSON('/api/public/episode/' + this.state.episodeID).done(function(response){
                 console.log("Load episode " + _this.state.episodeID);
                 _this.setState({episode : response});
-                
+
                 var source = _this.state.episode.meta.media_url[0];
                 _this.AudioElement.src = source.url;
                 _this.AudioElement.type = source.type;
@@ -186,12 +186,12 @@ class AudioPlayer extends Component{
         this.AudioElement.volume = (volume == 0)? 0 : (1 - ((3 - volume) * 0.33));
         this.setState({volume: volume});
     }
-    
+
 
     getContentDetails(){
-        
+
         if(this.state.mode == 1){
-            
+
             return this.state.episode;
         }else{
             return defaultData;
@@ -260,7 +260,7 @@ class AudioPlayer extends Component{
                 <div className="audioplayer" open={showInfo}>
                     <div className="controls audioplayer-controls">
                         <span>
-                            {this.isPlaying() ? 
+                            {this.isPlaying() ?
                                 ( <i className="material-icons" onClick={this.pause} >pause_circle_outline</i>) :
                                 ( <i className="material-icons" onClick={this.play} >play_circle_outline</i>)
                             }
@@ -309,7 +309,7 @@ class AudioPlayer extends Component{
                             <div class="audioplayer-additional-controls">
                                 <div className="audioplayer-control-buttons">
                                     <i className="material-icons" onClick={this.back20}>skip_previous</i>
-                                    {this.isPlaying() ? 
+                                    {this.isPlaying() ?
                                         ( <i className="material-icons" onClick={this.pause} >pause_circle_outline</i>) :
                                         ( <i className="material-icons" onClick={this.play} >play_circle_outline</i>)
                                     }
@@ -317,10 +317,10 @@ class AudioPlayer extends Component{
                                 </div>
                                 <div className="audioplayer-seek-controls">
                                     <span>{currentTime}</span>
-                                    <input className="control-item seekbar" type="range" min="0" 
+                                    <input className="control-item seekbar" type="range" min="0"
                                         max="500"
-                                        value={(this.AudioElement.currentTime / this.AudioElement.duration) * 500} 
-                                        onChange={(evt) => { 
+                                        value={(this.AudioElement.currentTime / this.AudioElement.duration) * 500}
+                                        onChange={(evt) => {
                                             var value = evt.target.value;
                                             var time = (value / 500) * this.AudioElement.duration;
                                             this.AudioElement.currentTime = time;

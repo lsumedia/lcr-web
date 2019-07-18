@@ -3,18 +3,19 @@ const request = require('request');
 
 const Episode = mongoose.model('episode');
 const Show = mongoose.model('show');
+const ScheduleSlot = mongoose.model('scheduleslot');
 
 const Token = mongoose.model('token');
 const TokenTools = require('../includes/tokentools.js');
 
 /**
- * 
+ *
  * The API that services any public requests - used by the public webapp & some parts of the CMS
 
  */
 function PublicAPI(app, Controllers){
 
-    
+
     app.get('/api/public/show', function(req, res){
 
         var limit = parseInt(req.query.limit) || 0;
@@ -25,7 +26,7 @@ function PublicAPI(app, Controllers){
             else res.send(docs);
         });
     });
-    
+
     app.get('/api/public/show/:slug', function(req, res){
         Show.findOne({slug : req.params.slug}).exec(function(err,doc){
             if(err) res.status(500).send(err);
@@ -38,7 +39,7 @@ function PublicAPI(app, Controllers){
         var limit = parseInt(req.query.limit) || 0;
         var skip = parseInt(req.query.skip) || 0;
         var showSlug = req.params.showSlug;
-        
+
         Episode.find({showSlug : showSlug, public : true}, null, { sort : { $natural : -1 }}).limit(limit).skip(skip).exec(function(err,docs){
             if(err) res.status(500).send(err);
             else res.send(docs);
@@ -46,7 +47,7 @@ function PublicAPI(app, Controllers){
     });
 
     app.get('/api/public/episode', function(req, res){
-        
+
         var limit = parseInt(req.query.limit) || 0;
         var skip = parseInt(req.query.skip) || 0;
 
@@ -128,7 +129,7 @@ function PublicAPI(app, Controllers){
     });
 
     app.get('/api/public/songs/title/:artist/:title', function(req, res){
-        
+
         var artist = req.params.artist;
         var title = req.params.title;
 
@@ -140,6 +141,17 @@ function PublicAPI(app, Controllers){
         },function(err){
             console.log(err);
             res.status(404).send('Not found');
+        });
+    });
+
+	/* Schedule Slots */
+
+	//List all schedule slots
+    app.get('/api/public/scheduleslot/', function(req, res){
+
+        ScheduleSlot.find({}, null, { sort : { dow : 1, startTimeMinutes : 1 }}).exec(function(err,docs){
+            if(err) res.status(500).send(err);
+            else res.send(docs);
         });
     });
 }

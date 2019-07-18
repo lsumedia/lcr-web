@@ -258,6 +258,15 @@ const tdArray = [
     ["15:52","Never Gonna Give You Up","Rick Astley","2"],
     ["14:52","LCR MINIMIX - In The Mix 041", "Various Artists","3"]
 ];
+const dowDict = {
+  1: "Monday",
+  2: "Tuesday",
+  3: "Wednesday",
+  4: "Thursday",
+  5: "Friday",
+  6: "Saturday",
+  7: "Sunday"
+}
 
 
 //
@@ -556,6 +565,7 @@ var legendBar = {
 
 module.exports = {
     style, // For notifications (App container and Notifications view)
+    dowDict, // For translating dow integers to day strings
     thArray, tdArray, // For tables (TableList view)
     iconsArray, // For icons (Icons view)
     dataPie, legendPie, dataSales, optionsSales, responsiveSales, legendSales, dataBar, optionsBar, responsiveBar, legendBar // For charts (Dashboard view)

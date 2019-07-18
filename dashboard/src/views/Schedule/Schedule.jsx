@@ -2,9 +2,38 @@ import React, { Component } from 'react';
 import {Table} from 'react-bootstrap';
 
 import Card from '../../components/Card/Card.jsx';
-import {thArray, tdArray} from '../../variables/Variables.jsx';
+import {dowDict} from '../../variables/Variables.jsx';
+
+const $ = window.$;
 
 class TableList extends Component {
+
+    state = {
+      scheduleslots : [],
+    };
+
+    showtitles = {};
+
+    updateShowsList(){
+        $.get('/api/private/show').done((response) => {
+            response.map((show) => {
+                this.showtitles[show.slug] = show.title;
+            });
+            this.setState({});
+        });
+    }
+
+    updateScheduleSlotList(){
+        $.get('/api/private/scheduleslot').done((response) => {
+            this.setState({scheduleslots: response});
+            console.log(this.state);
+        });
+    }
+
+    componentWillMount(){
+      this.updateShowsList();
+      this.updateScheduleSlotList();
+    }
 
     render() {
         return (
@@ -13,34 +42,30 @@ class TableList extends Component {
                     <div className="row">
                         <div className="col-md-12">
                             <Card
-                                cardClass="card-plain"
-                                title="Striped Table with Hover"
-                                category="Here is a subtitle for this table"
+                                cardClass=""
+                                id="songlist"
+                                title="Schedule"
                                 contentClass="table-responsive table-full-width"
                                 content={
                                     <Table hover>
                                         <thead>
                                             <tr>
-                                                {
-                                                    thArray.map((prop, key) => {
-                                                        return (
-                                                        <th  key={key}>{prop}</th>
-                                                        );
-                                                    })
-                                                }
+                                                <th>Show Title</th>
+                                                <th>Start Time</th>
+                                                <th>End Time</th>
+                                                <th>Day</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             {
-                                                tdArray.map((prop,key) => {
+                                                this.state.scheduleslots.map((prop,key) => {
                                                     return (
-                                                        <tr key={key}>{
-                                                            prop.map((prop,key)=> {
-                                                                return (
-                                                                    <td  key={key}>{prop}</td>
-                                                                );
-                                                            })
-                                                        }</tr>
+                                                        <tr key={key}>
+                                                            <td>{this.showtitles[prop.showSlug]}</td>
+                                                            <td>{prop.startTime}</td>
+                                                            <td>{prop.endTime}</td>
+                                                            <td>{dowDict[prop.dow]}</td>
+                                                        </tr>
                                                     )
                                                 })
                                             }

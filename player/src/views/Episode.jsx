@@ -7,7 +7,7 @@ import ScalableContainer from '../components/ScalableContainer';
 /* global $, videojs, globals */
 
 class Episode extends Component{
-    
+
     state = {
         episodeData : {
             meta : {

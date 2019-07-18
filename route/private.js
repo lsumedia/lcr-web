@@ -7,6 +7,7 @@ var upload = multer({dest : 'uploads/'});
 
 const Episode = mongoose.model('episode');
 const Show = mongoose.model('show');
+const ScheduleSlot = mongoose.model('scheduleslot');
 
 const Token = mongoose.model('token');
 const TokenTools = require('../includes/tokentools.js');
@@ -14,7 +15,7 @@ const TokenTools = require('../includes/tokentools.js');
 const BackupTools = require('../includes/backup.js');
 
 function PrivateApi(app, auth, Controllers){
-   
+
     var opts = { runValidators : true, new : true};
 
     /* Shows */
@@ -30,10 +31,10 @@ function PrivateApi(app, auth, Controllers){
             else res.send(docs);
         });
     });
-    
+
     //Get one show
     app.get('/api/private/show/:slug', auth, function(req, res){
-        
+
         Show.findOne({slug : req.params.slug}).exec(function(err,doc){
             if(err) res.status(500).send(err);
             else if(!doc) res.status(404).send("Not Found");
@@ -47,7 +48,7 @@ function PrivateApi(app, auth, Controllers){
         var limit = parseInt(req.query.limit) || 0;
         var skip = parseInt(req.query.skip) || 0;
         var showSlug = req.params.showSlug;
-        
+
         Episode.find({showSlug : showSlug}, null, { sort : { $natural : -1 }}).limit(limit).skip(skip).exec(function(err,docs){
             if(err) res.status(500).send(err);
             else res.send(docs);
@@ -81,7 +82,7 @@ function PrivateApi(app, auth, Controllers){
     //Update a show
     app.post('/api/private/show/:slug', auth, express.json(), function(req, res){
         var slug = req.params.slug;
-        
+
         Show.update({ slug : slug }, req.body, opts, function(err, raw){
             if(err) res.status(404).send(err);
             else res.send(raw);
@@ -108,7 +109,7 @@ function PrivateApi(app, auth, Controllers){
         var limit = parseInt(req.query.limit) || 0;
         var skip = parseInt(req.query.skip) || 0;
 
-        Episode.find({}, null, { sort : { $natural : -1 }}).limit(limit).skip(skip).exec(function(err,docs){
+        Episode.find({}, null, { sort : { publishTime : -1 }}).limit(limit).skip(skip).exec(function(err,docs){
             if(err) res.status(500).send(err);
             else res.send(docs);
         });
@@ -124,7 +125,7 @@ function PrivateApi(app, auth, Controllers){
             });
         });
     });
-    
+
     //Get a specific episode (WITHOUT grabbing metadata)
     app.get('/api/private/episode/:id', auth, function(req, res){
 
@@ -178,6 +179,47 @@ function PrivateApi(app, auth, Controllers){
     app.delete('/api/private/episode/:id', auth, express.json(), function(req, res){
 
         Episode.findByIdAndRemove(req.params.id, function(err, doc){
+            if(err) res.status(404).send(err.message);
+            else res.send(doc);
+        });
+
+    });
+
+    /* Schedule Slots */
+
+	//List all schedule slots
+    app.get('/api/private/scheduleslot/', auth, function(req, res){
+
+        ScheduleSlot.find({}, null, { sort : { dow : 1, startTimeMinutes : 1 }}).exec(function(err,docs){
+            if(err) res.status(500).send(err);
+            else res.send(docs);
+        });
+    });
+
+	//Add new schedule slot
+    app.post('/api/private/scheduleslot/', auth, express.json(), function(req, res){
+
+        var newScheduleSlot = new ScheduleSlot(req.body);
+
+        newScheduleSlot.save(function(err){
+            if(err) res.status(400).send(err);
+            else res.send(newScheduleSlot);
+        });
+    });
+
+	//Update a schedule slot
+    app.post('/api/private/scheduleslot/:id', auth, express.json(), function(req, res){
+
+        ScheduleSlot.findByIdAndUpdate(req.params.id, req.body, opts, function(err, raw){
+            if(err) res.status(404).send(err);
+            else res.send(raw);
+        });
+    });
+
+    //Delete a schedule slot
+    app.delete('/api/private/scheduleslot/:id', auth, express.json(), function(req, res){
+
+        ScheduleSlot.findByIdAndRemove(req.params.id, function(err, doc){
             if(err) res.status(404).send(err.message);
             else res.send(doc);
         });
@@ -238,7 +280,7 @@ function PrivateApi(app, auth, Controllers){
     //Backup Episodes
 
     app.get('/api/private/backup/episode', auth, function(req,res){
-       
+
         res.setHeader('Content-Type', 'application/json');
         res.setHeader('Content-disposition','attachment; filename=' + BackupTools.downloadFilename('episodes'));
         BackupTools.backupEpisodes(function(err, docs){
@@ -260,8 +302,8 @@ function PrivateApi(app, auth, Controllers){
         });
     });
 
-    //Backup Shows 
-    
+    //Backup Shows
+
     app.get('/api/private/backup/show', auth, function(req,res){
 
         res.setHeader('Content-Type', 'application/json');

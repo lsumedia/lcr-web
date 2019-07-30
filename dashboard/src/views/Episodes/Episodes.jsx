@@ -162,7 +162,7 @@ class EpisodesPage extends Component {
                                                     <th>Description</th>
                                                     <th>Tags</th>
                                                     <th>Date Published</th>
-													<th>Listen</th>
+                                                    <th>Listen</th>
                                                     <th>Publish</th>
                                                 </tr>
                                             </thead>

@@ -65,13 +65,13 @@ class ShowsPage extends Component {
         });
     }
 
-    deleteShow(id){
+    deleteShow(slug){
         $.ajax({
-            url : `/api/private/show/${id}`,
+            url : `/api/private/show/${slug}`,
             method : "delete",
             data : {}
         }).done((response) => {
-            this.updateTokensList();
+            this.updateShowsList();
         });
     }
 
@@ -83,6 +83,15 @@ class ShowsPage extends Component {
         );
     }
 
+    toggleShowActive(slug, activeState){
+        $.ajax({
+            url :`/api/private/show/${slug}`,
+            method : "post",
+            data : {active : activeState}
+        }).done((response) => {
+            this.updateShowsList();
+        });
+    }
 
     componentWillMount(){
         this.updateShowsList();
@@ -115,7 +124,8 @@ class ShowsPage extends Component {
                                                     <th>Title</th>
                                                     <th>Description</th>
                                                     <th>Tags</th>
-                                                    <th>Active</th>
+                                                    <th style={{textAlign : "center"}}>Active</th>
+                                                    <th style={{textAlign : "center"}}>Delete</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -126,6 +136,11 @@ class ShowsPage extends Component {
                                                         var creation = new Date(prop.creation);
                                                         var date = creation.toDateString() + " " + creation.toLocaleTimeString();
                                                         var id = prop._id;
+                                                        var btnColor = "btn " + ((prop.active) ? 'btn-success ' : 'btn-danger');
+
+                                                        var activeButtonOnClick = () => {
+                                                            this.toggleShowActive(prop.slug, !prop.active);
+                                                        }
 
                                                         return (
                                                             <tr key={key}>
@@ -133,7 +148,12 @@ class ShowsPage extends Component {
                                                                 <td>{prop.title}</td>
                                                                 <td>{prop.description.substr(0,40)}</td>
                                                                 <td>{prop.tags}</td>
-                                                                <td>{prop.active ? "Active" : "Inactive"}</td>
+                                                                <td style={{textAlign : "center"}}>
+                                                                  <button className={btnColor} onClick={activeButtonOnClick}>
+                                                                      {prop.active ? "Active" : "Inactive"}
+                                                                  </button>
+                                                                </td>
+                                                                <td style={{cursor: "pointer", textAlign : "center"}} onClick={() => { this.deleteShow(prop.slug)}}><i className="fa fa-trash"></i></td>
                                                             </tr>
                                                         )
                                                     })

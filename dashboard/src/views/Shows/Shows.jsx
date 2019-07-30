@@ -6,6 +6,7 @@ import {Table} from 'react-bootstrap';
 import {Card} from '../../components/Card/Card.jsx';
 import {StatsCard} from '../../components/StatsCard/StatsCard.jsx';
 import {Tasks} from '../../components/Tasks/Tasks.jsx';
+import {AddShowModalForm} from '../../components/ModalForm/ModalForm.jsx'
 import {
     dataPie,
     legendPie,
@@ -17,17 +18,25 @@ import {
     optionsBar,
     responsiveBar,
     legendBar,
-    thArray, 
+    thArray,
     tdArray
 } from '../../variables/Variables.jsx';
 
 /* global $, globals */
 
 class ShowsPage extends Component {
-    state = { 
-        shows : []
+
+    constructor(props){
+        super(props);
+
+        this.updateShowsList = this.updateShowsList.bind(this);
+    }
+
+    state = {
+        shows : [],
+        isOpen : false
     };
-    
+
     secrets = {};
 
     updateShowsList(){
@@ -46,16 +55,32 @@ class ShowsPage extends Component {
         });
     }
 
-
+    addShow(data, _this){
+        $.ajax({
+            url : '/api/private/show/',
+            method : "post",
+            data : data
+        }).done((response) => {
+          _this.updateShowsList()
+        });
+    }
 
     deleteShow(id){
-        $.ajax({ 
-            url : `/api/private/show/${id}`, 
+        $.ajax({
+            url : `/api/private/show/${id}`,
             method : "delete",
             data : {}
         }).done((response) => {
             this.updateTokensList();
         });
+    }
+
+    showHideInputForm = () => {
+        this.setState(
+          {
+            isOpen: !this.state.isOpen
+          }
+        );
     }
 
 
@@ -66,15 +91,10 @@ class ShowsPage extends Component {
     componentWillUnmount(){
     }
 
-    constructor(props){
-        super(props);
-    
-        this.updateShowsList = this.updateShowsList.bind(this);
-    }
-
     render() {
         return (
             <div className="content">
+                <AddShowModalForm show={this.state.isOpen} onClose={this.showHideInputForm} onSubmit={this.addShow} parent={this} />
                 <div className="container-fluid">
                     <div className="row">
                         <div className="col-md-12">
@@ -86,8 +106,8 @@ class ShowsPage extends Component {
                                 category=""
                                 stats=""
                                 content={
-                                    <div style={{textAlign : "right"}}> 
-                                        <button className="btn btn-flat" onClick={() => {this.generateNewToken()}}>Add Show</button>
+                                    <div style={{textAlign : "right"}}>
+                                        <button className="btn btn-flat" onClick={() => {this.showHideInputForm()}}>Add Show</button>
                                         <Table hover>
                                             <thead>
                                                 <tr>
@@ -102,7 +122,7 @@ class ShowsPage extends Component {
                                                 {
                                                     this.state.shows.map((prop,key) => {
 
-                                                        
+
                                                         var creation = new Date(prop.creation);
                                                         var date = creation.toDateString() + " " + creation.toLocaleTimeString();
                                                         var id = prop._id;

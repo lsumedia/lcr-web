@@ -26,7 +26,6 @@ class TableList extends Component {
     updateScheduleSlotList(){
         $.get('/api/private/scheduleslot').done((response) => {
             this.setState({scheduleslots: response});
-            console.log(this.state);
         });
     }
 

@@ -6,6 +6,7 @@ import {Table} from 'react-bootstrap';
 import {Card} from '../../components/Card/Card.jsx';
 import {StatsCard} from '../../components/StatsCard/StatsCard.jsx';
 import {Tasks} from '../../components/Tasks/Tasks.jsx';
+import {AddShowModalForm} from '../../components/ModalForm/ModalForm.jsx'
 import {
     dataPie,
     legendPie,
@@ -17,17 +18,25 @@ import {
     optionsBar,
     responsiveBar,
     legendBar,
-    thArray, 
+    thArray,
     tdArray
 } from '../../variables/Variables.jsx';
 
 /* global $, globals */
 
 class ShowsPage extends Component {
-    state = { 
-        shows : []
+
+    constructor(props){
+        super(props);
+
+        this.updateShowsList = this.updateShowsList.bind(this);
+    }
+
+    state = {
+        shows : [],
+        isOpen : false
     };
-    
+
     secrets = {};
 
     updateShowsList(){
@@ -46,18 +55,43 @@ class ShowsPage extends Component {
         });
     }
 
-
-
-    deleteShow(id){
-        $.ajax({ 
-            url : `/api/private/show/${id}`, 
-            method : "delete",
-            data : {}
+    addShow(data, _this){
+        $.ajax({
+            url : '/api/private/show/',
+            method : "post",
+            data : data
         }).done((response) => {
-            this.updateTokensList();
+          _this.updateShowsList()
         });
     }
 
+    deleteShow(slug){
+        $.ajax({
+            url : `/api/private/show/${slug}`,
+            method : "delete",
+            data : {}
+        }).done((response) => {
+            this.updateShowsList();
+        });
+    }
+
+    showHideInputForm = () => {
+        this.setState(
+          {
+            isOpen: !this.state.isOpen
+          }
+        );
+    }
+
+    toggleShowActive(slug, activeState){
+        $.ajax({
+            url :`/api/private/show/${slug}`,
+            method : "post",
+            data : {active : activeState}
+        }).done((response) => {
+            this.updateShowsList();
+        });
+    }
 
     componentWillMount(){
         this.updateShowsList();
@@ -66,15 +100,10 @@ class ShowsPage extends Component {
     componentWillUnmount(){
     }
 
-    constructor(props){
-        super(props);
-    
-        this.updateShowsList = this.updateShowsList.bind(this);
-    }
-
     render() {
         return (
             <div className="content">
+                <AddShowModalForm show={this.state.isOpen} onClose={this.showHideInputForm} onSubmit={this.addShow} parent={this} />
                 <div className="container-fluid">
                     <div className="row">
                         <div className="col-md-12">
@@ -86,8 +115,8 @@ class ShowsPage extends Component {
                                 category=""
                                 stats=""
                                 content={
-                                    <div style={{textAlign : "right"}}> 
-                                        <button className="btn btn-flat" onClick={() => {this.generateNewToken()}}>Add Show</button>
+                                    <div style={{textAlign : "right"}}>
+                                        <button className="btn btn-flat" onClick={() => {this.showHideInputForm()}}>Add Show</button>
                                         <Table hover>
                                             <thead>
                                                 <tr>
@@ -95,17 +124,23 @@ class ShowsPage extends Component {
                                                     <th>Title</th>
                                                     <th>Description</th>
                                                     <th>Tags</th>
-                                                    <th>Active</th>
+                                                    <th style={{textAlign : "center"}}>Active</th>
+                                                    <th style={{textAlign : "center"}}>Delete</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 {
                                                     this.state.shows.map((prop,key) => {
 
-                                                        
+
                                                         var creation = new Date(prop.creation);
                                                         var date = creation.toDateString() + " " + creation.toLocaleTimeString();
                                                         var id = prop._id;
+                                                        var btnColor = "btn " + ((prop.active) ? 'btn-success ' : 'btn-danger');
+
+                                                        var activeButtonOnClick = () => {
+                                                            this.toggleShowActive(prop.slug, !prop.active);
+                                                        }
 
                                                         return (
                                                             <tr key={key}>
@@ -113,7 +148,12 @@ class ShowsPage extends Component {
                                                                 <td>{prop.title}</td>
                                                                 <td>{prop.description.substr(0,40)}</td>
                                                                 <td>{prop.tags}</td>
-                                                                <td>{prop.active ? "Active" : "Inactive"}</td>
+                                                                <td style={{textAlign : "center"}}>
+                                                                  <button className={btnColor} onClick={activeButtonOnClick}>
+                                                                      {prop.active ? "Active" : "Inactive"}
+                                                                  </button>
+                                                                </td>
+                                                                <td style={{cursor: "pointer", textAlign : "center"}} onClick={() => { this.deleteShow(prop.slug)}}><i className="fa fa-trash"></i></td>
                                                             </tr>
                                                         )
                                                     })

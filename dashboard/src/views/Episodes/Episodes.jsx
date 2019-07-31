@@ -162,8 +162,8 @@ class EpisodesPage extends Component {
                                                     <th>Description</th>
                                                     <th>Tags</th>
                                                     <th>Date Published</th>
-													<th>Listen</th>
-                                                    <th>Publish</th>
+                                                    <th style={{textAlign : "center"}}>Listen</th>
+                                                    <th style={{textAlign : "center"}}>Publish</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -197,11 +197,12 @@ class EpisodesPage extends Component {
                                                                 <td>{prop.description.substr(0,40)}</td>
                                                                 <td>{prop.tags}</td>
                                                                 <td>{date}</td>
-																<td>
+                                                                <td style={{textAlign : "center"}}>
                                                                     <button className={"btn btn-flat"} onClick={listenButtonOnClick}>
                                                                         Listen
-                                                                    </button></td>
-                                                                <td>
+                                                                    </button>
+                                                                </td>
+                                                                <td style={{textAlign : "center"}}>
                                                                     <button className={btnColor} onClick={publicButtonOnclick}>
                                                                         {prop.public ? "Public" : "Private"}
                                                                     </button>

@@ -103,27 +103,30 @@ var utilityAPI = new (require('./route/utility.js'))(app, TokenTools.tokenMiddle
 
 //Anything else just goes to homepage (enables the HTML5 page paths) - This must go last!
 app.use('/*', function(req, res){
-res.sendFile(__dirname + '/player/build/index.html');
+    res.sendFile(__dirname + '/player/build/index.html');
 });
 
 /* Start Database and Server */
 
 var dbUrl;
 
-if(config.db_username)
+if(config.db_username){
     dbUrl = `mongodb://${config.db_username}:${config.db_password}@${config.db_host}:${config.db_port}/${config.db_name}`;
-else 
+} else {
     dbUrl = `mongodb://${config.db_host}:${config.db_port}/${config.db_name}`;
+}
 
 mongoose.connect(dbUrl).then(
-    () => { console.log("mongoose: Connected successfully to server")},
-    err => { console.log("mongoose: Error connecting to database"); console.log(err)}
+    () => { 
+        console.log("mongoose: Connected successfully to server")
+    },
+    err => { 
+        console.log("mongoose: Error connecting to database"); 
+        console.log(err)
+        process.exit();
+    }
 )
-
-if(Number.isInteger(port)){
     
-    server.listen(port, function () {
-      console.log('server: listening on port ' + port);
-    });
-  
-}
+server.listen(port, function () {
+    console.log('server: listening on port ' + port);
+});

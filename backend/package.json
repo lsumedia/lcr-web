@@ -1,6 +1,6 @@
 {
   "name": "lcr-web-backend",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Web components for LCR App",
   "main": "server.js",
   "scripts": {
@@ -45,6 +45,7 @@
     "websocket": "^1.0.26"
   },
   "devDependencies": {
+    "@types/node": "^14.0.6",
     "chai": "^4.1.2",
     "chai-http": "^3.0.0",
     "mocha": "^5.0.0",

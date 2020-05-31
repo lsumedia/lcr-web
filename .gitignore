@@ -1,3 +1,7 @@
+
+dist/
+*.private.env
+
 # Logs
 logs
 *.log

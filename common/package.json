@@ -1,0 +1,14 @@
+{
+  "name": "lcr-common",
+  "version": "1.0.0",
+  "description": "Common components of LCR web app",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "mongoose": "^5.9.17"
+  }
+}

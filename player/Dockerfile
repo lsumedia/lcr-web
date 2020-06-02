@@ -7,7 +7,7 @@ FROM node:12
 
 WORKDIR  /app/
 
-COPY ./backend /app/
+COPY ./player /app/
 RUN ls -al
 COPY ./common/ /common/
 

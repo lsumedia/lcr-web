@@ -1,6 +1,6 @@
-let mongoose = require('mongoose');
-let Schema = mongoose.Schema;
-var shortid = require('shortid');
+import { Schema, model} from 'mongoose';
+import * as uniqueValidator from 'mongoose-unique-validator';
+import * as shortid from 'shortid';
 
 var SongSchema = new Schema({
     artist : String,
@@ -11,4 +11,4 @@ var SongSchema = new Schema({
     timestamp : Date
 });
 
-module.exports = mongoose.model('song', SongSchema);
+module.exports = model('song', SongSchema);

@@ -1,7 +1,7 @@
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
-const uniqueValidator = require('mongoose-unique-validator')
-const slugMaker = require('slug');
+import { Schema, model} from 'mongoose';
+import * as uniqueValidator from 'mongoose-unique-validator';
+import * as shortid from 'shortid';
+import { slugMaker } from 'slug';
 
 var ShowSchema = new Schema(
     {
@@ -25,4 +25,4 @@ ShowSchema.pre('validate', function(next){
 });
 
 
-module.exports = mongoose.model('show', ShowSchema);
+module.exports = model('show', ShowSchema);

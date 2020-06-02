@@ -1,7 +1,6 @@
-let mongoose = require('mongoose');
-let Schema = mongoose.Schema;
-var shortid = require('shortid');
-var crypto = require('crypto');
+import { Schema, model} from 'mongoose';
+import * as uniqueValidator from 'mongoose-unique-validator';
+import * as shortid from 'shortid';
 
 var TokenSchema = new Schema({
     _id : {type : String},
@@ -17,4 +16,4 @@ TokenSchema.pre('validate', function(next){
     });
 });
 
-module.exports = mongoose.model('token', TokenSchema);
+module.exports = model('token', TokenSchema);

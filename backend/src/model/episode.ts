@@ -1,8 +1,8 @@
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
-const uniqueValidator = require('mongoose-unique-validator')
-const shortid = require('shortid');
-var request = require('request');
+import { Schema, model} from 'mongoose';
+import * as uniqueValidator from 'mongoose-unique-validator';
+import * as shortid from 'shortid';
+
+import { IEpisode, EpisodeTypes } from '@common/model/episode';
 
 var episodeTypes = [
     "episode",
@@ -53,4 +53,4 @@ EpisodeSchema.methods.getMetaData = function(cb){
     });
 }
 
-module.exports = mongoose.model('episode', EpisodeSchema);
+export const EpisodeModel = model<IEpisode>('episode', EpisodeSchema);

@@ -1,8 +1,6 @@
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
-const uniqueValidator = require('mongoose-unique-validator')
-const shortid = require('shortid');
-var request = require('request');
+import { Schema, model} from 'mongoose';
+import * as uniqueValidator from 'mongoose-unique-validator';
+import * as shortid from 'shortid';
 
 var ScheduleSlotSchema = new Schema(
     {
@@ -28,4 +26,4 @@ ScheduleSlotSchema.pre('validate', function(next){
     next();
 });
 
-module.exports = mongoose.model('scheduleslot', ScheduleSlotSchema);
+module.exports = model('scheduleslot', ScheduleSlotSchema);

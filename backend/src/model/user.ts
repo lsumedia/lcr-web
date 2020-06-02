@@ -1,9 +1,9 @@
-const mongoose = require('mongoose');
-const uniqueValidator = require('mongoose-unique-validator')
-const crypto = require('crypto');
-const jwt = require('jsonwebtoken');
+import { Schema, model} from 'mongoose';
+import * as uniqueValidator from 'mongoose-unique-validator';
+import * as shortid from 'shortid';
+import * as crypto from 'crypto'
 
-var UserSchema = new mongoose.Schema({
+var UserSchema = new Schema({
   email: {type: String, lowercase: true, required: [true, "can't be blank"], match: [/\S+@\S+\.\S+/, 'is invalid'], index: true, unique : true},
   bio: String,
   image: String,
@@ -44,4 +44,4 @@ UserSchema.methods.toAuthJSON = function(){
     };
 };
 
-module.exports = mongoose.model('user', UserSchema);
+module.exports = model('user', UserSchema);

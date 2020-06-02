@@ -10,19 +10,19 @@ const cookieSession = require('cookie-session');
 const flash = require('express-flash');
 const WebSocketServer = require('websocket').server;
 
-/* Load server config */
-var configString;
+/* Models */
 
-try{
-    configString = fs.readFileSync('./config.json','utf8');
-}catch(e){
-    console.log("config: Error reading config file, using defaults");
-    configString = fs.readFileSync('./config.sample.json','utf8');
-}
+import { CommentModel, IComment } from '../../common/src/model/comment';
 
-const config = JSONC.parse(configString);
+var ShowModel = require('../../common/dist/model/show.js');
+var EpisodeModel = require('../../common/dist/model/episode.js');
+var TokenModel = require('../../common/dist/model/token.js');
+var SongModel = require('../../common/dist/model/song.js');
+var UserModel = require('../../common/dist/model/user.js');
+var ScheduleSlotModel = require('../../common/dist/model/scheduleslot.js');
 
-var port = process.env.PORT || config.port;
+
+var port = process.env.PORT || 3050;
 
 /* Initialisation */
 
@@ -30,7 +30,7 @@ var app = express();
 
 app.use(cookieSession({
     name : 'session',
-    keys : [config.secret],
+    keys : [process.env.SECRET],
     maxAge: 24 * 60 * 60 * 1000 // 24 hours
 }));
 
@@ -48,19 +48,11 @@ var wsServer = new WebSocketServer({
     autoAcceptConnections : false
 });
 
-/* Models */
-
-var ShowModel = require('./model/show.js');
-var EpisodeModel = require('./model/episode.js');
-var TokenModel = require('./model/token.js');
-var SongModel = require('./model/song.js');
-var UserModel = require('./model/user.js');
-var ScheduleSlotModel = require('./model/scheduleslot.js');
 
 //Functions for managing stuff
 var TokenTools = require('./includes/tokentools.js');
 var Authentication = require('./includes/authentication.js');
-var NowPlaying = new(require('./includes/nowplaying.js'))(config);
+var NowPlaying = new(require('./includes/nowplaying.js'));
 var CurrentShow = new(require('./includes/currentshow.js'))(NowPlaying);
 var StudioSwitcher = new(require('./includes/studioswitcher.js'))();
 

@@ -44,4 +44,4 @@ UserSchema.methods.toAuthJSON = function(){
     };
 };
 
-module.exports = model('user', UserSchema);
+export const UserModel = model('user', UserSchema);

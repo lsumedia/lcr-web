@@ -1,26 +1,22 @@
-const http = require('http');
-const express = require('express');
-const fs = require('fs');
-const JSONC = require('json-comments');
-const multer = require('multer');
-const request = require('request');
-const passport = require('passport');
-const mongoose = require('mongoose');
+
+import * as http from 'http';
+import * as express from 'express';
+import * as mongoose from 'mongoose';
+import * as passport from 'passport';
 const cookieSession = require('cookie-session');
 const flash = require('express-flash');
-const WebSocketServer = require('websocket').server;
+import * as WebSocket from 'websocket';
 
 /* Models */
 
-import { CommentModel, IComment } from '../../common/src/model/comment';
+import { ShowModel } from './model/show';
+import { EpisodeModel } from './model/episode'
+import { TokenModel } from './model/token';
+import { SongModel } from './model/song';
+import { UserModel } from './model/user';
+import { ScheduleSlotModel } from './model/scheduleslot';
 
-var ShowModel = require('../../common/dist/model/show.js');
-var EpisodeModel = require('../../common/dist/model/episode.js');
-var TokenModel = require('../../common/dist/model/token.js');
-var SongModel = require('../../common/dist/model/song.js');
-var UserModel = require('../../common/dist/model/user.js');
-var ScheduleSlotModel = require('../../common/dist/model/scheduleslot.js');
-
+import { MONGO_USERNAME, MONGO_PASSWORD, MONGO_DATABASE } from '@common/constants/database';
 
 var port = process.env.PORT || 3050;
 
@@ -39,12 +35,12 @@ app.use(express.urlencoded({extended : false}));
 app.use(passport.initialize());
 app.use(passport.session());
 
-var server = http.createServer(app);
+const httpServer = http.createServer(app);
 
 /* WebSocket */
 
-var wsServer = new WebSocketServer({
-    httpServer : server,
+const wsServer = new WebSocket.server({
+    httpServer,
     autoAcceptConnections : false
 });
 
@@ -70,7 +66,7 @@ app.get('/endsession', Authentication.endSessionMiddleware);
 
 app.get('/sessiondata', Authentication.sessionData);
 
-var UserAuth = (config.authenticate)? Authentication.userMiddleware : (req, res, next) => { next(); };
+var UserAuth = (process.env.SKIP_AUTH)?  (_req, _res, next) => { next(); } : Authentication.userMiddleware;
 
 /* Routes */
 
@@ -100,13 +96,7 @@ app.use('/*', function(req, res){
 
 /* Start Database and Server */
 
-var dbUrl;
-
-if(config.db_username){
-    dbUrl = `mongodb://${config.db_username}:${config.db_password}@${config.db_host}:${config.db_port}/${config.db_name}`;
-} else {
-    dbUrl = `mongodb://${config.db_host}:${config.db_port}/${config.db_name}`;
-}
+var dbUrl =  `mongodb://${MONGO_USERNAME}:${MONGO_PASSWORD}@localhost:27017/${MONGO_DATABASE}`;
 
 mongoose.connect(dbUrl).then(
     () => { 

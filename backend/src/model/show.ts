@@ -25,4 +25,4 @@ ShowSchema.pre('validate', function(next){
 });
 
 
-module.exports = model('show', ShowSchema);
+export const ShowModel = model('show', ShowSchema);

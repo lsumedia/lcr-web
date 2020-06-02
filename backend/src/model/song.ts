@@ -11,4 +11,4 @@ var SongSchema = new Schema({
     timestamp : Date
 });
 
-module.exports = model('song', SongSchema);
+export const SongModel = model('song', SongSchema);

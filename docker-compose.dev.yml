@@ -4,6 +4,8 @@ services:
 
     backend: 
         command: "npm run start:dev"
+        environment: 
+            - SKIP_AUTH=true
         volumes: 
             - ./backend/src:/app/src
             - ./common:/common

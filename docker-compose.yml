@@ -1,0 +1,65 @@
+version: "3"
+
+services:
+
+    proxy:
+        image: nginx:stable-alpine
+        container_name: lcr_proxy
+        restart: "always"
+        ports:
+            - 80:80
+        depends_on:
+            - backend
+            - admin
+            - player
+        command: nginx -g 'daemon off;'
+        volumes:
+            - ./proxy/nginx.conf:/etc/nginx/nginx.conf
+            - ./logs/proxy:/log
+
+    database:
+        image: mongo:latest
+        container_name: lcr_database
+        environment:
+            MONGO_INITDB_ROOT_USERNAME: root
+            MONGO_INITDB_ROOT_PASSWORD: rootpassword
+        ports:
+            - 27017:27017
+        volumes:
+            - mongodb_data_container:/data/db
+
+    backend:
+        build:
+            context: ./
+            dockerfile: ./backend/Dockerfile
+        image: node:12.17.0
+        container_name: lcr_backend
+        environment: 
+            - PORT=80
+        volumes:
+            - ./logs/backend:/log
+
+    admin:
+        build:
+            context: ./
+            dockerfile: ./admin/Dockerfile
+        image: node:12.17.0
+        container_name: lcr_admin
+        environment: 
+            - PORT=80
+        volumes:
+            - ./logs/admin:/log
+            
+    player:
+        build:
+            context: ./
+            dockerfile: ./player/Dockerfile
+        image: node:12.17.0
+        container_name: lcr_player
+        environment: 
+            - PORT=80
+        volumes:
+            - ./logs/player:/log
+
+volumes:
+    mongodb_data_container:

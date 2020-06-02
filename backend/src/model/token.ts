@@ -16,4 +16,4 @@ TokenSchema.pre('validate', function(next){
     });
 });
 
-module.exports = model('token', TokenSchema);
+export const TokenModel = model('token', TokenSchema);

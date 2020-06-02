@@ -26,4 +26,4 @@ ScheduleSlotSchema.pre('validate', function(next){
     next();
 });
 
-module.exports = model('scheduleslot', ScheduleSlotSchema);
+export const ScheduleSlotModel = model('scheduleslot', ScheduleSlotSchema);

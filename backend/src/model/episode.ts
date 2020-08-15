@@ -11,9 +11,8 @@ var episodeTypes = [
     "update"
 ];
 
-var EpisodeSchema = new Schema(
-    {
-        _id : { type : String, required : false},
+const EpisodeSchema = new Schema({
+        _id : { type : String, required : true},
         metafile : { type : String, required: true},
         meta : { type : Object, required : false, default : {}},
         title : { type : String, required: true},
@@ -23,7 +22,7 @@ var EpisodeSchema = new Schema(
         tags : { type : String, required: false},
         image : { type : String, required: false},
         public : { type : Boolean, required: false, default : false},
-        publishTime : { type : Date, required: false}
+        publishTime : { type : Date, required: false }
     }, 
     {
         timestamps: true

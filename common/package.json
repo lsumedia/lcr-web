@@ -10,5 +10,8 @@
   "license": "MIT",
   "dependencies": {
     "mongoose": "^5.9.17"
+  },
+  "devDependencies": {
+    "@types/mongoose": "^5.7.32"
   }
 }

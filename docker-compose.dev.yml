@@ -10,11 +10,11 @@ services:
             - ./backend/src:/app/src
             - ./common:/common
 
-    admin:
-        command: "npm run start:dev"
-        volumes:
-            - ./admin/src:/app/src 
-            - ./common:/common
+    # admin:
+    #     command: "npm run start:dev"
+    #     volumes:
+    #         - ./admin/src:/app/src 
+    #         - ./common:/common
 
     player:
         command: "npm run start:dev"

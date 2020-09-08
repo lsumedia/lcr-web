@@ -21,7 +21,6 @@ services:
         environment:
             MONGO_INITDB_ROOT_USERNAME: root
             MONGO_INITDB_ROOT_PASSWORD: lcr
-            MONGO_INITDB_DATABASE: lcr
         ports:
             - 27017:27017
         volumes:
@@ -32,8 +31,8 @@ services:
             context: ./
             dockerfile: ./backend/Dockerfile
         image: node:12.17.0
-        environment: 
-            - PORT=80
+        env_file:
+            - ./backend/backend.private.env
         volumes:
             - ./logs/backend:/log
 

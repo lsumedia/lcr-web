@@ -31,25 +31,25 @@ const EpisodeSchema = new Schema({
 
 EpisodeSchema.plugin(uniqueValidator);
 
-EpisodeSchema.pre('validate', function(next){
-    var publishDate = new Date();
-    if(!this.publishTime) this.publishTime = publishDate.toISOString();
-    if(!this.description) this.description = ""; 
-    if(!this._id) this._id = shortid.generate();
-    next();
-});
+// EpisodeSchema.pre('validate', function(next){
+//     var publishDate = new Date();
+//     if(!this.publishTime) this.publishTime = publishDate.toISOString();
+//     if(!this.description) this.description = ""; 
+//     if(!this._id) this._id = shortid.generate();
+//     next();
+// });
 
-EpisodeSchema.methods.getMetaData = function(cb){
+// EpisodeSchema.methods.getMetaData = function(cb){
     
-    request.get(this.metafile, (err, res, body) => {
-        try{
-            if(err) throw(err);
-            var meta = JSON.parse(body);
-            cb(null, meta);
-        }catch(err){
-            cb(err, {});
-        }
-    });
-}
+//     request.get(this.metafile, (err, res, body) => {
+//         try{
+//             if(err) throw(err);
+//             var meta = JSON.parse(body);
+//             cb(null, meta);
+//         }catch(err){
+//             cb(err, {});
+//         }
+//     });
+// }
 
 export const EpisodeModel = model<IEpisode>('episode', EpisodeSchema);

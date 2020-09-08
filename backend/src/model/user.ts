@@ -2,6 +2,9 @@ import { Schema, model} from 'mongoose';
 import * as uniqueValidator from 'mongoose-unique-validator';
 import * as crypto from 'crypto'
 import * as jwt from 'jsonwebtoken';
+import { LCRBackendEnvironment } from 'includes/environment';
+
+const env = process.env as LCRBackendEnvironment;
 
 var UserSchema = new Schema({
   email: {type: String, lowercase: true, required: [true, "can't be blank"], match: [/\S+@\S+\.\S+/, 'is invalid'], index: true, unique : true},
@@ -32,7 +35,7 @@ UserSchema.methods.generateJWT = function() {
         id: this._id,
         email: this.email,
         exp: Math.floor(exp.getTime() / 1000),
-    }, secret);
+    }, env.JWT_SECRET);
 };
 
 UserSchema.methods.toAuthJSON = function(){

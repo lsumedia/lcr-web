@@ -95,7 +95,7 @@ app.use('/*', function(req, res){
 
 /* Start Database and Server */
 
-var dbUrl =  `mongodb://${MONGO_USERNAME}:${MONGO_PASSWORD}@localhost:27017/${MONGO_DATABASE}`;
+var dbUrl = `mongodb://${MONGO_USERNAME}:${MONGO_PASSWORD}@localhost:27017/${MONGO_DATABASE}`;
 
 mongoose.connect(dbUrl).then(
     () => { 

@@ -18,12 +18,12 @@ var ScheduleSlotSchema = new Schema(
 
 ScheduleSlotSchema.plugin(uniqueValidator);
 
-ScheduleSlotSchema.pre('validate', function(next){
-    var startTimeComponents = this.startTime.split(":");
-    var startTimeMinutes = (Number(startTimeComponents[0]) * 60) + Number(startTimeComponents[1]);
-    this.startTimeMinutes = startTimeMinutes;
-    if(!this._id) this._id = shortid.generate();
-    next();
-});
+// ScheduleSlotSchema.pre('validate', function(next){
+//     var startTimeComponents = this.startTime.split(":");
+//     var startTimeMinutes = (Number(startTimeComponents[0]) * 60) + Number(startTimeComponents[1]);
+//     this.startTimeMinutes = startTimeMinutes;
+//     if(!this._id) this._id = shortid.generate();
+//     next();
+// });
 
 export const ScheduleSlotModel = model('scheduleslot', ScheduleSlotSchema);

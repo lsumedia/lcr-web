@@ -43,7 +43,7 @@
 		"readline-sync": "^1.4.7",
 		"request": "^2.83.0",
 		"shortid": "^2.2.8",
-		"slug": "^3.3.0",
+		"slugify": "^1.4.5",
 		"socket.io": "^2.0.4",
 		"websocket": "^1.0.26"
 	},
@@ -51,6 +51,7 @@
 		"@types/cookie-session": "^2.0.40",
 		"@types/express": "^4.17.6",
 		"@types/express-flash": "0.0.2",
+		"@types/jsonwebtoken": "^8.5.0",
 		"@types/mongoose": "^5.7.32",
 		"@types/mongoose-unique-validator": "^1.0.4",
 		"@types/node": "^14.0.6",

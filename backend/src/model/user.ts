@@ -1,7 +1,7 @@
 import { Schema, model} from 'mongoose';
 import * as uniqueValidator from 'mongoose-unique-validator';
-import * as shortid from 'shortid';
 import * as crypto from 'crypto'
+import * as jwt from 'jsonwebtoken';
 
 var UserSchema = new Schema({
   email: {type: String, lowercase: true, required: [true, "can't be blank"], match: [/\S+@\S+\.\S+/, 'is invalid'], index: true, unique : true},
@@ -13,12 +13,12 @@ var UserSchema = new Schema({
 
 UserSchema.plugin(uniqueValidator);
 
-UserSchema.methods.setPassword = function(password){
+UserSchema.methods.setPassword = function(password: string){
     this.salt = crypto.randomBytes(16).toString('hex');
     this.hash = crypto.pbkdf2Sync(password, this.salt, 10000, 512, 'sha512').toString('hex');
 };
 
-UserSchema.methods.validPassword = function(password) {
+UserSchema.methods.checkPasswordValid = function(password: string) {
     var hash = crypto.pbkdf2Sync(password, this.salt, 10000, 512, 'sha512').toString('hex');
     return this.hash === hash;
 };
@@ -31,7 +31,7 @@ UserSchema.methods.generateJWT = function() {
     return jwt.sign({
         id: this._id,
         email: this.email,
-        exp: parseInt(exp.getTime() / 1000),
+        exp: Math.floor(exp.getTime() / 1000),
     }, secret);
 };
 

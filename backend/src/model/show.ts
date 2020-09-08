@@ -1,9 +1,12 @@
-import { Schema, model} from 'mongoose';
+import { Schema, model, HookNextFunction, Document} from 'mongoose';
 import * as uniqueValidator from 'mongoose-unique-validator';
 import * as shortid from 'shortid';
-import { slugMaker } from 'slug';
+import slugify from 'slugify';
+import { IShow } from '@common/model/show';
 
-var ShowSchema = new Schema(
+interface IShowDoc extends IShow, Document {}
+
+var ShowSchema = new Schema<IShowDoc>(
     {
         title : { type : String, required : true},
         description : { type : String, required : false, default : ""},
@@ -19,10 +22,12 @@ var ShowSchema = new Schema(
 
 ShowSchema.plugin(uniqueValidator);
 
-ShowSchema.pre('validate', function(next){
-    if(!this.slug) this.slug = slugMaker(this.title.toLowerCase());
+ShowSchema.pre('validate', function(this, next: HookNextFunction){
+    if(!this.get('slug')){
+        this.set('slug', slugify(this.get('title')));
+    }
     next();
 });
 
 
-export const ShowModel = model('show', ShowSchema);
+export const ShowModel = model<IShowDoc>('show', ShowSchema);

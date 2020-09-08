@@ -44,7 +44,6 @@ const wsServer = new WebSocket.server({
     autoAcceptConnections : false
 });
 
-
 //Functions for managing stuff
 var TokenTools = require('./includes/tokentools.js');
 var Authentication = require('./includes/authentication.js');
@@ -66,7 +65,7 @@ app.get('/endsession', Authentication.endSessionMiddleware);
 
 app.get('/sessiondata', Authentication.sessionData);
 
-var UserAuth = (process.env.SKIP_AUTH)?  (_req, _res, next) => { next(); } : Authentication.userMiddleware;
+var UserAuth = (process.env.SKIP_AUTH)?  (_req: Express.Request, _res: Express.Response, next: any) => { next(); } : Authentication.userMiddleware;
 
 /* Routes */
 
@@ -109,6 +108,6 @@ mongoose.connect(dbUrl).then(
     }
 )
     
-server.listen(port, function () {
+httpServer.listen(port, function () {
     console.log('server: listening on port ' + port);
 });

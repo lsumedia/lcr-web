@@ -1,17 +1,9 @@
 
 import { IEpisode } from '@common/model/episode';
-import { Collection, Db } from 'mongodb';
+import { BaseRepository } from './base';
 
-const EpisodeCollectionName = 'episode';
+export class EpisodeRepository extends BaseRepository<IEpisode> {
 
-export class EpisodeRepository {
-
-    public collection: Collection<IEpisode>;
-
-    constructor(private db: Db){
-
-        this.collection = db.collection<IEpisode>(EpisodeCollectionName);
-
-    }
+    COLLECTION_NAME = 'episode';
 
 }

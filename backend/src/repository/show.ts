@@ -1,17 +1,9 @@
 
 import { IShow } from '@common/model/show';
-import { Collection, Db } from 'mongodb';
+import { BaseRepository } from './base';
 
-const ShowCollectionName = 'show';
+export class ShowRepository extends BaseRepository<IShow> {
 
-export class ShowRepository {
-
-    public collection: Collection<IShow>;
-
-    constructor(private db: Db){
-
-        this.collection = db.collection<IShow>(ShowCollectionName);
-
-    }
+    COLLECTION_NAME = 'show';
 
 }

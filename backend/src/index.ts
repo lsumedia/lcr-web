@@ -1,5 +1,5 @@
 
-import { LCRServer } from './server2';
+import { LCRServer } from './server';
 import { LCRBackendEnvironment } from 'includes/environment';
 
 const env = process.env as LCRBackendEnvironment;

@@ -1,10 +1,14 @@
-import { Document } from 'mongoose';
+import { Document } from "mongoose";
 
-export interface IShow extends Document{
+export interface IShow{
     title: string;
     description: string;
     tags: string;
     image: string;
     slug: string;
     active: boolean;
+}
+
+export interface IShowLive extends IShow {
+    disableSongDisplay?: boolean;
 }

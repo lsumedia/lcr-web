@@ -1,8 +1,10 @@
-import { Schema, model} from 'mongoose';
+import { Schema, model, Document} from 'mongoose';
 import * as uniqueValidator from 'mongoose-unique-validator';
 import * as shortid from 'shortid';
 
 import { IEpisode, EpisodeTypes } from '@common/model/episode';
+
+interface IEpisodeDoc extends IEpisode, Document {}
 
 var episodeTypes = [
     "episode",
@@ -52,4 +54,4 @@ EpisodeSchema.plugin(uniqueValidator);
 //     });
 // }
 
-export const EpisodeModel = model<IEpisode>('episode', EpisodeSchema);
+export const EpisodeModel = model<IEpisodeDoc>('episode', EpisodeSchema);

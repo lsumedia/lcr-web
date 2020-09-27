@@ -6,4 +6,8 @@ export class EpisodeRepository extends BaseRepository<IEpisode> {
 
     COLLECTION_NAME = 'episode';
 
+    createNewEpisode(){
+        
+    }
+
 }

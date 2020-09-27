@@ -4,6 +4,8 @@ services:
 
     backend: 
         command: "npm run start:dev"
+        ports:
+            - 3080:80
         environment: 
             - SKIP_AUTH=true
         volumes: 

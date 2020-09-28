@@ -1,10 +1,8 @@
 import * as express from 'express';
 
 import { Db } from "mongodb";
-import { RepositoryStore } from "repository/repositoryStore";
 
 export interface RestAPIProps {
-    repositoryStore: RepositoryStore
 }
 
 export class LCRRestAPI {

@@ -1,6 +1,5 @@
-import { Document } from 'mongoose';
 
-export interface IComment extends Document {
+export interface IComment {
     comment: string;
     authorName: string;
     postedTime: string;

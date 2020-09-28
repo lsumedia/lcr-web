@@ -1,6 +1,5 @@
-import { Document } from 'mongoose';
 
-export interface IScheduleSlot extends Document{
+export interface IScheduleSlot{
     _id: string;
     showSlug: string;
     startTime: string;

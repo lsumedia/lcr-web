@@ -1,67 +1,83 @@
-const mongoose = require('mongoose');
-const request = require('request');
+import { ISong } from "@common/model/song";
+import { IcecastIcestats } from '@common/types/icecast';
+import { GeniusSongResponse } from '@common/types/genius';
+import Axios from 'axios';
+import * as mongoose from 'mongoose';
+import { ISongDoc } from "../model/song";
+
 const schedule = require('node-schedule');
 
-const Song = mongoose.model('song');
+const Song = mongoose.model<ISongDoc>('song');
 
-function NowPlaying (config){
+interface NowPlayingProps {
+    icecastStatusUrl: string
+    geniusApiKey: string
+}
 
-    var _this = this;
+export class NowPlaying {
 
-    var currentSongData = {};
+    private currentSongData: ISong | null;
 
-    var interval = 10000;
+    private interval = 10000;
 
-    var songLogExpiry = 2592000000;  //delete songs older than this (default: 1 month)
+    private songLogExpiry = 2592000000;  //delete songs older than this (default: 1 month)
 
     //used for checking if song has updated for Icecast fetch
-    var currentSongTitle = "";
+    private currentSongTitle: string = "";
+
+    constructor(private props: NowPlayingProps){}
 
     //fetch icecast data
-    function fetchCurrentSong(){
-        request.get(config.ice_status, function(error, response, body){
-            try{
-                var statusJSON = JSON.parse(body);
-                var track = statusJSON.icestats.source.title;
+    public fetchCurrentSong = async () => {
 
-                if(track != currentSongTitle){
+        const { icecastStatusUrl } = this.props;
+        
+        try{
 
-                    var parts = track.split(' - ');
-                    var artist = parts.shift();
-                    var title = parts.join(' - '); //in case song title contains " - ", will rejoin the string
+            const response = await Axios.get(icecastStatusUrl)
 
-                    currentSongTitle = track;
+            var trackName = (response.data.icestats as IcecastIcestats).source.title;
 
-                    _this.updateCurrentSong({
-                        artist : artist,
-                        title : title
-                    });
-                }
-            }catch(err){
-                console.log("nowplaying err: " + err.message);
-                //console.log(err);
+            if(trackName != this.currentSongTitle){
+
+                var parts = trackName.split(' - ');
+                var artist = parts.shift();
+                var title = parts.join(' - '); //in case song title contains " - ", will rejoin the string
+
+                this.currentSongTitle = trackName;
+
+                this.updateCurrentSong({
+                    artist : artist,
+                    title : title
+                });
             }
-            
-        });
+
+        }catch(err){
+
+            console.error("nowplaying err: " + err.message);
+
+        }
+
     }
 
     //push update song
-    this.updateCurrentSong = function(songData){
+    private updateCurrentSong = async (songData: any) => {
         
         return new Promise((resolve, reject) => {
 
-            var newSong = addSongToLog(songData);
+            var newSong = this.addSongToLog(songData);
 
-            currentSongData = newSong;
+            this.currentSongData = newSong;
 
-            getSongData(songData.artist, songData.title);
+            this.getSongData(songData.artist, songData.title);
 
             resolve(newSong);
 
         });
     }
 
-    function addSongToLog(songData){
+    private addSongToLog = async (songData: ISong) => {
+
         //console.log('"' + songName + '" by "' + artist + '"');
         var timeStamp = Date.now();
 
@@ -79,47 +95,45 @@ function NowPlaying (config){
         return newSong;
     }
 
-    function filterGeniusResults(results){
+    private filterGeniusResults = (results: any[]) =>{
         //Check results to make sure we get the most accurate one
         return results[0].result;
     }
 
-    function getSongData(artist, songName){
+    private getSongData = async (artist: string, songName: string) => {
+
         var searchString = escape(artist + " " + songName);
 
-        var reqOptions = {
-            url : `https://api.genius.com/search?q=${searchString}`,
-            headers : {
-                'Authorization' : "Bearer " + config.genius_api_key
+        const geniusUrl = `https://api.genius.com/search?q=${searchString}`,
+        const headers = {
+                'Authorization' : "Bearer " + this.props.geniusApiKey
             }
-        }
 
-        request.get(reqOptions, function(error, response, body){
-            if(error) console.log(error.message);
-            try{
-                currentSongData = {raw : {artist : artist, title : songName}};
-                var data = JSON.parse(body);
-                currentSongData.genius = filterGeniusResults(data.response.hits) || {};
-            }catch(e){
-                console.log(e.message);
-            }
-        });
+        const response = await Axios.get(geniusUrl, { headers, }) as GeniusSongResponse;
+
+        this.currentSongData = {raw : {artist : artist, title : songName}};
+        // this.currentSongData.genius = filterGeniusResults(data.response.hits) || {};
+
     }
 
-    function cleanDatabase(){
+    public cleanDatabase(){
        
         var timeInMs = Date.now();
 
-        var ageThreshold = timeInMs - songLogExpiry; //timestamp over 
+        var ageThreshold = timeInMs - this.songLogExpiry; //timestamp over 
 
         var ageThresholdDate = new Date(ageThreshold);
 
         console.log('songlog: cleanup - deleting songs played before ' + ageThresholdDate.toISOString());
 
-        Song.remove({timestamp: {$lte : ageThreshold }}, function(err, result){
-            if(err) console.log("songlog: " + err.message)
-            else console.log("songlog: removed " +  result.n + " old records");
-        });
+        try{
+
+            const result = await Song.remove({timestamp: {'$lte' : ageThresholdDate }}).exec();
+            console.log("songlog: removed " +  result.n + " old records");
+
+        } catch(err){
+            console.error(err);
+        }
 
     }
 

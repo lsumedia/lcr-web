@@ -1,6 +1,8 @@
 import { MongoClient, Db } from "mongodb";
 import * as http from 'http';
 import * as express from 'express';
+import * as mongoose from 'mongoose';
+
 import { SetupServer } from "includes/serverUtils";
 import { RepositoryStore } from "repository/repositoryStore";
 import { LCRGraphQLApp } from "route/graphqlApp";
@@ -40,19 +42,21 @@ export class LCRServer {
 
     public connectDatabase = async () => {
 
-        await this.mongoClient.connect();
-        this.db = this.mongoClient.db(this.props.database);
+        this.graphqlAPI = new LCRGraphQLApp({ });
+        this.restAPI = new LCRRestAPI({ });
 
-        //Once repository store is enabled, we can start up other logic
-        this.store = new RepositoryStore({
-            db: this.db,
-        });
-
-        this.graphqlAPI = new LCRGraphQLApp({ repositoryStore: this.store });
-        this.restAPI = new LCRRestAPI({ repositoryStore: this.store });
-
-        
-
+        mongoose.connect(this.props.dbConnectString, {
+            dbName: this.props.database,
+        }).then(
+            () => { 
+                console.log("mongoose: Connected successfully to server")
+            },
+            err => { 
+                console.log("mongoose: Error connecting to database"); 
+                console.log(err)
+                process.exit();
+            }
+        )
     
     }
 

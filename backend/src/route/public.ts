@@ -1,0 +1,172 @@
+import * as express from 'express';
+import * as mongoose from 'mongoose';
+const request = require('request');
+
+const Episode = mongoose.model('episode');
+const Show = mongoose.model('show');
+const ScheduleSlot = mongoose.model('scheduleslot');
+
+const Token = mongoose.model('token');
+const TokenTools = require('../includes/tokentools.js');
+
+interface LCRPublicAPIProps {
+    app: express.Express,
+    // controllers: Controllers
+}
+
+/**
+ *
+ * The API that services any public requests - used by the public webapp & some parts of the CMS
+
+ */
+export class LCRPublicAPI{
+
+    private router: express.Router = express.Router()
+
+    constructor(private props: LCRPublicAPIProps){
+
+    }
+
+    addRoutes = () => {
+
+        this.router.get('/show', function(req, res){
+
+            var limit = parseInt(req.query.limit) || 0;
+            var skip = parseInt(req.query.skip) || 0;
+
+            Show.find({}, null, { sort : { slug : 1 }}).limit(limit).skip(skip).exec(function(err,docs){
+                if(err) res.status(500).send(err);
+                else res.send(docs);
+            });
+        });
+
+        this.router.get('/show/:slug', function(req, res){
+            Show.findOne({slug : req.params.slug}).exec(function(err,doc){
+                if(err) res.status(500).send(err);
+                else if(!doc) res.status(404).send("Not Found");
+                else res.send(doc);
+            });
+        });
+
+        this.router.get('/api/public/episode/byshow/:showSlug', function(req,res){
+            var limit = parseInt(req.query.limit) || 0;
+            var skip = parseInt(req.query.skip) || 0;
+            var showSlug = req.params.showSlug;
+
+            Episode.find({showSlug : showSlug, public : true}, null, { sort : { $natural : -1 }}).limit(limit).skip(skip).exec(function(err,docs){
+                if(err) res.status(500).send(err);
+                else res.send(docs);
+            });
+        });
+
+        this.router.get('/api/public/episode', function(req, res){
+
+            var limit = parseInt(req.query.limit) || 0;
+            var skip = parseInt(req.query.skip) || 0;
+
+            Episode.find({public : true}, null, { sort : { $natural : -1 }}).limit(limit).skip(skip).exec(function(err,docs){
+                if(err) res.status(500).send(err);
+                else res.send(docs);
+            });
+        });
+
+        this.router.get('/api/public/episode/:id', function(req, res){
+
+            Episode.findById(req.params.id).exec(function(err,doc){
+                if(err) res.status(500).send(err);
+                else if(!doc || !doc.public) res.status(404).send("Not Found");
+                else {
+                    doc.getMetaData(function(err, meta){
+                        doc.set({meta : meta});
+                        if(err) res.status(404).send("Could not fetch metadata for episode");
+                        else res.send(doc);
+                    });
+                }
+            });
+        });
+
+        /* CURRENT SHOW DATA */
+
+        this.router.get('/api/public/currentshow', function(req,res){
+            Controllers.CurrentShow.getCurrentShow().then(
+                function(currentShow){
+                    res.send(currentShow);
+                },
+                function(){
+                    res.status(500).send();
+                }
+            );
+        });
+
+        /* RAW TRACK DATA */
+
+        this.router.get('/api/public/songs/now', function(req,res){
+            res.send(Controllers.NowPlaying.currentTrackInfo());
+        });
+
+        this.router.get('/api/public/songs/recent', function(req,res){
+
+            var limit = parseInt(req.query.limit) || 0;
+            var skip = parseInt(req.query.skip) || 0;
+
+            Controllers.NowPlaying.getRecentSongs(limit, skip).then(function(docs){
+                res.send(docs);
+            },function(err){
+                console.log(err);
+                res.status(404).send('Not found');
+            });
+        });
+
+        // this.router.get('/api/public/songs/count', function(req, res){
+        //     Controllers.NowPlaying.getNumberOfLoggedSongs().then(function(count){
+        //         res.send(count);
+        //     },function(err){
+        //         console.log(err);
+        //         res.status(404).send('Not found');
+        //     });
+        // });
+
+        // this.router.get('/songs/artist/:artist', function(req,res){
+
+            // var artist = req.params.artist;
+
+            // var limit = parseInt(req.query.limit) || 0;
+            // var skip = parseInt(req.query.skip) || 0;
+
+            // Controllers.NowPlaying.getSongsByArtist(artist, limit, skip).then(function(docs){
+            //     res.send(docs);
+            // },function(err){
+            //     console.log(err);
+            //     res.status(404).send('Not found');
+            // });
+        // });
+
+        // this.router.get('/songs/title/:artist/:title', function(req, res){
+
+        //     var artist = req.params.artist;
+        //     var title = req.params.title;
+
+        //     var limit = parseInt(req.query.limit) || 0;
+        //     var skip = parseInt(req.query.skip) || 0;
+
+        //     Controllers.NowPlaying.getSongsByArtistAndTitle(artist, title, limit, skip).then(function(docs){
+        //         res.send(docs);
+        //     },function(err){
+        //         console.log(err);
+        //         res.status(404).send('Not found');
+        //     });
+        // });
+
+        /* Schedule Slots */
+
+        //List all schedule slots
+        // this.router.get('/scheduleslot/', function(req, res){
+
+        //     ScheduleSlot.find({}, null, { sort : { dow : 1, startTimeMinutes : 1 }}).exec(function(err,docs){
+        //         if(err) res.status(500).send(err);
+        //         else res.send(docs);
+        //     });
+        // });
+
+    }
+}   

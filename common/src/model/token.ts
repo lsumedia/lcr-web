@@ -1,6 +1,5 @@
-import { Document } from 'mongoose';
 
-interface IToken extends Document{
+interface IToken {
     _id: string;
     token: string;
 }

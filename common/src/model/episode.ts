@@ -1,4 +1,3 @@
-import { Document } from "mongoose";
 
 export enum EpisodeTypes {
     Episde = "episode",
@@ -7,7 +6,7 @@ export enum EpisodeTypes {
     Update = "update",
 }
 
-export interface IEpisode extends Document{
+export interface IEpisode{
     _id: string;
     metafile: string;
     meta: any;  //change to the meta definition

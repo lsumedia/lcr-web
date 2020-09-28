@@ -1,9 +1,9 @@
-import { Schema, model} from 'mongoose';
-import * as uniqueValidator from 'mongoose-unique-validator';
-import * as shortid from 'shortid';
+import { Schema, model, Document} from 'mongoose';
 import { ISong } from '@common/model/song';
 
-var SongSchema = new Schema({
+export interface ISongDoc extends ISong, Document {}
+
+const SongSchema = new Schema({
     artist : String,
     title : String,
     album : { type: String, required: false },
@@ -12,4 +12,4 @@ var SongSchema = new Schema({
     timestamp : Date
 });
 
-export const SongModel = model<ISong>('song', SongSchema);
+export const SongModel = model<ISongDoc>('song', SongSchema);

@@ -166,6 +166,21 @@
         "signature": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
         "affectsGlobalScope": false
       },
+      "./src/model/comment.ts": {
+        "version": "2fad9927afb328d66aa10953d0402dba9ff05802886570724adc0ea7e5810a73",
+        "signature": "ded3d0197c1156585870a12e42159e901de2747f5f4f65247af1ad17ef7a5689",
+        "affectsGlobalScope": false
+      },
+      "./src/model/episode.ts": {
+        "version": "233d3bb5bfb727773bca41e676fe3dcadb89f1b5220d1008c2bc280ee17675c3",
+        "signature": "d853f6559af2f1f65e071580cd26d5c4f069e1ce31b8e6b6bb9a78283ac59f55",
+        "affectsGlobalScope": false
+      },
+      "./src/model/scheduleslot.ts": {
+        "version": "12c9257a819d31380ac1f0f9438cbb6f3e5627eb5b1bd650520b7510165db9b0",
+        "signature": "ebd899ddc4de917cc75fa97d1a4cc281d0c92632084ef052af2fac9bb57e0d27",
+        "affectsGlobalScope": false
+      },
       "./node_modules/@types/node/globals.d.ts": {
         "version": "c7e7b89f371a6af12ab460b75fba60c95bbea84c094583087aff14b76b86ce7d",
         "signature": "c7e7b89f371a6af12ab460b75fba60c95bbea84c094583087aff14b76b86ce7d",
@@ -441,39 +456,34 @@
         "signature": "aa2a99b2b063d86eb4905d12fa71717853c14f04356ab8a929a696ae836ed4b4",
         "affectsGlobalScope": false
       },
-      "./src/model/comment.ts": {
-        "version": "268fa09505fe305fd6f3e2382aa5b073fa30c9bf55650e05e03d78501259ccc9",
-        "signature": "c47d43044a6a6485bde43550a5fee0152135b2a0e61ed1a4a905151fa40a688b",
-        "affectsGlobalScope": false
-      },
-      "./src/model/episode.ts": {
-        "version": "6bbe2882fd9b6f699616770af68efbb946e9bc19db5db02defc41c61fbd63a14",
-        "signature": "402790535f88a705c2a1b5f35429dbb88f69e03f3eb1b194b462ef04a0476aa8",
-        "affectsGlobalScope": false
-      },
-      "./src/model/scheduleslot.ts": {
-        "version": "b5cdc412c61fae89577f5fa7cb38f139cbfb227d638d8c81c1045096e46440cb",
-        "signature": "8e7f58adc05d64244b5c3d2258a8424d4c8b397732b7a0021658f7d015e91ed6",
-        "affectsGlobalScope": false
-      },
       "./src/model/show.ts": {
         "version": "c811e17c5de0d8d74be5fe357e3d5d7f7ba7c755e4af039e78e09ab5bf93d947",
         "signature": "f7d5af4c5c5c33e5604f02a8fbe90ba7d1a1ea2fd70030b16e08924ae85c276f",
         "affectsGlobalScope": false
       },
       "./src/model/song.ts": {
-        "version": "fadc939144d99fcc551b0d3b47794cb318bd3b3e8869cb0ceb9bbdc25211e88a",
-        "signature": "8fb5629ddfc9b71f33e82e3a0c382518888a0af90b15b820924d26e80f9171f1",
+        "version": "6ef60a15d5273dfeedc2e4a39e65638be3f2593e8bbdcfaa7e80f8db49e8c265",
+        "signature": "52918be303624ce68a73d98069a5aa54d94bf4c660b3ffbac88851435d73a96c",
         "affectsGlobalScope": false
       },
       "./src/model/token.ts": {
-        "version": "37466392634c1e4c094f10d26e14075e9db12ae57002f4807a76d149d1216559",
-        "signature": "8e609bb71c20b858c77f0e9f90bb1319db8477b13f9f965f1a1e18524bf50881",
-        "affectsGlobalScope": false
+        "version": "caf81534a166e3276aee013751806ccee6bc61669af97491d7c3310af1dad367",
+        "signature": "749be5a041ce0d39a12e19a91d2ec10aae2e673efdd4d0c82793b10b12f68ddf",
+        "affectsGlobalScope": true
       },
       "./src/model/user.ts": {
-        "version": "d69477a6f6f39173655c14b3b1bf34d473acd8156594f6b516a03ca6e89de45b",
-        "signature": "5eac9c5bbce339f07f4de80bdbfbe55b57d1a4af95b54af4c71b2125b99d2885",
+        "version": "553fb341fc802dbdc06a24024021aba31cf81b9d2c19e5fb3abc185a66376e1f",
+        "signature": "b239f20edb63b6e3e2fdb6139f044922c355432ede72ddb95315ae003d607868",
+        "affectsGlobalScope": false
+      },
+      "./src/types/genius.ts": {
+        "version": "81175317bd439c2371d96a5437cbb9600e43b0ffef043027ca97e1929e4920dd",
+        "signature": "ef832048b732d0c2d59c204e408d993de6a54409c1a85ba39f80252301532605",
+        "affectsGlobalScope": false
+      },
+      "./src/types/icecast.ts": {
+        "version": "bc79db54281223b52035c86cacabb14a2ea4c23d84bb965b94e6401b00dac539",
+        "signature": "e957287028eeca42acd2a2dff491e8ddfed306401a93f077c24fd9401944649e",
         "affectsGlobalScope": false
       }
     },
@@ -1299,7 +1309,6 @@
         "./node_modules/@types/node/util.d.ts"
       ],
       "./src/model/comment.ts": [
-        "./node_modules/@types/mongoose/index.d.ts",
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/process.d.ts",
         "./node_modules/@types/node/ts3.2/fs.d.ts",
@@ -1308,7 +1317,6 @@
         "./node_modules/@types/node/util.d.ts"
       ],
       "./src/model/episode.ts": [
-        "./node_modules/@types/mongoose/index.d.ts",
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/process.d.ts",
         "./node_modules/@types/node/ts3.2/fs.d.ts",
@@ -1317,7 +1325,6 @@
         "./node_modules/@types/node/util.d.ts"
       ],
       "./src/model/scheduleslot.ts": [
-        "./node_modules/@types/mongoose/index.d.ts",
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/process.d.ts",
         "./node_modules/@types/node/ts3.2/fs.d.ts",
@@ -1335,7 +1342,6 @@
         "./node_modules/@types/node/util.d.ts"
       ],
       "./src/model/song.ts": [
-        "./node_modules/@types/mongoose/index.d.ts",
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/process.d.ts",
         "./node_modules/@types/node/ts3.2/fs.d.ts",
@@ -1344,7 +1350,6 @@
         "./node_modules/@types/node/util.d.ts"
       ],
       "./src/model/token.ts": [
-        "./node_modules/@types/mongoose/index.d.ts",
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/process.d.ts",
         "./node_modules/@types/node/ts3.2/fs.d.ts",
@@ -1353,7 +1358,22 @@
         "./node_modules/@types/node/util.d.ts"
       ],
       "./src/model/user.ts": [
-        "./node_modules/@types/mongoose/index.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/process.d.ts",
+        "./node_modules/@types/node/ts3.2/fs.d.ts",
+        "./node_modules/@types/node/ts3.2/process.d.ts",
+        "./node_modules/@types/node/ts3.2/util.d.ts",
+        "./node_modules/@types/node/util.d.ts"
+      ],
+      "./src/types/genius.ts": [
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/process.d.ts",
+        "./node_modules/@types/node/ts3.2/fs.d.ts",
+        "./node_modules/@types/node/ts3.2/process.d.ts",
+        "./node_modules/@types/node/ts3.2/util.d.ts",
+        "./node_modules/@types/node/util.d.ts"
+      ],
+      "./src/types/icecast.ts": [
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/process.d.ts",
         "./node_modules/@types/node/ts3.2/fs.d.ts",
@@ -2155,21 +2175,6 @@
         "./node_modules/@types/node/ts3.2/process.d.ts",
         "./node_modules/@types/node/ts3.2/util.d.ts",
         "./node_modules/@types/node/util.d.ts"
-      ],
-      "./src/model/comment.ts": [
-        "../node_modules/@types/mongoose/index.d.ts"
-      ],
-      "./src/model/episode.ts": [
-        "./node_modules/@types/mongoose/index.d.ts"
-      ],
-      "./src/model/scheduleslot.ts": [
-        "../node_modules/@types/mongoose/index.d.ts"
-      ],
-      "./src/model/song.ts": [
-        "../node_modules/@types/mongoose/index.d.ts"
-      ],
-      "./src/model/user.ts": [
-        "../node_modules/@types/mongoose/index.d.ts"
       ]
     },
     "semanticDiagnosticsPerFile": [
@@ -2267,7 +2272,9 @@
       "./src/model/show.ts",
       "./src/model/song.ts",
       "./src/model/token.ts",
-      "./src/model/user.ts"
+      "./src/model/user.ts",
+      "./src/types/genius.ts",
+      "./src/types/icecast.ts"
     ]
   },
   "version": "3.9.3"

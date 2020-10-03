@@ -1,10 +1,13 @@
-import { Schema, model} from 'mongoose';
+import { Schema, model, Document} from 'mongoose';
 import * as uniqueValidator from 'mongoose-unique-validator';
 import * as crypto from 'crypto'
 import * as jwt from 'jsonwebtoken';
 import { LCRBackendEnvironment } from 'includes/environment';
+import { IUser } from '@common/model/user';
 
 const env = process.env as LCRBackendEnvironment;
+
+export interface IUserDoc extends IUser, Document {}
 
 var UserSchema = new Schema({
   email: {type: String, lowercase: true, required: [true, "can't be blank"], match: [/\S+@\S+\.\S+/, 'is invalid'], index: true, unique : true},

@@ -25,7 +25,17 @@ export class NowPlaying {
     //used for checking if song has updated for Icecast fetch
     private currentSongTitle: string = "";
 
-    constructor(private props: NowPlayingProps){}
+    constructor(private props: NowPlayingProps){
+
+        if(props.icecastStatusUrl){
+            this.fetchCurrentSong();
+            var songGetInterval = setInterval(this.fetchCurrentSong, this.interval);
+        }
+    
+        this.cleanDatabase();
+        var cleanupSchedule = schedule.scheduleJob('0 0 0 * * *', this.cleanDatabase);
+
+    }
 
     //fetch icecast data
     public fetchCurrentSong = async () => {
@@ -111,7 +121,7 @@ export class NowPlaying {
 
         const response = await Axios.get(geniusUrl, { headers, }) as GeniusSongResponse;
 
-        this.currentSongData = {raw : {artist : artist, title : songName}};
+        this.currentSongData = { raw : {artist : artist, title : songName }};
         // this.currentSongData.genius = filterGeniusResults(data.response.hits) || {};
 
     }
@@ -137,11 +147,11 @@ export class NowPlaying {
 
     }
 
-    this.currentTrackInfo = function(){
-        return currentSongData;
+    public currentTrackInfo = () => {
+        return this.currentSongData;
     }
 
-    this.getRecentSongs = function(limit = 0, skip =  0){
+    public getRecentSongs = (limit = 0, skip = 0) => {
         return new Promise((resolve, reject) => {
             Song.find().sort({timestamp : -1}).limit(limit).skip(skip).exec((err, docs) => {
                 if(err) reject(err);
@@ -150,7 +160,7 @@ export class NowPlaying {
         });
     }
 
-    this.getNumberOfLoggedSongs = function(){
+    public getNumberOfLoggedSongs = () => {
         return new Promise((resolve, reject) => {
             Song.count({}, (err, count) => {
                 if(err) reject(err);
@@ -161,7 +171,7 @@ export class NowPlaying {
         });
     }
 
-    this.getSongsByArtist = function(artist, limit = 0, skip = 0){
+    public getSongsByArtist = (artist: string, limit = 0, skip = 0) => {
         return new Promise((resolve, reject) => {
             Song.find({artist : artist}).sort({timestamp : -1}).limit(limit).skip(skip).exec((err, docs) => {
                 if(err) reject(err);
@@ -170,7 +180,7 @@ export class NowPlaying {
         });
     }
 
-    this.getSongsByTitle = function(title, limit = 0, skip = 0){
+    public getSongsByTitle = (title: string, limit = 0, skip = 0) => {
         return new Promise((resolve, reject) => {
             Song.find({title : title}).sort({timestamp : -1}).limit(limit).skip(skip).exec((err, docs) => {
                 if(err) reject(err);
@@ -179,7 +189,7 @@ export class NowPlaying {
         });
     }
 
-    this.getSongsByArtistAndTitle = function(artist, title, limit = 0, skip = 0){
+    public getSongsByArtistAndTitle = function(artist: string, title: string, limit = 0, skip = 0){
         return new Promise((resolve, reject) => {
             Song.find({artist : artist, title : title}).sort({timestamp : -1}).limit(limit).skip(skip).exec((err, docs) => {
                 if(err) reject(err);
@@ -188,13 +198,7 @@ export class NowPlaying {
         });
     }
 
-    if(config.ice_status){
-        fetchCurrentSong();
-        var songGetInterval = setInterval(fetchCurrentSong, interval);
-    }
-
-    cleanDatabase();
-    var cleanupSchedule = schedule.scheduleJob('0 0 0 * * *', cleanDatabase);
+   
 
 
 }

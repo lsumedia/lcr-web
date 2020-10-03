@@ -1,24 +1,27 @@
 
-function WebSocketBroadcast(wsServer){
 
-    var connections;
+class WebSocketBroadcast {
 
-    this.sendMessage = function(messageName, content){
+    constructor(){
+
+    }
+
+    private connections;
+
+    public sendMessage = function(messageName: string, content: any){
 
         var message = JSON.stringify({
             type : messageName,
             payload : content
         });
 
-        connections.forEach((connection) => {
+        this.connections.forEach((connection) => {
             connection.sendUTF(message);
         });
     }
 
     wsServer.on('connect', function(connection){
         connections.push(connection);
-
-        
     });
 
 }

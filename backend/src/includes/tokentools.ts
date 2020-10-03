@@ -1,17 +1,17 @@
-var mongoose = require('mongoose');
-var shortid = require('shortid');
+import * as mongoose from 'mongoose';
+import * as shortid from 'shortid';
+import * as express from 'express';
 
 const Token = mongoose.model('token');
 
-module.exports = {
+export const generate = (callback: () => any) => {
+    var newToken = new Token();
+    newToken.save(callback);
+};
 
-    generate : function(callback){
-        var newToken = new Token();
-        newToken.save(callback);
-    },
-    tokenMiddleware : function(req, res, next){
+export const tokenMiddleware = (req: express.Request, res: express.Response, next: express.NextFunction) => {
              
-        var secret = (req.get('Authorization') || req.query.token);
+        var secret = (req.get('Authorization') || req.query.token) as string;
         
         if(!secret) {
             console.log("token: Someone tried to make a request with no token");

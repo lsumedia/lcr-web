@@ -111,7 +111,7 @@ res.sendFile(__dirname + '/player/build/index.html');
 var dbUrl;
 
 if(config.db_username)
-    dbUrl = `mongodb://${config.db_username}:${config.db_password}@${config.db_host}:${config.db_port}/${config.db_name}`;
+    dbUrl = `mongodb://${config.db_username}:${config.db_password}@${config.db_host}:${config.db_port}/${config.db_name}?authSource=admin`;
 else 
     dbUrl = `mongodb://${config.db_host}:${config.db_port}/${config.db_name}`;
 

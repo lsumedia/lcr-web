@@ -9,7 +9,7 @@ var configString = fs.readFileSync('../config.json','utf8');
 
 const config = JSONC.parse(configString);
 
-var dbUrl = `mongodb://${config.db_host}:${config.db_port}/${config.db_name}`;
+var dbUrl = `mongodb://${config.db_username}:${config.db_password}@${config.db_host}:${config.db_port}/${config.db_name}?authSource=admin`;
 
 mongoose.connect(dbUrl).then(
     () => { 
